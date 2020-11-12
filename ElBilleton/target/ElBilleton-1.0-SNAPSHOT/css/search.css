@@ -1,0 +1,72 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 30, 2020, 8:10:57 PM
+    Author     : potz
+*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+.search {
+  width: 100%;
+  position: relative;
+  top: 100%;
+  display: flex;
+}
+
+.searchTerm {
+  width: 50%;
+  border: 3px solid DodgerBlue;
+  border-right: none;
+  padding: 5px;
+  height: 36px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: lightblue;
+}
+
+.searchTerm:focus{
+  color: DodgerBlue;
+}
+
+.searchButton {
+    
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: DodgerBlue;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+     position: relative;
+  width: 100%;
+ top: 50px;
+ 
+}
+.caja{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,0);
+    text-align: center;
+
+}
+.tbla{
+    position: relative;
+    top: 50px;
+
+}
+.contenedorselect1{
+    position: relative;
+
+
+}

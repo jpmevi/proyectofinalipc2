@@ -1,0 +1,219 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 1, 2020, 1:49:42 AM
+    Author     : potz
+*/
+.contenedoro{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%,0);
+    text-align: center;
+
+}
+.contenedorselect{
+    position: relative;
+    right: 100px;
+}
+
+.contenedorselect1{
+    position: relative;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,0);
+    text-align: center;
+
+}
+.contenedorhorafecha{
+    position: relative;
+    top: 50px;
+    text-align: center;
+
+}
+.contenedorfecha{
+    position: relative;
+    left: 10%;
+}
+
+.contenedorbotones{
+    position: relative;
+    top: 70px;
+    right: 45%;
+    text-align: center;
+}
+.contenedorbotones1{
+    position: relative;
+    bottom:  77px;
+    left: 100%;
+
+}
+.inputAnimate {
+    margin: 10px;
+    position: relative;
+    --offsetLeft: 0;
+    --offsetLeftScale: 16px;
+    padding: 16px;
+    min-width: 220px;
+}
+.inputAnimate input,
+.inputAnimate span {
+    display: block;
+    font-size: 16px;
+    font-family: inherit;
+    line-height: 22px;
+    padding: 0 0 0 3px;
+    color: transparent;
+    text-shadow: 0 0 0 #8C6FF0;
+}
+.inputAnimate input {
+    background: none;
+    outline: none;
+    border: 0;
+    position: relative;
+    z-index: 1;
+    -webkit-transition: text-shadow .3s ease;
+    transition: text-shadow .3s ease;
+}
+.inputAnimate input::-webkit-input-placeholder {
+    color: #8C6FF0;
+    opacity: .5;
+}
+.inputAnimate input::-moz-placeholder {
+    color: #8C6FF0;
+    opacity: .5;
+}
+.inputAnimate input:-ms-input-placeholder {
+    color: #8C6FF0;
+    opacity: .5;
+}
+.inputAnimate input::-ms-input-placeholder {
+    color: #8C6FF0;
+    opacity: .5;
+}
+.inputAnimate input::placeholder {
+    color: #8C6FF0;
+    opacity: .5;
+}
+.inputAnimate input + div {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    border-radius: 6px;
+    -webkit-transition: left .4s ease, border-radius .5s ease, -webkit-transform .4s ease;
+    transition: left .4s ease, border-radius .5s ease, -webkit-transform .4s ease;
+    transition: transform .4s ease, left .4s ease, border-radius .5s ease;
+    transition: transform .4s ease, left .4s ease, border-radius .5s ease, -webkit-transform .4s ease;
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+}
+.inputAnimate input + div + em {
+    opacity: 0;
+    left: 16px;
+    width: 1px;
+    height: 24px;
+    top: 50%;
+    margin: -12px 0 0 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    background: #fff;
+    -webkit-transform: translateX(var(--offsetLeft));
+    transform: translateX(var(--offsetLeft));
+}
+.inputAnimate input:not(:focus) {
+    width: 100% !important;
+}
+.inputAnimate input:focus {
+    text-shadow: 0 0 0 #fff;
+}
+.inputAnimate input:focus + div {
+    border-radius: 0;
+    left: var(--offsetLeftScale);
+    -webkit-transform: scale(0, 0.45);
+    transform: scale(0, 0.45);
+}
+.inputAnimate input:focus + div + em {
+    -webkit-animation: blink 1s linear infinite;
+    animation: blink 1s linear infinite;
+}
+.inputAnimate span {
+    display: none;
+}
+
+@-webkit-keyframes blink {
+    30%, 70% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    30%, 70% {
+        opacity: 1;
+    }
+}
+html {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: inherit;
+}
+*:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: Roboto, Arial;
+   background-color: rgb(56, 165, 238, 0.5);
+    display: -webkit-box;
+    display: flex;
+
+}
+
+body .dribbble {
+    position: fixed;
+    display: block;
+    right: 24px;
+    bottom: 24px;
+}
+
+
+.caja{
+    position: absolute;
+    width: 80%;
+    top: 10%;
+    left: 50%;
+    background-color: rgb(56, 165, 238, 0.5);
+    transform: translate(-50%,0);
+    text-align: center;
+}
+
+textarea{
+	  background: rgba(255, 255, 255, 0.4) url(http://luismruiz.com/img/gemicon_message.png) no-repeat scroll 16px 16px; 
+    width: 100%;
+    height: 110px;
+    border: 1px solid rgba(255,255,255,.6);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box; 
+    display:block;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size:18px;
+    color:#fff;
+    padding-left:45px;
+    padding-right:20px;
+    padding-top:12px;
+    margin-bottom:20px;
+    overflow:hidden;
+}
