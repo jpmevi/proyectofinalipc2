@@ -10,6 +10,8 @@ import Objeto.Gerente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -62,5 +64,26 @@ public class GerenteModel {
             );
         }
         return gerente;
+    }
+    
+    public Boolean estaEnTurno(Gerente gerente){
+        boolean si = true;
+        String turno=gerente.getTurno();
+        LocalTime hora = LocalTime.now();
+        LocalTime horamatutina1= LocalTime.of(6, 0);
+        LocalTime horamatutina2= LocalTime.of(14, 30);
+        LocalTime vespertino1= LocalTime.of(13, 0);
+        LocalTime vespertino2= LocalTime.of(22, 0);
+        if(hora.isAfter(horamatutina1) && hora.isBefore(horamatutina2) && turno.equals("Matutino")){
+            si=true;
+             return si;
+            
+        }else if(hora.isAfter(vespertino1) && hora.isBefore(vespertino2) && turno.equals("Vespertino")){
+            si=true;
+             return si;
+        }else{
+             si=false;
+             return si;
+        }
     }
 }

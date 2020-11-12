@@ -126,8 +126,8 @@ public class Ingresar extends HttpServlet {
                     //Comprobamos si el usuario existe mandandole el usuario y la password
                     Gerente gerente = gerentemodel.loginValidation(user, password);
                     if (gerente != null) {
-                        request.getSession().setAttribute("Gerente", request.getParameter("user"));
-                        response.sendRedirect("Cliente/MenuCliente.jsp");
+                        request.getSession().setAttribute("Gerente", gerente);
+                        response.sendRedirect(request.getContextPath()+"/ComprobarHorario");
                     }else{
                         //Mandamos un mensaje de error si no encontro los datos
                         request.setAttribute("success", 0);

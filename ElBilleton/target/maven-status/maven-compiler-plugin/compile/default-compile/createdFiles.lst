@@ -2,6 +2,7 @@ Objeto/Gerente.class
 Conexion/Conexion.class
 Servlet/Ingresar.class
 Modelo/GerenteModel.class
+Servlet/ComprobarHorario.class
 Encriptar/Encriptar.class
 Objeto/Cajero.class
 Modelo/ClienteModel.class
