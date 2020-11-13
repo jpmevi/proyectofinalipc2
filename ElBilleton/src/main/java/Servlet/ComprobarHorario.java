@@ -72,7 +72,6 @@ public class ComprobarHorario extends HttpServlet {
        
         if(hora.isAfter(horamatutina1) && hora.isBefore(horamatutina2) && turno.equals("Matutino")){
             request.getSession().setAttribute("Turno", "Turno Activo");
-            JOptionPane.showMessageDialog(null, request.getContextPath()+"/Gerente/MenuGerente.jsp");
             request.getRequestDispatcher("/Gerente/MenuGerente.jsp").forward(request, response);
             
         }else if(hora.isAfter(vespertino1) && hora.isBefore(vespertino2) && turno.equals("Vespertino")){

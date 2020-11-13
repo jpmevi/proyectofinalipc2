@@ -28,7 +28,7 @@
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="CrearExamen.jsp">Registrar Cliente</a>
+                                        <a href="">Registrar Cliente</a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="ModificarExamen.jsp">Registrar Cajero</a>
@@ -43,11 +43,12 @@
                             </div>
                         </li>
                         <li class="nav-link" style="--i: .6s">
-                            <a href="#">Usuarios<i class="fas fa-caret-down"></i></a>
+
+                            <a href="#">Cargar<i class="fas fa-caret-down"></i></a>
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="CrearPaciente.jsp">Crear Paciente</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCargarArchivo">Archivos</a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="CrearMedico.jsp">Crear Medico</a>

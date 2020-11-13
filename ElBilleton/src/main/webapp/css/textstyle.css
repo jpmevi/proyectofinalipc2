@@ -190,8 +190,9 @@ body .dribbble {
     position: absolute;
     width: 80%;
     top: 10%;
+    color: white;
     left: 50%;
-    background-color: rgb(56, 165, 238, 0.5);
+   background-color: rgb(80, 79, 96, 0.5);
     transform: translate(-50%,0);
     text-align: center;
 }

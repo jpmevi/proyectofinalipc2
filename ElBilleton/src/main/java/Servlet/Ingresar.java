@@ -91,7 +91,7 @@ public class Ingresar extends HttpServlet {
             conexion.conexionDB();
             
             //Guardamos en variables nuestros datos
-            int user = Integer.parseInt(request.getParameter("user"));
+            Long user = Long.parseLong(request.getParameter("user"));
             String password = request.getParameter("password");
             String atributo = request.getParameter("atributo").toUpperCase();
             //Comparamos el atributo seleccionado

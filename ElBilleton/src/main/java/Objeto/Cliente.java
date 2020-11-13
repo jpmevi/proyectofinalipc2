@@ -24,17 +24,18 @@ public class Cliente {
     public static final String FECHA_DB_NAME = "fechaNacimiento";
     public static final String PDF_DB_NAME = "pdfdpi";
     public static final String PASSWORD_DB_NAME = "password";
+    public static final String CLIENTE_CODIGO_DB_NAME = "cliente_codigo";
     
-    private int codigo;
+    private Long codigo;
     private String nombre;
-    private int dpi;
+    private String dpi;
     private String sexo;
     private String password;
     private String direccion;
     private Date fechaNacimiento;
     private InputStream pdfdpi;
 
-    public Cliente(int codigo, String nombre, int dpi, String sexo, String password, String direccion, Date fechaNacimiento, InputStream pdfdpi) {
+    public Cliente(Long codigo, String nombre, String dpi, String sexo, String password, String direccion, Date fechaNacimiento, InputStream pdfdpi) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.dpi = dpi;
@@ -44,16 +45,16 @@ public class Cliente {
         this.fechaNacimiento = fechaNacimiento;
         this.pdfdpi = pdfdpi;
     }
-
+    
     public Cliente(){
-    
+        
     }
-    
-    public int getCodigo() {
+
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -65,11 +66,11 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public int getDpi() {
+    public String getDpi() {
         return dpi;
     }
 
-    public void setDpi(int dpi) {
+    public void setDpi(String dpi) {
         this.dpi = dpi;
     }
 
@@ -113,5 +114,6 @@ public class Cliente {
         this.pdfdpi = pdfdpi;
     }
     
+
     
 }

@@ -21,15 +21,15 @@ public class Gerente {
     public static final String SEXO_DB_NAME = "sexo";
     public static final String PASSWORD_DB_NAME = "password";
     
-    private int codigo;
+    private Long codigo;
     private String nombre;
     private String turno;
-    private int DPI;
+    private String DPI;
     private String direccion;
     private String sexo;
     private String password;
 
-    public Gerente(int codigo, String nombre, String turno, int DPI, String direccion, String sexo, String password) {
+    public Gerente(Long codigo, String nombre, String turno, String DPI, String direccion, String sexo, String password) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.turno = turno;
@@ -39,11 +39,15 @@ public class Gerente {
         this.password = password;
     }
 
-    public int getCodigo() {
+    public Gerente(){
+        
+    }
+    
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -63,11 +67,11 @@ public class Gerente {
         this.turno = turno;
     }
 
-    public int getDPI() {
+    public String getDPI() {
         return DPI;
     }
 
-    public void setDPI(int DPI) {
+    public void setDPI(String DPI) {
         this.DPI = DPI;
     }
 
@@ -94,6 +98,8 @@ public class Gerente {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    
     
     
 }

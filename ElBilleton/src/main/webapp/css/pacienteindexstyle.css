@@ -132,11 +132,11 @@ section{
 
 .btnpaciente, .btn.transparent:hover{
     background-color: #fff;
-    color: #403f4c;
+     color: #69bde7;
 }
 .btn.transparent, .btnpaciente:hover{
     background-color: transparent;
-    color: #fff;
+    color: #69bde7;
 }
 .btn.solid, .btn.transparent:hover{
     background-color: #fff;

@@ -8,21 +8,79 @@ package Modelo;
 import Conexion.Conexion;
 import Encriptar.Encriptar;
 import Objeto.Cliente;
+import Objeto.Cuenta;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author potz
  */
 public class ClienteModel {
-    public static final String BUSCAR_USUARIO = "Select * FROM "+Cliente.CLIENTE_DB_NAME;
-    
+
+    public static final String BUSCAR_USUARIO = "Select * FROM " + Cliente.CLIENTE_DB_NAME;
+
+    private final String CREAR_USUARIO = "INSERT INTO " + Cliente.CLIENTE_DB_NAME + " (" + Cliente.NOMBRE_DB_NAME + "," + Cliente.DPI_DB_NAME + "," + Cliente.FECHA_DB_NAME + "," + Cliente.DIRECCION_DB_NAME + "," + Cliente.SEXO_DB_NAME + "," + Cliente.PDF_DB_NAME + "," + Cliente.PASSWORD_DB_NAME + ") VALUES (?,?,?,?,?,?,?)";
+    private final String CREAR_USUARIO_CODIGO = "INSERT INTO " + Cliente.CLIENTE_DB_NAME + " (" + Cliente.CLIENTE_CODE_DB_NAME + "," + Cliente.NOMBRE_DB_NAME + "," + Cliente.DPI_DB_NAME + "," + Cliente.FECHA_DB_NAME + "," + Cliente.DIRECCION_DB_NAME + "," + Cliente.SEXO_DB_NAME + "," + Cliente.PDF_DB_NAME + "," + Cliente.PASSWORD_DB_NAME + ") VALUES (?,?,?,?,?,?,?,?)";
+
+    /**
+     * Agregamos una nuevo usuario. Al completar la insercion devuelve el ID
+     * autogenerado del usuario. De no existir nos devolvera <code>-1</code>.
+     *
+     * @param usuario
+     * @return
+     * @throws SQLException
+     */
+    public long agregarCliente(Cliente cajero) throws SQLException {
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
+
+        preSt.setString(1, cajero.getNombre());
+        preSt.setString(2, cajero.getDpi());
+        preSt.setDate(3, cajero.getFechaNacimiento());
+        preSt.setString(4, cajero.getDireccion());
+        preSt.setString(5, cajero.getSexo());
+        preSt.setBlob(6, cajero.getPdfdpi());
+        preSt.setString(7, cajero.getPassword());
+        Historial_ClienteModel hist = new Historial_ClienteModel();
+        hist.agregarHistorialCliente(cajero);
+        preSt.executeUpdate();
+
+        ResultSet result = preSt.getGeneratedKeys();
+        if (result.first()) {
+            return result.getLong(1);
+        }
+
+        return -1;
+    }
+
+    public long agregarClienteCodigo(Cliente cajero) throws SQLException {
+
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
+
+        preSt.setLong(1, cajero.getCodigo());
+        preSt.setString(2, cajero.getNombre());
+        preSt.setString(3, cajero.getDpi());
+        preSt.setDate(4, cajero.getFechaNacimiento());
+        preSt.setString(5, cajero.getDireccion());
+        preSt.setString(6, cajero.getSexo());
+        preSt.setBinaryStream(7, cajero.getPdfdpi());
+        preSt.setString(8, cajero.getPassword());
+
+        preSt.executeUpdate();
+
+        ResultSet result = preSt.getGeneratedKeys();
+        if (result.first()) {
+            return result.getLong(1);
+        }
+
+        return -1;
+    }
+
     /**
      * Verifiva si existen las credenciales y si son correctas en el usuario
      *
@@ -31,14 +89,15 @@ public class ClienteModel {
      * @return
      * @throws SQLException
      */
-    public Cliente loginValidation(int id, String pass) throws SQLException {
+    public Cliente loginValidation(Long id, String pass) throws SQLException {
         Cliente cliente = obtenerCliente(id);
         if (cliente != null && cliente.getPassword().equals(pass)) {
             return cliente;
-            
+
         }
         return null;
     }
+
     /**
      * Realizamos una busqueda en base al id del usuario. De no existir la nota
      * nos devuelve un valor null.
@@ -47,22 +106,22 @@ public class ClienteModel {
      * @return
      * @throws SQLException
      */
-    public Cliente obtenerCliente(int idUsuario) throws SQLException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO);
+    public Cliente obtenerCliente(Long idUsuario) throws SQLException {
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO+" WHERE codigo='"+idUsuario+"'");
         ResultSet result = preSt.executeQuery();
 
         Cliente cliente = null;
 
         while (result.next()) {
             cliente = new Cliente(
-                    result.getInt(cliente.CLIENTE_CODE_DB_NAME),
+                    result.getLong(cliente.CLIENTE_CODE_DB_NAME),
                     result.getString(cliente.NOMBRE_DB_NAME),
-                    result.getInt(cliente.DPI_DB_NAME),
+                    result.getString(cliente.DPI_DB_NAME),
                     result.getString(cliente.SEXO_DB_NAME),
                     result.getString(cliente.PASSWORD_DB_NAME),
                     result.getString(cliente.DIRECCION_DB_NAME),
                     result.getDate(cliente.FECHA_DB_NAME),
-                    result.getBinaryStream(cliente.PDF_DB_NAME)             
+                    result.getBinaryStream(cliente.PDF_DB_NAME)
             );
         }
         return cliente;

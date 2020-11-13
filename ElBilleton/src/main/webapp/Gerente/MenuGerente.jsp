@@ -18,6 +18,9 @@
             <div class="overlay">
                 <div class="contenedor">
                     <h1 class="texto" >Bienvenido ${Gerente.getNombre()}</h1>
+                    <c:if test="${enturno == 0}">
+                            <p id="error" style="color: red;">No esta en turno para realizar esta accion</p>
+                        </c:if>
                     </div>
                  </div>
         </section>
@@ -26,3 +29,5 @@
 </body>
 
 </html>
+
+
