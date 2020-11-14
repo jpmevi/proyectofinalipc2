@@ -64,7 +64,7 @@ public class CuentaModel {
 
         preSt.setDate(1, cuenta.getFechaCreacion());
         preSt.setDouble(2, cuenta.getMonto());
-        preSt.setInt(3, cuenta.getCliente_codigo());
+        preSt.setLong(3, cuenta.getCliente_codigo());
 
         preSt.executeUpdate();
 

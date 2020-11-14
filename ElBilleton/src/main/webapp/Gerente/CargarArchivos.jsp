@@ -16,7 +16,7 @@
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
         <title>Crear Medico</title>
     </head>
-    <body style="background: url('${pageContext.request.contextPath}/img/MenuImage.jpg') no-repeat top center / cover;">
+    <body style="background: url('${pageContext.request.contextPath}/img/1303.jpg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form action="ImportarDatos" method="post" enctype="multipart/form-data">
             <div class="caja">

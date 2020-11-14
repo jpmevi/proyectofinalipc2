@@ -1,4 +1,4 @@
-/*
+      /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -72,6 +72,14 @@ public class TurnoCrearCliente extends HttpServlet {
                 request.getRequestDispatcher("/Gerente/CrearCajero.jsp").forward(request, response);
             } else if (request.getParameter("pagina").equals("2")) {
                 request.getRequestDispatcher("MostrarClientes").forward(request, response);
+            }else if (request.getParameter("pagina").equals("3")) {
+                request.getRequestDispatcher("/Gerente/CrearGerente.jsp").forward(request, response);
+            }else if (request.getParameter("pagina").equals("4")) {
+                request.getRequestDispatcher("MostrarClientes").forward(request, response);
+            }else if (request.getParameter("pagina").equals("5")) {
+                request.getRequestDispatcher("MostrarGerentes").forward(request, response);
+            }else if (request.getParameter("pagina").equals("6")) {
+                request.getRequestDispatcher("/Gerente/ModificarGerente.jsp").forward(request, response);
             }
 
         } else {

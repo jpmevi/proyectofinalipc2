@@ -6,14 +6,17 @@
 package Servlet;
 
 import Modelo.ClienteModel;
+import Modelo.CuentaModel;
 import Modelo.Historial_ClienteModel;
 import Objeto.Cliente;
 import Objeto.ConstructorArchivo;
+import Objeto.Cuenta;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -92,6 +95,7 @@ public class CrearCliente extends HttpServlet {
             String direccion = request.getParameter("direccion");
             String sexo = request.getParameter("sexo");
             String password = request.getParameter("password");
+            Double monto = Double.parseDouble(request.getParameter("monto"));
             InputStream archivo = InputStream.nullInputStream();
             try {
                 archivo = generadorArchivo.extraerArchivo("file", request);
@@ -99,12 +103,15 @@ public class CrearCliente extends HttpServlet {
 
             }
             Cliente c = new Cliente(Long.valueOf(0), nombre, DPI, sexo, password, direccion, fecha_nacimiento, archivo);
-            Long codigo=clienteModel.agregarCliente(c);
+            Long codigo = clienteModel.agregarCliente(c);
             Historial_ClienteModel hist = new Historial_ClienteModel();
-            hist.agregarHistorialClienteSinCodigo(c,codigo);
-            response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Cliente creado con exito el codigo es: "+ codigo);
+            hist.agregarHistorialClienteSinCodigo(c, codigo);            
+            Cuenta cuenta = new Cuenta(Long.valueOf(0), Date.valueOf(LocalDate.now()), monto, codigo);
+            CuentaModel cum = new CuentaModel();
+            Long codigocuenta = cum.agregarCuenta(cuenta);
+            response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Cliente creado con exito el codigo es: " + codigocuenta+" Y su cuenta es: "+codigocuenta);
         } catch (SQLException E) {
-            
+
         }
 
     }

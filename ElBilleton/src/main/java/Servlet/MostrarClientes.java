@@ -64,10 +64,15 @@ public class MostrarClientes extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-
-            ClienteModel cli = new ClienteModel();
-            request.getSession().setAttribute("Clientes", cli.obtenerClientes(""));
-            request.getRequestDispatcher("/Gerente/CrearCuenta.jsp").forward(request, response);
+            if (request.getParameter("pagina").equals("2")) {
+                ClienteModel cli = new ClienteModel();
+                request.getSession().setAttribute("Clientes", cli.obtenerClientes(""));
+                request.getRequestDispatcher("/Gerente/CrearCuenta.jsp").forward(request, response);
+            } else if (request.getParameter("pagina").equals("4")) {
+                ClienteModel cli = new ClienteModel();
+                request.getSession().setAttribute("Clientes", cli.obtenerClientes(""));
+                request.getRequestDispatcher("/Gerente/VerClientes.jsp").forward(request, response);
+            }
         } catch (SQLException e) {
 
         }
@@ -85,11 +90,9 @@ public class MostrarClientes extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
 
         try {
             String filtro = request.getParameter("filtro");
-            JOptionPane.showMessageDialog(null, filtro);
             if (filtro == null) {
                 filtro = "";
             }

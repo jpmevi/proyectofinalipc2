@@ -16,7 +16,7 @@
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
         <title>Crear Cliente</title>
     </head>
-    <body style="background: url('${pageContext.request.contextPath}/img/bgaccionesGERENTE.jpeg') no-repeat top center / cover;">
+    <body style="background: url('${pageContext.request.contextPath}/img/40.svg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form action="CrearCliente" method="post" enctype="multipart/form-data">
             <div class="caja">
@@ -29,6 +29,9 @@
                 </div>
                 <div class="inputAnimate">
                     <input type="text" placeholder="Direccion" name="direccion" required>
+                </div>
+                <div class="inputAnimate">
+                    <input type="number" placeholder="Monto" name="monto" step=".01"required>
                 </div>
                 <div class="inputAnimate">
                     <input type="password" placeholder="Password" name="password" required>

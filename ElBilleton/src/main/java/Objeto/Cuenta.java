@@ -23,9 +23,9 @@ public class Cuenta {
     private Long codigo;
     private Date fechaCreacion;
     private Double monto;
-    private int cliente_codigo;
+    private Long cliente_codigo;
 
-    public Cuenta(Long codigo, Date fechaCreacion, Double monto, int cliente_codigo) {
+    public Cuenta(Long codigo, Date fechaCreacion, Double monto, Long cliente_codigo) {
         this.codigo = codigo;
         this.fechaCreacion = fechaCreacion;
         this.monto = monto;
@@ -59,11 +59,11 @@ public class Cuenta {
         this.monto = monto;
     }
 
-    public int getCliente_codigo() {
+    public Long getCliente_codigo() {
         return cliente_codigo;
     }
 
-    public void setCliente_codigo(int cliente_codigo) {
+    public void setCliente_codigo(Long cliente_codigo) {
         this.cliente_codigo = cliente_codigo;
     }
 

@@ -29,6 +29,12 @@ public class ClienteModel {
 
     private final String CREAR_USUARIO = "INSERT INTO " + Cliente.CLIENTE_DB_NAME + " (" + Cliente.NOMBRE_DB_NAME + "," + Cliente.DPI_DB_NAME + "," + Cliente.FECHA_DB_NAME + "," + Cliente.DIRECCION_DB_NAME + "," + Cliente.SEXO_DB_NAME + "," + Cliente.PDF_DB_NAME + "," + Cliente.PASSWORD_DB_NAME + ") VALUES (?,?,?,?,?,?,?)";
     private final String CREAR_USUARIO_CODIGO = "INSERT INTO " + Cliente.CLIENTE_DB_NAME + " (" + Cliente.CLIENTE_CODE_DB_NAME + "," + Cliente.NOMBRE_DB_NAME + "," + Cliente.DPI_DB_NAME + "," + Cliente.FECHA_DB_NAME + "," + Cliente.DIRECCION_DB_NAME + "," + Cliente.SEXO_DB_NAME + "," + Cliente.PDF_DB_NAME + "," + Cliente.PASSWORD_DB_NAME + ") VALUES (?,?,?,?,?,?,?,?)";
+    private final String EDITAR_CLIENTE = "UPDATE " + Cliente.CLIENTE_DB_NAME + " SET " + Cliente.NOMBRE_DB_NAME + "=?,"
+            + Cliente.DPI_DB_NAME + "=?," + Cliente.FECHA_DB_NAME + "=?," + Cliente.DIRECCION_DB_NAME + "=?," + Cliente.SEXO_DB_NAME + "=?,"
+            + Cliente.PDF_DB_NAME + "=?," + Cliente.PASSWORD_DB_NAME + "=? WHERE " + Cliente.CLIENTE_CODE_DB_NAME + " =?";
+    private final String DPI_CLIENTE = "SELECT " + Cliente.PDF_DB_NAME + " FROM " + Cliente.CLIENTE_DB_NAME + " WHERE " + Cliente.CLIENTE_CODE_DB_NAME+ "= ?";
+    
+    
 
     /**
      * Agregamos una nuevo usuario. Al completar la insercion devuelve el ID
@@ -38,7 +44,7 @@ public class ClienteModel {
      * @return
      * @throws SQLException
      */
-    public long agregarCliente(Cliente cajero) throws SQLException {
+    public long agregarCliente(Cliente cajero) throws SQLException, UnsupportedEncodingException {
         try {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
 
@@ -48,9 +54,9 @@ public class ClienteModel {
             preSt.setString(4, cajero.getDireccion());
             preSt.setString(5, cajero.getSexo());
             preSt.setBinaryStream(6, cajero.getPdfdpi());
-            preSt.setString(7, cajero.getPassword());
+            preSt.setString(7, Encriptar.encriptar(cajero.getPassword()));
             preSt.executeUpdate();
-            
+
             ResultSet result = preSt.getGeneratedKeys();
             if (result.first()) {
                 return result.getLong(1);
@@ -62,10 +68,9 @@ public class ClienteModel {
         return -1;
     }
 
-    public long agregarClienteCodigo(Cliente cajero) throws SQLException {
+    public long agregarClienteCodigo(Cliente cajero) throws SQLException, UnsupportedEncodingException {
         try {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
-            InputStream pdfdp=cajero.getPdfdpi();
             preSt.setLong(1, cajero.getCodigo());
             preSt.setString(2, cajero.getNombre());
             preSt.setString(3, cajero.getDpi());
@@ -73,7 +78,7 @@ public class ClienteModel {
             preSt.setString(5, cajero.getDireccion());
             preSt.setString(6, cajero.getSexo());
             preSt.setBinaryStream(7, cajero.getPdfdpi());
-            preSt.setString(8, cajero.getPassword());
+            preSt.setString(8, Encriptar.encriptar(cajero.getPassword()));
             preSt.executeUpdate();
             Historial_ClienteModel hist = new Historial_ClienteModel();
             hist.agregarHistorialCliente(cajero);
@@ -87,6 +92,28 @@ public class ClienteModel {
         return -1;
     }
 
+    public long modificarCliente(Cliente cajero) throws SQLException, UnsupportedEncodingException {
+        try {
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(EDITAR_CLIENTE, Statement.RETURN_GENERATED_KEYS);
+
+            preSt.setString(1, cajero.getNombre());
+            preSt.setString(2, cajero.getDpi());
+            preSt.setDate(3, cajero.getFechaNacimiento());
+            preSt.setString(4, cajero.getDireccion());
+            preSt.setString(5, cajero.getSexo());
+
+            preSt.setBinaryStream(6, cajero.getPdfdpi());
+            preSt.setString(7, Encriptar.encriptar(cajero.getPassword()));
+            preSt.setLong(8, cajero.getCodigo());
+            preSt.executeUpdate();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return -1;
+    }
+
     /**
      * Verifiva si existen las credenciales y si son correctas en el usuario
      *
@@ -95,7 +122,7 @@ public class ClienteModel {
      * @return
      * @throws SQLException
      */
-    public Cliente loginValidation(Long id, String pass) throws SQLException {
+    public Cliente loginValidation(Long id, String pass) throws SQLException, UnsupportedEncodingException {
         Cliente cliente = obtenerCliente(id);
         if (cliente != null && cliente.getPassword().equals(pass)) {
             return cliente;
@@ -112,7 +139,7 @@ public class ClienteModel {
      * @return
      * @throws SQLException
      */
-    public Cliente obtenerCliente(Long idUsuario) throws SQLException {
+    public Cliente obtenerCliente(Long idUsuario) throws SQLException, UnsupportedEncodingException {
         PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO + " WHERE codigo='" + idUsuario + "'");
         ResultSet result = preSt.executeQuery();
 
@@ -130,14 +157,14 @@ public class ClienteModel {
                     result.getBinaryStream(cliente.PDF_DB_NAME)
             );
         }
+        cliente.setPassword(Encriptar.desencriptar(cliente.getPassword()));
         return cliente;
     }
 
-    
-    public ArrayList obtenerClientes(String idUsuario) throws SQLException {
+    public ArrayList obtenerClientes(String idUsuario) throws SQLException, UnsupportedEncodingException {
         PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO + " WHERE codigo LIKE '%" + idUsuario + "%'");
         ResultSet result = preSt.executeQuery();
-        ArrayList listaclientes= new ArrayList();
+        ArrayList listaclientes = new ArrayList();
         Cliente cliente = null;
 
         while (result.next()) {
@@ -151,9 +178,32 @@ public class ClienteModel {
                     result.getDate(cliente.FECHA_DB_NAME),
                     result.getBinaryStream(cliente.PDF_DB_NAME)
             );
+            cliente.setPassword(Encriptar.desencriptar(cliente.getPassword()));
             listaclientes.add(cliente);
         }
         return listaclientes;
     }
+/**
+ * 
+ * @param codigo
+ * @return 
+ */
+    public InputStream obtenerDPI(long codigo) {
+        try {
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(DPI_CLIENTE);
+            preSt.setLong(1, codigo);
 
+            ResultSet result = preSt.executeQuery();
+
+            while (result.next()) {
+                return result.getBlob(1).getBinaryStream();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener dpi de db " + e);
+                         JOptionPane.showMessageDialog(null, e);
+            return null;
+        }
+        return null;
+    }
 }

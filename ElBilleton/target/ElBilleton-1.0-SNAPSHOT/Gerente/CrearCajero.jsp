@@ -17,7 +17,7 @@
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
         <title>Crear Cajero</title>
     </head>
-    <body style="background: url('${pageContext.request.contextPath}/img/bgaccionesGERENTE.jpeg') no-repeat top center / cover;">
+    <body style="background: url('${pageContext.request.contextPath}/img/40.svg') no-repeat top center / cover;">
         <%@include file="header.jsp" %>
         <form action="CrearCajero" method="post" >
             <div class="caja">

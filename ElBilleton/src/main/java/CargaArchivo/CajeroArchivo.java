@@ -7,6 +7,7 @@ package CargaArchivo;
 
 import Modelo.CajeroModel;
 import Objeto.Cajero;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import org.w3c.dom.Element;
@@ -22,7 +23,7 @@ public class CajeroArchivo {
     
     
     
-    public void etiquetaCajeroDB(NodeList listadoCajero) throws SQLException {
+    public void etiquetaCajeroDB(NodeList listadoCajero) throws SQLException, UnsupportedEncodingException {
         // Recorro las etiquetas
         System.out.println(" <========>Cajero");
 

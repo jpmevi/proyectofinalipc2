@@ -19,7 +19,7 @@
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
         <title>Buscar Cliente</title>
     </head>
-    <body style="background: url('${pageContext.request.contextPath}/img/bg.jpg'); background-attachment: fixed;">
+    <body style="background: url('${pageContext.request.contextPath}/img/40.svg'); background-attachment: fixed;">
         <%@include file="header.jsp" %>
         <form action="MostrarClientes" method="post" >
             <div class="cajatabla">
@@ -48,7 +48,7 @@
                             <td class="text-center">${cliente.getSexo()}</td>
                             <td class="text-center">${cliente.getFechaNacimiento()}</td>
                             <td>
-                                <a class="btn solid" href="AgendarConsulta.jsp?codigo=${cliente.getCodigo()}">Agendar cuenta</a>
+                                <a class="btn solid" href="${pageContext.request.contextPath}/CargarCliente?codigo=${cliente.getCodigo()}">Crear Cuenta</a>
                             </td>
                         </tr>
                     </c:forEach>

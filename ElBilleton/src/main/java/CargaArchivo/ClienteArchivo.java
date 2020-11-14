@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -46,7 +47,7 @@ import org.xml.sax.SAXException;
  * @author potz
  */
 public class ClienteArchivo {
-     public void etiquetaClienteDB(NodeList listadoPaciente,String path) throws SQLException, FileNotFoundException {
+     public void etiquetaClienteDB(NodeList listadoPaciente,String path) throws SQLException, FileNotFoundException, UnsupportedEncodingException {
         // Recorro las etiquetas
 
         Cliente cliente;

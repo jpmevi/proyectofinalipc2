@@ -65,7 +65,7 @@ public class ComprobarHorario extends HttpServlet {
         Gerente gerente = (Gerente) request.getSession().getAttribute("Gerente");
         String turno=gerente.getTurno();
         LocalTime hora = LocalTime.now();
-        LocalTime horamatutina1= LocalTime.of(7, 0);
+        LocalTime horamatutina1= LocalTime.of(6, 0);
         LocalTime horamatutina2= LocalTime.of(14, 30);
         LocalTime vespertino1= LocalTime.of(13, 0);
         LocalTime vespertino2= LocalTime.of(22, 0);

@@ -34,7 +34,7 @@
                                         <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=1">Registrar Cajero</a>
                                     </li>
                                      <li class="dropdown-link">
-                                        <a href="ModificarExamen.jsp">Registrar Gerente</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=3">Registrar Gerente</a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=2">Crear Cuenta</a>
@@ -69,13 +69,13 @@
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="ModificarAdministrador.jsp">Modificar Administrador</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=4">Modificar Cliente</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="ModificarLaboratorista.jsp">Modificar Laboratorista</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=5">Modificar Cajero</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="ModificarMedico.jsp">Modificar Medico</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=6">Modificar Gerente</a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="ModificarPaciente.jsp">Modificar Paciente</a>

@@ -20,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -124,6 +125,7 @@ public class Ingresar extends HttpServlet {
                 }
                 case "GERENTE": {
                     //Comprobamos si el usuario existe mandandole el usuario y la password
+                    
                     Gerente gerente = gerentemodel.loginValidation(user, password);
                     if (gerente != null) {
                         request.getSession().setAttribute("Gerente", gerente);

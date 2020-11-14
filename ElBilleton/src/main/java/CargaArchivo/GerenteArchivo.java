@@ -9,6 +9,7 @@ import Modelo.GerenteModel;
 import Objeto.Gerente;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,7 +37,7 @@ public class GerenteArchivo {
      *
      * @param listadoGerente
      */
-    public void etiquetaGerenteDB(NodeList listadoGerente) throws SQLException {
+    public void etiquetaGerenteDB(NodeList listadoGerente) throws SQLException, UnsupportedEncodingException {
         // Recorro las etiquetas
         System.out.println(" <========>Gerente");
 

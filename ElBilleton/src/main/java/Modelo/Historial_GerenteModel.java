@@ -53,4 +53,26 @@ public class Historial_GerenteModel {
         return -1;
     }
 
+    public long agregarHistorialGerenteSinCodigo(Gerente cajero,Long codigo) throws SQLException {
+        try {
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
+        preSt.setString(1, cajero.getNombre());
+        preSt.setString(2, cajero.getTurno());
+        preSt.setString(3, cajero.getDPI());
+        preSt.setString(4, cajero.getDireccion());
+        preSt.setString(5, cajero.getSexo());
+        preSt.setString(6, cajero.getPassword());
+        preSt.setLong(7, codigo);
+        preSt.executeUpdate();
+
+        ResultSet result = preSt.getGeneratedKeys();
+        if (result.first()) {
+            return result.getLong(1);
+        }
+        } catch (SQLException e) {
+        }
+        
+
+        return -1;
+    }
 }
