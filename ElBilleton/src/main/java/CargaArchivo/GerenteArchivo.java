@@ -85,7 +85,7 @@ public class GerenteArchivo {
 
     
     public void crearGerente(Gerente gerente, String tag, String atributo) {
-
+try{
         switch (tag.toUpperCase()) {
             case "CODIGO":
                 gerente.setCodigo(Long.parseLong(atributo));
@@ -124,5 +124,8 @@ public class GerenteArchivo {
 
             default:
         }
+        }catch(NumberFormatException e){
+                
+                }
     }
 }

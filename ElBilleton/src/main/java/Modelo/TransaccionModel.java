@@ -30,7 +30,8 @@ public class TransaccionModel {
      * @throws SQLException
      */
     public long agregartransaccionArchivo(Transaccion transaccion) throws SQLException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_TRANSACCION_CON_CODIGO, Statement.RETURN_GENERATED_KEYS);
+        try {
+             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_TRANSACCION_CON_CODIGO, Statement.RETURN_GENERATED_KEYS);
 
         preSt.setLong(1, transaccion.getCodigo());
         preSt.setDate(2, transaccion.getFecha());
@@ -46,6 +47,9 @@ public class TransaccionModel {
         if (result.first()) {
             return result.getLong(1);
         }
+        } catch (SQLException e) {
+        }
+       
 
         return -1;
     }
@@ -59,7 +63,8 @@ public class TransaccionModel {
      * @throws SQLException
      */
     public long agregartransaccion(Transaccion transaccion) throws SQLException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_TRANSACCION_SIN_CODIGO, Statement.RETURN_GENERATED_KEYS);
+        try {
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_TRANSACCION_SIN_CODIGO, Statement.RETURN_GENERATED_KEYS);
 
         preSt.setDate(1, transaccion.getFecha());
         preSt.setTime(2, transaccion.getHora());
@@ -74,6 +79,9 @@ public class TransaccionModel {
         if (result.first()) {
             return result.getLong(1);
         }
+        } catch (SQLException e) {
+        }
+        
 
         return -1;
     }

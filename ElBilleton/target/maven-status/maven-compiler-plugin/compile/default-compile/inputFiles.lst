@@ -1,4 +1,5 @@
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Modelo/Historial_ClienteModel.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/MostrarClientes.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/Historial_Cajero.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Encriptar/Encriptar.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/HIstorial_Gerente.java
@@ -13,16 +14,20 @@
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/CargaArchivo/ClienteArchivo.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Conexion/Conexion.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Modelo/Historial_GerenteModel.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/CrearCajero.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Modelo/CuentaModel.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/ConstructorArchivo.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/Gerente.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/ComprobarHorario.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/Cajero.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/CargaArchivo/DividirEtiquetas.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/TurnoCrearCliente.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/TurnoCargarArchivo.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/Cliente.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Modelo/GerenteModel.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Modelo/Historial_CajeroModel.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/Logout.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/CargaArchivo/GerenteArchivo.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/CrearCliente.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/CargaArchivo/CargarTransaccion.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/CargaArchivo/CajeroArchivo.java

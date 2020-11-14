@@ -27,7 +27,7 @@ public class CajeroArchivo {
         System.out.println(" <========>Cajero");
 
         Cajero cajero;
-
+ 
         for (int i = 0; i < listadoCajero.getLength(); i++) {
 
             cajero = new Cajero();
@@ -73,8 +73,9 @@ public class CajeroArchivo {
     
     
     public void crearCajero(Cajero cajero, String tag, String atributo) {
-
-        switch (tag.toUpperCase()) {
+try{
+         switch (tag.toUpperCase()) {
+            
             case "CODIGO":
                 cajero.setCodigo(Long.parseLong(atributo));
                 break;
@@ -111,7 +112,11 @@ public class CajeroArchivo {
                 break;
 
             default:
-        }
+        }   
+        }catch(NumberFormatException e){
+                
+                }
+        
     }
 
 }

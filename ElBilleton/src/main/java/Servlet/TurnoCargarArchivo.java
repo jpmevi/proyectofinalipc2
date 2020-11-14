@@ -64,9 +64,11 @@ public class TurnoCargarArchivo extends HttpServlet {
         Gerente gerente = (Gerente) request.getSession().getAttribute("Gerente");
         GerenteModel model = new GerenteModel();
         if(model.estaEnTurno(gerente)){
+            request.getSession().setAttribute("Turno", "Turno Activo");
             request.setAttribute("enturno", 1);
              request.getRequestDispatcher("/Gerente/CargarArchivos.jsp").forward(request, response);
         }else{
+            request.getSession().setAttribute("Turno", "Turno Inactivo");
              request.setAttribute("enturno", 0);
              request.getRequestDispatcher("/Gerente/MenuGerente.jsp").forward(request, response);
         }

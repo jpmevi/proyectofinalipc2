@@ -28,26 +28,26 @@ public class DividirEtiquetas {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             // Creo un documentBuilder
             DocumentBuilder builder = factory.newDocumentBuilder();
+            
             // Obtengo el documento, a partir del XML
             Document documento = builder.parse(file);
-
             // Obtengo todas las etiquetas PADRE del documento
             NodeList listadoGerentes = documento.getElementsByTagName("GERENTE");
             NodeList listadoCajeros = documento.getElementsByTagName("CAJERO");
+                   
             NodeList listadoClientes = documento.getElementsByTagName("CLIENTE");
-
             NodeList listadoTransacciones = documento.getElementsByTagName("TRANSACCION");
 
 
             GerenteArchivo gerente = new GerenteArchivo();
             gerente.etiquetaGerenteDB(listadoGerentes);
-
+            CajeroArchivo cajero = new CajeroArchivo();
+            cajero.etiquetaCajeroDB(listadoCajeros);
             ClienteArchivo cliente = new ClienteArchivo();
             cliente.etiquetaClienteDB(listadoClientes,pathArchivo);
 
-            CajeroArchivo cajero = new CajeroArchivo();
-            cajero.etiquetaCajeroDB(listadoCajeros);
             
+           
             CargarTransaccion transacion = new CargarTransaccion();
             transacion.etiquetaTransaccionDB(listadoTransacciones);
 

@@ -74,7 +74,7 @@ public class CargarTransaccion {
             
             
              public void crearTransaccion(Transaccion transaccion, String tag, String atributo) {
-
+try{
         switch (tag.toUpperCase()) {
             case "CODIGO":
                 transaccion.setCodigo(Long.parseLong(atributo));
@@ -106,5 +106,8 @@ public class CargarTransaccion {
 
             default:
         }
+        }catch(NumberFormatException e){
+                
+                }
     }
 }

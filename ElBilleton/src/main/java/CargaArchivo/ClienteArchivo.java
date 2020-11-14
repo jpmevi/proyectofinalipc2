@@ -83,7 +83,7 @@ public class ClienteArchivo {
                         }
                     }
 
-                }
+                }            
                 
                 ClienteModel nuevoCliente = new ClienteModel();
                 nuevoCliente.agregarClienteCodigo(cliente);
@@ -166,7 +166,7 @@ public class ClienteArchivo {
                     
                     //cuentasVariasCliente = etiquetaCuentaCliente(hijo);
                     //especilidadesMedicas.add(hijo.getTextContent());
-                    
+                    try{
                             System.out.println("Etiqueta dentro de Cuenta: " + hijo.getNodeName()
                                     + ", Valor: " + hijo.getTextContent());
                             switch (hijo.getNodeName().toUpperCase()) {
@@ -184,6 +184,9 @@ public class ClienteArchivo {
                                 //throw new AssertionError();
                             }
                             
+                            }catch(NumberFormatException ex){
+                
+                }
                             
                 }//AQUI CIERRA EL NODE.ELEMENTNODE
 
@@ -201,7 +204,7 @@ public class ClienteArchivo {
      
      
      public void crearCliente(Cliente cliente, String tag, String atributo,String path) throws FileNotFoundException {
-
+try{
         switch (tag.toUpperCase()) {
             case "CODIGO":
                 cliente.setCodigo(Long.parseLong(atributo));
@@ -235,6 +238,10 @@ public class ClienteArchivo {
                 break;
 
             default:
+                
         }
+        }catch(NumberFormatException e){
+                
+                }
     }
 }

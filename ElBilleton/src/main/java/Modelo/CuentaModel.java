@@ -32,8 +32,8 @@ public class CuentaModel {
      * @throws SQLException 
      */
      public long agregarCuentaArchivo(Cuenta cuenta,Long codigo) throws SQLException {
-         
-        PreparedStatement preSt =Conexion.getConnection().prepareStatement(CREAR_CUENTA_CON_CODIGO, Statement.RETURN_GENERATED_KEYS);
+         try {
+             PreparedStatement preSt =Conexion.getConnection().prepareStatement(CREAR_CUENTA_CON_CODIGO, Statement.RETURN_GENERATED_KEYS);
 
         preSt.setLong(1, cuenta.getCodigo());
         preSt.setDate(2, cuenta.getFechaCreacion());
@@ -44,6 +44,9 @@ public class CuentaModel {
         if (result.first()) {
             return result.getLong(1);
         }
+         } catch (SQLException e) {
+         }
+        
 
         return -1;
     }
@@ -56,7 +59,8 @@ public class CuentaModel {
      * @throws SQLException 
      */
      public long agregarCuenta(Cuenta cuenta) throws SQLException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_CUENTA_SIN_CODIGO, Statement.RETURN_GENERATED_KEYS);
+         try {
+             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_CUENTA_SIN_CODIGO, Statement.RETURN_GENERATED_KEYS);
 
         preSt.setDate(1, cuenta.getFechaCreacion());
         preSt.setDouble(2, cuenta.getMonto());
@@ -68,6 +72,9 @@ public class CuentaModel {
         if (result.first()) {
             return result.getLong(1);
         }
+         } catch (SQLException e) {
+         }
+        
 
         return -1;
     }

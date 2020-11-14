@@ -67,7 +67,7 @@ and open the template in the editor.
     line-height: 22px;
     padding: 0 0 0 3px;
     color: transparent;
-    text-shadow: 0 0 0 #8C6FF0;
+    text-shadow: 0 0 0 #000000;
 }
 .inputAnimate input {
     background: none;
@@ -79,24 +79,24 @@ and open the template in the editor.
     transition: text-shadow .3s ease;
 }
 .inputAnimate input::-webkit-input-placeholder {
-    color: #8C6FF0;
-    opacity: .5;
+    color: #fff;
+    opacity: 1;
 }
 .inputAnimate input::-moz-placeholder {
-    color: #8C6FF0;
-    opacity: .5;
+    color: #fff;
+    opacity: 1;
 }
 .inputAnimate input:-ms-input-placeholder {
-    color: #8C6FF0;
-    opacity: .5;
+    color: #fff;
+    opacity: 1;
 }
 .inputAnimate input::-ms-input-placeholder {
-    color: #8C6FF0;
-    opacity: .5;
+    color: #fff;
+    opacity: 1;
 }
 .inputAnimate input::placeholder {
-    color: #8C6FF0;
-    opacity: .5;
+    color: #000000;
+    opacity: 0.4;
 }
 .inputAnimate input + div {
     position: absolute;
@@ -188,11 +188,11 @@ body .dribbble {
 
 .caja{
     position: absolute;
-    width: 80%;
+    width: 50%;
     top: 10%;
     color: white;
     left: 50%;
-   background-color: rgb(80, 79, 96, 0.5);
+   background-color: rgb(25, 25, 30, 0.3);
     transform: translate(-50%,0);
     text-align: center;
 }

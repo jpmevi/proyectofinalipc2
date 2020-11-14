@@ -35,8 +35,8 @@ public class GerenteModel {
      * @throws SQLException
      */
     public long agregarGerente(Gerente cajero) throws SQLException {
-        
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
+        try{
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
         
         preSt.setString(1, cajero.getNombre());
         preSt.setString(2, cajero.getTurno());
@@ -52,11 +52,17 @@ public class GerenteModel {
             return result.getLong(1);
         }
         
+        }catch(SQLException e){
+            //JOptionPane.showMessageDialog(null, e);
+        }
+        
+        
         return -1;
     }
     
     public long agregarGerenteCodigo(Gerente cajero) throws SQLException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
+        try{
+             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
         
         preSt.setLong(1, cajero.getCodigo());
         preSt.setString(2, cajero.getNombre());
@@ -66,16 +72,21 @@ public class GerenteModel {
         preSt.setString(6, cajero.getSexo());
         preSt.setString(7, cajero.getPassword());
         
-        Historial_GerenteModel hist = new Historial_GerenteModel();
-
-        hist.agregarHistorialGerente(cajero);
-        preSt.executeUpdate();
+       
         
+        preSt.executeUpdate();
+
+         Historial_GerenteModel hist = new Historial_GerenteModel();
+        hist.agregarHistorialGerente(cajero);
         ResultSet result = preSt.getGeneratedKeys();
         if (result.first()) {
             return result.getLong(1);
         }
         
+        }catch(SQLException e){
+            //JOptionPane.showMessageDialog(null, e);
+        }
+       
         return -1;
     }
 
@@ -116,7 +127,6 @@ public class GerenteModel {
         while (result.next()) {
             
             gerente = new Gerente(
-                    
                     result.getLong(gerente.CODIGO_DB_NAME),
                     result.getString(gerente.NOMBRE_DB_NAME),
                     result.getString(gerente.TURNO_DB_NAME),
@@ -133,7 +143,7 @@ public class GerenteModel {
         boolean si = true;
         String turno = gerente.getTurno();
         LocalTime hora = LocalTime.now();
-        LocalTime horamatutina1 = LocalTime.of(7, 0);
+        LocalTime horamatutina1 = LocalTime.of(0, 0);
         LocalTime horamatutina2 = LocalTime.of(14, 30);
         LocalTime vespertino1 = LocalTime.of(13, 0);
         LocalTime vespertino2 = LocalTime.of(22, 0);

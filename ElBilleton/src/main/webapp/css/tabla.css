@@ -1,0 +1,67 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 14, 2020, 12:34:22 AM
+    Author     : potz
+*/
+table.darkTable {
+  font-family: "Arial Black", Gadget, sans-serif;
+  border: 2px solid #000000;
+  background-color: #4A4A4A;
+  width: 100%;
+  height: 200px;
+  text-align: center;
+  border-collapse: collapse;
+}
+.cajatabla{
+    position: absolute;
+    width: 80%;
+    top: 10%;
+    color: white;
+    left: 50%;
+   background-color: rgb(25, 25, 30, 0.3);
+    transform: translate(-50%,0);
+    text-align: center;
+}
+table.darkTable td, table.darkTable th {
+  border: 1px solid #000000;
+  padding: 3px 2px;
+}
+table.darkTable tbody td {
+  font-size: 13px;
+  color: #FFFFFF;
+}
+table.darkTable tr:nth-child(even) {
+  background: #7D7D7D;
+}
+table.darkTable thead {
+  background: #FFFFFF;
+  border-bottom: 3px solid #000000;
+}
+table.darkTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+  border-left: 2px solid #4A4A4A;
+}
+table.darkTable thead th:first-child {
+  border-left: none;
+}
+
+table.darkTable tfoot {
+  font-size: 12px;
+  font-weight: bold;
+  color: #E6E6E6;
+  background: #353439;
+  background: -moz-linear-gradient(top, #67676a 0%, #49484c 66%, #353439 100%);
+  background: -webkit-linear-gradient(top, #67676a 0%, #49484c 66%, #353439 100%);
+  background: linear-gradient(to bottom, #67676a 0%, #49484c 66%, #353439 100%);
+  border-top: 1px solid #4A4A4A;
+}
+table.darkTable tfoot td {
+  font-size: 12px;
+}

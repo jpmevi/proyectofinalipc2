@@ -1,6 +1,7 @@
 Objeto/Gerente.class
 Modelo/Historial_GerenteModel.class
 Modelo/CuentaModel.class
+Servlet/Logout.class
 CargaArchivo/GerenteArchivo.class
 Encriptar/Encriptar.class
 Modelo/Historial_ClienteModel.class
@@ -15,8 +16,11 @@ CargaArchivo/ClienteArchivo.class
 Objeto/Historial_Cajero.class
 Objeto/Cuenta.class
 CargaArchivo/DividirEtiquetas.class
+Servlet/CrearCliente.class
 Conexion/Conexion.class
 Modelo/GerenteModel.class
+Servlet/MostrarClientes.class
+Servlet/TurnoCrearCliente.class
 Servlet/TurnoCargarArchivo.class
 Objeto/Cajero.class
 Modelo/ClienteModel.class
@@ -24,5 +28,6 @@ Objeto/HIstorial_Gerente.class
 Modelo/TransaccionModel.class
 Modelo/Historial_CajeroModel.class
 Servlet/ImportarDatos.class
+Servlet/CrearCajero.class
 Objeto/ConstructorArchivo.class
 Modelo/CajeroModel.class

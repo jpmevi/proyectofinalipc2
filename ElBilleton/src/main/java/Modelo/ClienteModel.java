@@ -9,12 +9,14 @@ import Conexion.Conexion;
 import Encriptar.Encriptar;
 import Objeto.Cliente;
 import Objeto.Cuenta;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,45 +39,49 @@ public class ClienteModel {
      * @throws SQLException
      */
     public long agregarCliente(Cliente cajero) throws SQLException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
+        try {
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
 
-        preSt.setString(1, cajero.getNombre());
-        preSt.setString(2, cajero.getDpi());
-        preSt.setDate(3, cajero.getFechaNacimiento());
-        preSt.setString(4, cajero.getDireccion());
-        preSt.setString(5, cajero.getSexo());
-        preSt.setBlob(6, cajero.getPdfdpi());
-        preSt.setString(7, cajero.getPassword());
-        Historial_ClienteModel hist = new Historial_ClienteModel();
-        hist.agregarHistorialCliente(cajero);
-        preSt.executeUpdate();
+            preSt.setString(1, cajero.getNombre());
+            preSt.setString(2, cajero.getDpi());
+            preSt.setDate(3, cajero.getFechaNacimiento());
+            preSt.setString(4, cajero.getDireccion());
+            preSt.setString(5, cajero.getSexo());
+            preSt.setBinaryStream(6, cajero.getPdfdpi());
+            preSt.setString(7, cajero.getPassword());
+            preSt.executeUpdate();
+            
+            ResultSet result = preSt.getGeneratedKeys();
+            if (result.first()) {
+                return result.getLong(1);
+            }
+        } catch (SQLException e) {
 
-        ResultSet result = preSt.getGeneratedKeys();
-        if (result.first()) {
-            return result.getLong(1);
         }
 
         return -1;
     }
 
     public long agregarClienteCodigo(Cliente cajero) throws SQLException {
-
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
-
-        preSt.setLong(1, cajero.getCodigo());
-        preSt.setString(2, cajero.getNombre());
-        preSt.setString(3, cajero.getDpi());
-        preSt.setDate(4, cajero.getFechaNacimiento());
-        preSt.setString(5, cajero.getDireccion());
-        preSt.setString(6, cajero.getSexo());
-        preSt.setBinaryStream(7, cajero.getPdfdpi());
-        preSt.setString(8, cajero.getPassword());
-
-        preSt.executeUpdate();
-
-        ResultSet result = preSt.getGeneratedKeys();
-        if (result.first()) {
-            return result.getLong(1);
+        try {
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
+            InputStream pdfdp=cajero.getPdfdpi();
+            preSt.setLong(1, cajero.getCodigo());
+            preSt.setString(2, cajero.getNombre());
+            preSt.setString(3, cajero.getDpi());
+            preSt.setDate(4, cajero.getFechaNacimiento());
+            preSt.setString(5, cajero.getDireccion());
+            preSt.setString(6, cajero.getSexo());
+            preSt.setBinaryStream(7, cajero.getPdfdpi());
+            preSt.setString(8, cajero.getPassword());
+            preSt.executeUpdate();
+            Historial_ClienteModel hist = new Historial_ClienteModel();
+            hist.agregarHistorialCliente(cajero);
+            ResultSet result = preSt.getGeneratedKeys();
+            if (result.first()) {
+                return result.getLong(1);
+            }
+        } catch (SQLException e) {
         }
 
         return -1;
@@ -107,7 +113,7 @@ public class ClienteModel {
      * @throws SQLException
      */
     public Cliente obtenerCliente(Long idUsuario) throws SQLException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO+" WHERE codigo='"+idUsuario+"'");
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO + " WHERE codigo='" + idUsuario + "'");
         ResultSet result = preSt.executeQuery();
 
         Cliente cliente = null;
@@ -125,6 +131,29 @@ public class ClienteModel {
             );
         }
         return cliente;
+    }
+
+    
+    public ArrayList obtenerClientes(String idUsuario) throws SQLException {
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO + " WHERE codigo LIKE '%" + idUsuario + "%'");
+        ResultSet result = preSt.executeQuery();
+        ArrayList listaclientes= new ArrayList();
+        Cliente cliente = null;
+
+        while (result.next()) {
+            cliente = new Cliente(
+                    result.getLong(cliente.CLIENTE_CODE_DB_NAME),
+                    result.getString(cliente.NOMBRE_DB_NAME),
+                    result.getString(cliente.DPI_DB_NAME),
+                    result.getString(cliente.SEXO_DB_NAME),
+                    result.getString(cliente.PASSWORD_DB_NAME),
+                    result.getString(cliente.DIRECCION_DB_NAME),
+                    result.getDate(cliente.FECHA_DB_NAME),
+                    result.getBinaryStream(cliente.PDF_DB_NAME)
+            );
+            listaclientes.add(cliente);
+        }
+        return listaclientes;
     }
 
 }

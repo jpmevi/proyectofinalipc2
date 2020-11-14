@@ -25,17 +25,20 @@ public class Historial_Cliente {
     public static final String PASSWORD_DB_NAME = "password";
     public static final String HIST_CLIENTE_CODE_DB_NAME = "cliente_codigo";
     
-    private int codigo;
+    private Long codigo;
     private String nombre;
-    private int dpi;
+    private String dpi;
     private String sexo;
     private String password;
     private String direccion;
     private Date fechaNacimiento;
     private InputStream pdfdpi;
-    private int cliente_codigo;
+    private Long cliente_codigo;
 
-    public Historial_Cliente(int codigo, String nombre, int dpi, String sexo, String password, String direccion, Date fechaNacimiento, InputStream pdfdpi, int cliente_codigo) {
+    public Historial_Cliente() {
+    }
+
+    public Historial_Cliente(Long codigo, String nombre, String dpi, String sexo, String password, String direccion, Date fechaNacimiento, InputStream pdfdpi, Long cliente_codigo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.dpi = dpi;
@@ -46,14 +49,12 @@ public class Historial_Cliente {
         this.pdfdpi = pdfdpi;
         this.cliente_codigo = cliente_codigo;
     }
- public Historial_Cliente(){
-     
- }
-    public int getCodigo() {
+
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -65,11 +66,11 @@ public class Historial_Cliente {
         this.nombre = nombre;
     }
 
-    public int getDpi() {
+    public String getDpi() {
         return dpi;
     }
 
-    public void setDpi(int dpi) {
+    public void setDpi(String dpi) {
         this.dpi = dpi;
     }
 
@@ -113,13 +114,13 @@ public class Historial_Cliente {
         this.pdfdpi = pdfdpi;
     }
 
-    public int getCliente_codigo() {
+    public Long getCliente_codigo() {
         return cliente_codigo;
     }
 
-    public void setCliente_codigo(int cliente_codigo) {
+    public void setCliente_codigo(Long cliente_codigo) {
         this.cliente_codigo = cliente_codigo;
     }
-    
-    
+
+   
 }

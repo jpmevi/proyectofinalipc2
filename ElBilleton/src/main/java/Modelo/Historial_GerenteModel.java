@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,8 +31,8 @@ public class Historial_GerenteModel {
      * @throws SQLException
      */
     public long agregarHistorialGerente(Gerente cajero) throws SQLException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
-
+        try {
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
         preSt.setString(1, cajero.getNombre());
         preSt.setString(2, cajero.getTurno());
         preSt.setString(3, cajero.getDPI());
@@ -45,6 +46,9 @@ public class Historial_GerenteModel {
         if (result.first()) {
             return result.getLong(1);
         }
+        } catch (SQLException e) {
+        }
+        
 
         return -1;
     }

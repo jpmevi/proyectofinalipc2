@@ -21,23 +21,23 @@
                 <div class="nav-links">
                     <ul>
                         <li class="nav-link" style="--i: .6s">
-                            <a href="MenuGerente.jsp">Home</a>
+                            <a href="${pageContext.request.contextPath}/Gerente/MenuGerente.jsp">Home</a>
                         </li>
                         <li class="nav-link" style="--i: .6s">
                             <a href="#">Crear<i class="fas fa-caret-down"></i></a>
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="">Registrar Cliente</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=0">Registrar Cliente</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="ModificarExamen.jsp">Registrar Cajero</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=1">Registrar Cajero</a>
                                     </li>
                                      <li class="dropdown-link">
                                         <a href="ModificarExamen.jsp">Registrar Gerente</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="ModificarExamen.jsp">Crear Cuenta</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=2">Crear Cuenta</a>
                                     </li>
                                 </ul>
                             </div>
@@ -118,7 +118,7 @@
                 </div>
 
                 <div class="log-sign" style="--i: 1.8s">
-                    <a href="../index.jsp" class="btn solid">Cerrar Sesion</a>
+                    <a href="${pageContext.request.contextPath}/Logout" class="btn solid">Cerrar Sesion</a>
                 </div>
             </div>
 
@@ -129,6 +129,13 @@
             </div>
         </div>
     </header>
+                                    <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
+            if (session.getAttribute("Gerente") == null && session.getAttribute("Cajero") == null&&session.getAttribute("Cliente") == null) {
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
+            }
+        %>
     </body>
 </html>
 

@@ -24,27 +24,10 @@ public class ConstructorArchivo {
 
     private String pathGeneral;
 
-    public File construirArchivo(String nombreParametro, HttpServletRequest request) {
-        try {
-            Part filePart = request.getPart(nombreParametro);
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            InputStream inputStream = filePart.getInputStream();
-            OutputStream outputStream = new FileOutputStream(fileName);
-            inputStream.transferTo(outputStream);
-            File file = Paths.get(filePart.getSubmittedFileName()).toFile();
-            setPathGeneral(file.getAbsolutePath().replace("/" + file.getName(), "/"));
-            return file;
-        } catch (IOException | ServletException e) {
-            System.out.println("Error al intentar construir el archivo");
-            return null;
-        }
-
-    }
-
+  
     public InputStream extraerArchivo(String nombreParametro, HttpServletRequest request) {
         try {
             Part filePart = request.getPart(nombreParametro);
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             return filePart.getInputStream();
         } catch (IOException | ServletException e) {
             System.out.println("Error al intentar construir el archivo");

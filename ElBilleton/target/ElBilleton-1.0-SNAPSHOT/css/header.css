@@ -135,11 +135,11 @@ header{
 }
 .btn.transparent, .btnpaciente:hover{
     background-color: transparent;
-    color: #fff;
+    color: #69bde7;
 }
 .btn.solid, .btn.transparent:hover{
     background-color: #fff;
-    color: #69bde7;
+    color: #403f4c;
 }
 
 .btn.transparent, .btn.solid:hover{
@@ -194,7 +194,7 @@ header{
 
 .dropdown-link > a{
     display: flex;
-    background-color: #fff;
+    background-color: #403f4c;
     color: #fff;
     padding: .5rem 1rem;
     font-size: .9rem;
@@ -204,8 +204,8 @@ header{
 }
 
 .dropdown-link:hover > a{
-    background-color: #3498db;
-    color: #fff;
+    background-color: #fff;
+    color: #403f4c;
 }
 
 .dropdown-link:not(:nth-last-child(2)){

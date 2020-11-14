@@ -32,7 +32,8 @@ public class CajeroModel {
      * @throws SQLException
      */
     public long agregarCajero(Cajero cajero) throws SQLException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
+        try{
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
 
         preSt.setString(1, cajero.getNombre());
         preSt.setString(2, cajero.getTurno());
@@ -40,20 +41,25 @@ public class CajeroModel {
         preSt.setString(4, cajero.getDireccion());
         preSt.setString(5, cajero.getSexo());
         preSt.setString(6, cajero.getPassword());
-        Historial_CajeroModel hist = new Historial_CajeroModel();
-        hist.agregarCajero(cajero);
+        
         preSt.executeUpdate();
 
+        
         ResultSet result = preSt.getGeneratedKeys();
         if (result.first()) {
             return result.getLong(1);
         }
+        }catch(SQLException e){
+            
+        }
+        
 
         return -1;
     }
 
     public long agregarCajeroCodigo(Cajero cajero) throws SQLException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
+        try{
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
         preSt.setLong(1, cajero.getCodigo());
         preSt.setString(2, cajero.getNombre());
         preSt.setString(3, cajero.getTurno());
@@ -62,11 +68,16 @@ public class CajeroModel {
         preSt.setString(6, cajero.getSexo());
         preSt.setString(7, cajero.getPassword());
         preSt.executeUpdate();
-
+        Historial_CajeroModel hist = new Historial_CajeroModel();
+        hist.agregarCajero(cajero);
         ResultSet result = preSt.getGeneratedKeys();
         if (result.first()) {
             return result.getLong(1);
         }
+        }catch(SQLException e){
+            
+        }
+        
 
         return -1;
     }
