@@ -9,9 +9,13 @@ import Conexion.Conexion;
 import Encriptar.Encriptar;
 import Objeto.Cliente;
 import Objeto.Cuenta;
+import Objeto.DuplicarPdf;
+import Objeto.Transaccion;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,9 +36,11 @@ public class ClienteModel {
     private final String EDITAR_CLIENTE = "UPDATE " + Cliente.CLIENTE_DB_NAME + " SET " + Cliente.NOMBRE_DB_NAME + "=?,"
             + Cliente.DPI_DB_NAME + "=?," + Cliente.FECHA_DB_NAME + "=?," + Cliente.DIRECCION_DB_NAME + "=?," + Cliente.SEXO_DB_NAME + "=?,"
             + Cliente.PDF_DB_NAME + "=?," + Cliente.PASSWORD_DB_NAME + "=? WHERE " + Cliente.CLIENTE_CODE_DB_NAME + " =?";
-    private final String DPI_CLIENTE = "SELECT " + Cliente.PDF_DB_NAME + " FROM " + Cliente.CLIENTE_DB_NAME + " WHERE " + Cliente.CLIENTE_CODE_DB_NAME+ "= ?";
-    
-    
+    private final String DPI_CLIENTE = "SELECT " + Cliente.PDF_DB_NAME + " FROM " + Cliente.CLIENTE_DB_NAME + " WHERE " + Cliente.CLIENTE_CODE_DB_NAME + "= ?";
+    private final String REPORTE_2 = "SELECT C.* FROM " + Cliente.CLIENTE_DB_NAME + " C INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON C.codigo=CU.cliente_codigo INNER JOIN " + Transaccion.TRANSACCION_DB_NAME + " T ON T.cuenta_codigo=CU.codigo WHERE T.monto>? GROUP BY C.codigo";
+    private final String REPORTE_3 = "SELECT C.*,SUM(T.monto) AS suma FROM " + Cliente.CLIENTE_DB_NAME + " C INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON C.codigo=CU.cliente_codigo INNER JOIN " + Transaccion.TRANSACCION_DB_NAME + " T ON T.cuenta_codigo=CU.codigo GROUP BY C.codigo HAVING suma>?";
+    private final String REPORTE_4 = "SELECT C.*,SUM(CU.monto) AS suma FROM " + Cliente.CLIENTE_DB_NAME + " C INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON C.codigo=CU.cliente_codigo GROUP BY C.codigo ORDER BY suma DESC LIMIT 10";
+    private final String REPORTE_5 = "SELECT * FROM " + Cliente.CLIENTE_DB_NAME + " WHERE nombre NOT IN(SELECT C.nombre FROM " + Cliente.CLIENTE_DB_NAME + " C INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON CU.cliente_codigo=C.codigo RIGHT JOIN " + Transaccion.TRANSACCION_DB_NAME + " T ON T.cuenta_codigo=CU.codigo WHERE T.fecha BETWEEN ? AND ? GROUP BY C.codigo)";
 
     /**
      * Agregamos una nuevo usuario. Al completar la insercion devuelve el ID
@@ -71,16 +77,21 @@ public class ClienteModel {
     public long agregarClienteCodigo(Cliente cajero) throws SQLException, UnsupportedEncodingException {
         try {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
+            DuplicarPdf crearPdf;
+            crearPdf = new DuplicarPdf(cajero.getPdfdpi());
+            InputStream pdf1 = new ByteArrayInputStream(crearPdf.obtenerArrayDatos());
+            InputStream pdf2 = new ByteArrayInputStream(crearPdf.obtenerArrayDatos());
             preSt.setLong(1, cajero.getCodigo());
             preSt.setString(2, cajero.getNombre());
             preSt.setString(3, cajero.getDpi());
             preSt.setDate(4, cajero.getFechaNacimiento());
             preSt.setString(5, cajero.getDireccion());
             preSt.setString(6, cajero.getSexo());
-            preSt.setBinaryStream(7, cajero.getPdfdpi());
+            preSt.setBinaryStream(7, pdf1);
             preSt.setString(8, Encriptar.encriptar(cajero.getPassword()));
             preSt.executeUpdate();
             Historial_ClienteModel hist = new Historial_ClienteModel();
+            cajero.setPdfdpi(pdf2);
             hist.agregarHistorialCliente(cajero);
             ResultSet result = preSt.getGeneratedKeys();
             if (result.first()) {
@@ -183,11 +194,12 @@ public class ClienteModel {
         }
         return listaclientes;
     }
-/**
- * 
- * @param codigo
- * @return 
- */
+
+    /**
+     *
+     * @param codigo
+     * @return
+     */
     public InputStream obtenerDPI(long codigo) {
         try {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(DPI_CLIENTE);
@@ -201,9 +213,137 @@ public class ClienteModel {
 
         } catch (SQLException e) {
             System.out.println("Error al obtener dpi de db " + e);
-                         JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
             return null;
         }
         return null;
     }
+
+    public ArrayList obtenerClientesReporte2(Double monto) throws SQLException, UnsupportedEncodingException {
+        try {
+
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(REPORTE_2);
+
+            preSt.setDouble(1, monto);
+            ResultSet result = preSt.executeQuery();
+            ArrayList listaclientes = new ArrayList();
+            Cliente cliente = null;
+
+            while (result.next()) {
+
+                cliente = new Cliente(
+                        result.getLong(cliente.CLIENTE_CODE_DB_NAME),
+                        result.getString(cliente.NOMBRE_DB_NAME),
+                        result.getString(cliente.DPI_DB_NAME),
+                        result.getString(cliente.SEXO_DB_NAME),
+                        result.getString(cliente.PASSWORD_DB_NAME),
+                        result.getString(cliente.DIRECCION_DB_NAME),
+                        result.getDate(cliente.FECHA_DB_NAME),
+                        result.getBinaryStream(cliente.PDF_DB_NAME)
+                );
+                cliente.setPassword(Encriptar.desencriptar(cliente.getPassword()));
+                listaclientes.add(cliente);
+            }
+            return listaclientes;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;
+
+    }
+
+    public ArrayList obtenerClientesReporte3(Double monto) throws SQLException, UnsupportedEncodingException {
+        try {
+
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(REPORTE_3);
+
+            preSt.setDouble(1, monto);
+            ResultSet result = preSt.executeQuery();
+            ArrayList listaclientes = new ArrayList();
+            Cliente cliente = null;
+
+            while (result.next()) {
+
+                cliente = new Cliente(
+                        result.getLong(cliente.CLIENTE_CODE_DB_NAME),
+                        result.getString(cliente.NOMBRE_DB_NAME),
+                        result.getString(cliente.DPI_DB_NAME),
+                        result.getString(cliente.SEXO_DB_NAME),
+                        result.getString(cliente.DIRECCION_DB_NAME),
+                        result.getDate(cliente.FECHA_DB_NAME),
+                        result.getDouble(cliente.SUMA_DB_NAME)
+                );
+                listaclientes.add(cliente);
+            }
+            return listaclientes;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;
+
+    }
+
+    public ArrayList obtenerClientesReporte4() throws SQLException, UnsupportedEncodingException {
+        try {
+
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(REPORTE_4);
+            ResultSet result = preSt.executeQuery();
+            ArrayList listaclientes = new ArrayList();
+            Cliente cliente = null;
+            while (result.next()) {
+
+                cliente = new Cliente(
+                        result.getLong(cliente.CLIENTE_CODE_DB_NAME),
+                        result.getString(cliente.NOMBRE_DB_NAME),
+                        result.getString(cliente.DPI_DB_NAME),
+                        result.getString(cliente.SEXO_DB_NAME),
+                        result.getString(cliente.DIRECCION_DB_NAME),
+                        result.getDate(cliente.FECHA_DB_NAME),
+                        result.getDouble(cliente.SUMA_DB_NAME)
+                );
+                listaclientes.add(cliente);
+            }
+            return listaclientes;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;
+
+    }
+
+    public ArrayList obtenerClientesReporte5(Date fecha1, Date fecha2) throws SQLException, UnsupportedEncodingException {
+        try {
+
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(REPORTE_5);
+            preSt.setDate(1, fecha1);
+            preSt.setDate(2, fecha2);
+            ResultSet result = preSt.executeQuery();
+            ArrayList listaclientes = new ArrayList();
+            Cliente cliente = null;
+            while (result.next()) {
+
+                cliente = new Cliente(
+                        result.getLong(cliente.CLIENTE_CODE_DB_NAME),
+                        result.getString(cliente.NOMBRE_DB_NAME),
+                        result.getString(cliente.DPI_DB_NAME),
+                        result.getString(cliente.SEXO_DB_NAME),
+                        result.getString(cliente.PASSWORD_DB_NAME),
+                        result.getString(cliente.DIRECCION_DB_NAME),
+                        result.getDate(cliente.FECHA_DB_NAME),
+                        result.getBinaryStream(cliente.PDF_DB_NAME)
+                );
+                listaclientes.add(cliente);
+            }
+            return listaclientes;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;
+
+    }
+
 }

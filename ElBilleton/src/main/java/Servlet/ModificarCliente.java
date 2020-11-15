@@ -11,6 +11,8 @@ import Modelo.Historial_ClienteModel;
 import Objeto.Cliente;
 import Objeto.ConstructorArchivo;
 import Objeto.Cuenta;
+import Objeto.DuplicarPdf;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -88,6 +90,8 @@ public class ModificarCliente extends HttpServlet {
             throws ServletException, IOException {
         try {
 
+            DuplicarPdf crearPdf;
+
             Long cliente = Long.valueOf(request.getParameter("codigo"));
 
             ClienteModel clienteModel = new ClienteModel();
@@ -108,14 +112,23 @@ public class ModificarCliente extends HttpServlet {
             Part archivos = request.getPart("file");
             if (!nombre.trim().equals("") && !direccion.trim().equals("")) {
                 if (archivos != null && archivos.getSize() > 0) {
+                    crearPdf = new DuplicarPdf(archivo);
+                    InputStream pdf1 = new ByteArrayInputStream(crearPdf.obtenerArrayDatos());
+                    InputStream pdf2 = new ByteArrayInputStream(crearPdf.obtenerArrayDatos());
                     archivo = generadorArchivo.extraerArchivo("file", request);
-                    Cliente c = new Cliente(cliente, nombre, DPI, sexo, password, direccion, fecha_nacimiento, archivo);
+                    Cliente c = new Cliente(cliente, nombre, DPI, sexo, password, direccion, fecha_nacimiento, pdf1);
                     Long codigo = clienteModel.modificarCliente(c);
+                    c.setPdfdpi(pdf2);
                     Historial_ClienteModel hist = new Historial_ClienteModel();
                     hist.agregarHistorialClienteSinCodigo(c, cliente);
                 } else {
-                    Cliente c = new Cliente(cliente, nombre, DPI, sexo, password, direccion, fecha_nacimiento, clienteModel.obtenerDPI(cliente));
+                    InputStream pdf = clienteModel.obtenerDPI(cliente);
+                    crearPdf = new DuplicarPdf(pdf);
+                    InputStream pdf1 = new ByteArrayInputStream(crearPdf.obtenerArrayDatos());
+                    InputStream pdf2 = new ByteArrayInputStream(crearPdf.obtenerArrayDatos());
+                    Cliente c = new Cliente(cliente, nombre, DPI, sexo, password, direccion, fecha_nacimiento,pdf1);
                     Long codigo = clienteModel.modificarCliente(c);
+                    c.setPdfdpi(pdf2);
                     Historial_ClienteModel hist = new Historial_ClienteModel();
                     hist.agregarHistorialClienteSinCodigo(c, cliente);
                 }

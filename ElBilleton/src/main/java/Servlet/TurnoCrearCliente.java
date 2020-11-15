@@ -84,6 +84,14 @@ public class TurnoCrearCliente extends HttpServlet {
                 request.getRequestDispatcher("ObtenerLImites").forward(request, response);
             }else if (request.getParameter("pagina").equals("8")) {
                 request.getRequestDispatcher("ObtenerHistorial").forward(request, response);
+            }else if (request.getParameter("pagina").equals("9")) {
+                request.getRequestDispatcher("ObtenerReporte2").forward(request, response);
+            }else if (request.getParameter("pagina").equals("10")) {
+                request.getRequestDispatcher("ObtenerReporte3").forward(request, response);
+            }else if (request.getParameter("pagina").equals("11")) {
+                request.getRequestDispatcher("ObtenerReporte4").forward(request, response);
+            }else if (request.getParameter("pagina").equals("12")) {
+                request.getRequestDispatcher("ClientesReporte6").forward(request, response);
             }
 
         } else {

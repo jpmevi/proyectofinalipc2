@@ -69,15 +69,19 @@ public class ObtenerHistorial extends HttpServlet {
                 entidad = "cliente";
             }
             if (entidad.equals("cliente")) {
+                request.setAttribute("si", 1);
                 Historial_ClienteModel cli = new Historial_ClienteModel();
                 request.getSession().setAttribute("Historial", cli.obtenerHistorialClientes(""));
                 request.getRequestDispatcher("/Gerente/HistorialDeCambiosEntidad.jsp").forward(request, response);
             } else if (entidad.equals("gerente")) {
+                request.setAttribute("si", 0);
                 Historial_GerenteModel cli = new Historial_GerenteModel();
                 request.getSession().setAttribute("Historial", cli.obtenerCajeros(""));
                 request.getRequestDispatcher("/Gerente/HistorialDeCambiosEntidad.jsp").forward(request, response);
             } else if (entidad.equals("cajero")) {
+                request.setAttribute("si", 0);
                 Historial_CajeroModel cli = new Historial_CajeroModel();
+                
                 request.getSession().setAttribute("Historial", cli.obtenerCajeros(""));
                 request.getRequestDispatcher("/Gerente/HistorialDeCambiosEntidad.jsp").forward(request, response);
             }
@@ -108,14 +112,17 @@ public class ObtenerHistorial extends HttpServlet {
                 entidad = "cliente";
             }
             if (entidad.equals("cliente")) {
+                 request.setAttribute("si", 1);
                 Historial_ClienteModel cli = new Historial_ClienteModel();
                 request.getSession().setAttribute("Historial", cli.obtenerHistorialClientes(filtro));
                 request.getRequestDispatcher("/Gerente/HistorialDeCambiosEntidad.jsp").forward(request, response);
             } else if (entidad.equals("gerente")) {
+                 request.setAttribute("si", 0);
                 Historial_GerenteModel cli = new Historial_GerenteModel();
                 request.getSession().setAttribute("Historial", cli.obtenerCajeros(filtro));
                 request.getRequestDispatcher("/Gerente/HistorialDeCambiosEntidad.jsp").forward(request, response);
             } else if (entidad.equals("cajero")) {
+                 request.setAttribute("si", 0);
                 Historial_CajeroModel cli = new Historial_CajeroModel();
                 request.getSession().setAttribute("Historial", cli.obtenerCajeros(filtro));
                 request.getRequestDispatcher("/Gerente/HistorialDeCambiosEntidad.jsp").forward(request, response);

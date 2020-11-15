@@ -11,6 +11,8 @@ import Modelo.Historial_ClienteModel;
 import Objeto.Cliente;
 import Objeto.ConstructorArchivo;
 import Objeto.Cuenta;
+import Objeto.DuplicarPdf;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -87,6 +89,7 @@ public class CrearCliente extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            DuplicarPdf crearPdf;
             ClienteModel clienteModel = new ClienteModel();
             ConstructorArchivo generadorArchivo = new ConstructorArchivo();
             String nombre = request.getParameter("nombre").trim();
@@ -99,21 +102,26 @@ public class CrearCliente extends HttpServlet {
             InputStream archivo = InputStream.nullInputStream();
             try {
                 archivo = generadorArchivo.extraerArchivo("file", request);
+
             } catch (Exception e) {
 
             }
+            crearPdf = new DuplicarPdf(archivo);
+            InputStream pdf1 = new ByteArrayInputStream(crearPdf.obtenerArrayDatos());
+            InputStream pdf2 = new ByteArrayInputStream(crearPdf.obtenerArrayDatos());
 
             if (!nombre.trim().equals("") && !direccion.trim().equals("")) {
-                Cliente c = new Cliente(Long.valueOf(0), nombre, DPI, sexo, password, direccion, fecha_nacimiento, archivo);
+                Cliente c = new Cliente(Long.valueOf(0), nombre, DPI, sexo, password, direccion, fecha_nacimiento, pdf1);
                 Long codigo = clienteModel.agregarCliente(c);
+                c.setPdfdpi(pdf2);
                 Historial_ClienteModel hist = new Historial_ClienteModel();
                 hist.agregarHistorialClienteSinCodigo(c, codigo);
                 Cuenta cuenta = new Cuenta(Long.valueOf(0), Date.valueOf(LocalDate.now()), monto, codigo);
                 CuentaModel cum = new CuentaModel();
                 Long codigocuenta = cum.agregarCuenta(cuenta);
                 response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Cliente creado con exito el codigo es: " + codigocuenta + " Y su cuenta es: " + codigocuenta);
-            }else{
-                 response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Ingreso un dato con espacio vacio, no se pudo crear el cliente");
+            } else {
+                response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Ingreso un dato con espacio vacio, no se pudo crear el cliente");
             }
         } catch (SQLException E) {
 

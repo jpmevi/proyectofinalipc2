@@ -6,6 +6,7 @@ Servlet/ComprobarHorario.class
 Servlet/GenerarCajero.class
 CargaArchivo/ClienteArchivo.class
 Objeto/Historial_Cajero.class
+Servlet/ObtenerReporte3.class
 Objeto/Cuenta.class
 CargaArchivo/DividirEtiquetas.class
 Servlet/CrearCliente.class
@@ -15,6 +16,7 @@ Modelo/GerenteModel.class
 Servlet/MostrarClientes.class
 Servlet/TurnoCrearCliente.class
 Modelo/ClienteModel.class
+Servlet/TransaccionesReporte2.class
 Servlet/ModificarCliente.class
 Servlet/CargarCliente.class
 Modelo/TransaccionModel.class
@@ -25,9 +27,11 @@ Servlet/ObtenerHistorial.class
 Servlet/CrearCajero.class
 Servlet/MostrarDpi.class
 Servlet/MostrarGerentes.class
+Servlet/ObtenerReporte4.class
 Objeto/Gerente.class
 Modelo/Historial_GerenteModel.class
 Servlet/Logout.class
+Servlet/ObtenerReporte2.class
 CargaArchivo/GerenteArchivo.class
 Encriptar/Encriptar.class
 Modelo/Historial_ClienteModel.class
@@ -37,6 +41,8 @@ CargaArchivo/CargarTransaccion.class
 Objeto/Limite.class
 CargaArchivo/CajeroArchivo.class
 Servlet/ModificarGerente.class
+Servlet/MostrarDpiHistorial.class
+Servlet/ObtenerReporte5.class
 Servlet/CrearGerente.class
 Servlet/CrearCuenta.class
 Servlet/TurnoCargarArchivo.class
@@ -45,5 +51,6 @@ Objeto/Cajero.class
 Objeto/HIstorial_Gerente.class
 Servlet/ObtenerLImites.class
 Servlet/ImportarDatos.class
+Objeto/DuplicarPdf.class
 Objeto/ConstructorArchivo.class
 Modelo/CajeroModel.class

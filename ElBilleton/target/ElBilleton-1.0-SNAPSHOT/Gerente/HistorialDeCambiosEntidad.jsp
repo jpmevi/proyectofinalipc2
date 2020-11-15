@@ -24,15 +24,15 @@
         <form action="ObtenerHistorial" method="post" >
             <div class="cajatabla">
                 <h2 >Buscar Historial:</h2>
-                
+
                 <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
-                        <select name="entidad">
-                            <option value="cliente">Buscar por:</option>
-                            <option value="cliente">Cliente</option>
-                            <option value="gerente">Gerente</option>
-                            <option value="cajero">Cajero</option>
-                        </select>
-                    </div>
+                    <select name="entidad">
+                        <option value="cliente">Buscar por:</option>
+                        <option value="cliente">Cliente</option>
+                        <option value="gerente">Gerente</option>
+                        <option value="cajero">Cajero</option>
+                    </select>
+                </div>
                 <button class="draw" type="submit" name="gen">Buscar</button>
                 <table class="darkTable">
                     <tr>
@@ -51,8 +51,14 @@
                             <td class="text-center">${cliente.getDireccion()}</td>
                             <td class="text-center">${cliente.getSexo()}</td>
                             <td class="text-center">${cliente.getEntidad_codigo()}</td>
+                            <c:if test="${si == 1}">
+                                <td>
+                                    <a class="btn solid" href="${pageContext.request.contextPath}/MostrarDpiHistorial?codigo=${cliente.getCodigo()}" target="_blank">Ver DPI</a>
+                                </td>
+                            </c:if>
                         </tr>
                     </c:forEach>
+                    
                 </table>
             </div>
         </form>

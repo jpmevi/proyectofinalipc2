@@ -4,12 +4,14 @@
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/ImportarDatos.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/Historial_Cliente.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/CrearCuenta.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/ObtenerReporte2.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/CargaArchivo/ClienteArchivo.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Conexion/Conexion.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Modelo/LimiteModel.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Modelo/Historial_GerenteModel.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Modelo/CuentaModel.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/FiltroCliente.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/ObtenerReporte5.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/Gerente.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/Cajero.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/CargaArchivo/DividirEtiquetas.java
@@ -17,6 +19,7 @@
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/CrearGerente.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/Cliente.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/ModificarLImite.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/ObtenerReporte3.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/ModificarCajero.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/ObtenerHistorial.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/ObtenerLImites.java
@@ -41,9 +44,13 @@
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/ConstructorArchivo.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/GenerarCajero.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/ComprobarHorario.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/MostrarDpiHistorial.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/TurnoCargarArchivo.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Modelo/GerenteModel.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/TransaccionesReporte2.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Modelo/Historial_CajeroModel.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/Logout.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Objeto/DuplicarPdf.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/CargaArchivo/CargarTransaccion.java
 /home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/GenerarCliente.java
+/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/java/Servlet/ObtenerReporte4.java

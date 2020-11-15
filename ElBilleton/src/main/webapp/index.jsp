@@ -12,7 +12,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-
         <img class="wave" src="img/waveazul.png">
         <div class="container">
             <div class="img">
@@ -45,7 +44,6 @@
                             <h5>Password</h5>
                             <input type="password" class="input" required="" name="password">
                         </div>
-
                     </div>
                     <div class="custom-select" style="width:200px;">
                         <select name="atributo">

@@ -31,6 +31,9 @@ public class GerenteModel {
     private final String EDITAR_GERENTE = "UPDATE " + Gerente.GERENTE_DB_NAME + " SET " + Gerente.NOMBRE_DB_NAME + "=?,"
             + Gerente.TURNO_DB_NAME + "=?," + Gerente.DPI_DB_NAME + "=?," + Gerente.DIRECCION_DB_NAME + "=?," + Gerente.SEXO_DB_NAME + "=?,"
             + Gerente.PASSWORD_DB_NAME + "=? WHERE " + Gerente.CODIGO_DB_NAME + " =?";
+    
+    
+
     /**
      * Agregamos una nuevo usuario. Al completar la insercion devuelve el ID
      * autogenerado del usuario. De no existir nos devolvera <code>-1</code>.
@@ -199,7 +202,7 @@ public class GerenteModel {
         boolean si = true;
         String turno = gerente.getTurno();
         LocalTime hora = LocalTime.now();
-        LocalTime horamatutina1 = LocalTime.of(6, 0);
+        LocalTime horamatutina1 = LocalTime.of(0, 0);
         LocalTime horamatutina2 = LocalTime.of(23, 30);
         LocalTime vespertino1 = LocalTime.of(13, 0);
         LocalTime vespertino2 = LocalTime.of(22, 0);

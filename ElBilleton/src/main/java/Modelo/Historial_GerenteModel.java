@@ -101,7 +101,7 @@ public class Historial_GerenteModel {
                     result.getLong(gerente.GERENTE_CODIGO_DB_NAME)
                     
             );
-            gerente.setPassword(Encriptar.desencriptar(gerente.getPassword()));
+
             listaGerentes.add(gerente);
         }
         return listaGerentes;

@@ -105,7 +105,6 @@ public class Historial_CajeroModel {
                     result.getLong(gerente.CAJERO_CODIGO_DB_NAME)
                     
             );
-            gerente.setPassword(Encriptar.desencriptar(gerente.getPassword()));
             listaGerentes.add(gerente);
         }
         return listaGerentes;

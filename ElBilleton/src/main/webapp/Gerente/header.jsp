@@ -91,19 +91,19 @@
                                         <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=8">Historial de entidad</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="IngresosMedico.jsp">Medicos mas Ingresos</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=9">Ver clientes con transacciones mayores</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="MedicosMenosCitas.jsp">Medicos menos Citas</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=10">Ver clientes con transacciones sumadas</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="ExamenesMasDemandados.jsp">Examenes mas demandados</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=11">10 clientes con mas dinero en cuentas</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="MedicosMasExamenes.jsp">Medicos con mas examenes</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=12">Clientes que no han realizado transacciones</a>
                                     </li>
                                      <li class="dropdown-link">
-                                         <a href="IngresosPaciente.jsp">Ingresos de un paciente</a>
+                                         <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=13">Historial de transacciones por cliente</a>
                                     </li>
                                 </ul>
                             </div>
