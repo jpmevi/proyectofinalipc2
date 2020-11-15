@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tabla.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/searchbar.css?3.0">
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
-        <title>Ver transacciones reporte 2</title>
+        <title>Ver transacciones</title>
     </head>
     <body style="background: url('${pageContext.request.contextPath}/img/fondo.png') center ; background-attachment: fixed;">
         <%@include file="header.jsp" %>

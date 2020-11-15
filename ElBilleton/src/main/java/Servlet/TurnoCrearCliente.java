@@ -91,7 +91,11 @@ public class TurnoCrearCliente extends HttpServlet {
             }else if (request.getParameter("pagina").equals("11")) {
                 request.getRequestDispatcher("ObtenerReporte4").forward(request, response);
             }else if (request.getParameter("pagina").equals("12")) {
+                request.getRequestDispatcher("/Gerente/IngresarIntervalo.jsp").forward(request, response);
+            }else if (request.getParameter("pagina").equals("13")) {
                 request.getRequestDispatcher("ClientesReporte6").forward(request, response);
+            }else if (request.getParameter("pagina").equals("14")) {
+                request.getRequestDispatcher("/Gerente/IntervaloReporte7.jsp").forward(request, response);
             }
 
         } else {

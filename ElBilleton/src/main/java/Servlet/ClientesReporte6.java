@@ -5,13 +5,19 @@
  */
 package Servlet;
 
+import Modelo.ClienteModel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -58,7 +64,24 @@ public class ClientesReporte6 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ClienteModel cliente = new ClienteModel();
+        String nombre = request.getParameter("nombre");
+        String monto = request.getParameter("monto");
+        if(nombre==null){
+            nombre="";
+        }
+        if(monto==null){
+            monto="0";
+        }
+        Double monto2= Double.parseDouble(monto);
+        try {
+           request.getSession().setAttribute("Cliente", cliente.obtenerClientesReporte6(monto2, nombre)); 
+           request.getRequestDispatcher("/Gerente/VerClientesReporte6.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            
+        } catch (UnsupportedEncodingException ex) {
+            
+        }
     }
 
     /**
@@ -72,7 +95,27 @@ public class ClientesReporte6 extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ClienteModel cliente = new ClienteModel();
+        String nombre = request.getParameter("nombre");
+        String monto = request.getParameter("monto");
+
+        if(nombre==null){
+            nombre="";
+        }
+        if(monto==null){
+            monto="0";
+        }else if(monto==""){
+            monto="0";
+        }
+        Double monto2= Double.parseDouble(monto);
+        try {
+           request.getSession().setAttribute("Cliente", cliente.obtenerClientesReporte6(monto2, nombre)); 
+           request.getRequestDispatcher("/Gerente/VerClientesReporte6.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            
+        } catch (UnsupportedEncodingException ex) {
+            
+        }
     }
 
     /**

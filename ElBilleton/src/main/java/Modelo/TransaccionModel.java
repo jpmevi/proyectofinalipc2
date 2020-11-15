@@ -25,6 +25,7 @@ public class TransaccionModel {
     private final String CREAR_TRANSACCION_SIN_CODIGO = "INSERT INTO " + Transaccion.TRANSACCION_DB_NAME + " (" + Transaccion.FECHA_DB_NAME + "," + Transaccion.HORA_DB_NAME + "," + Transaccion.TIPO_DB_NAME + "," + Transaccion.MONTO_DB_NAME + "," + Transaccion.CUENTA_CODIGO_DB_NAME + "," + Transaccion.CAJERO_CODIGO_DB_NAME + ") VALUES (?,?,?,?,?,?)";
     private final String CREAR_TRANSACCION_CON_CODIGO = "INSERT INTO " + Transaccion.TRANSACCION_DB_NAME + " (" + Transaccion.CODIGO_DB_NAME + "," + Transaccion.FECHA_DB_NAME + "," + Transaccion.HORA_DB_NAME + "," + Transaccion.TIPO_DB_NAME + "," + Transaccion.MONTO_DB_NAME + "," + Transaccion.CAJERO_CODIGO_DB_NAME + "," + Transaccion.CUENTA_CODIGO_DB_NAME + ") VALUES (?,?,?,?,?,?,?)";
     private final String REPORTE_2 = "SELECT T.*,C.codigo FROM " + Transaccion.TRANSACCION_DB_NAME + " T INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON T.cuenta_codigo=CU.codigo INNER JOIN " + Cliente.CLIENTE_DB_NAME+" C ON C.codigo=CU.cliente_codigo WHERE C.codigo=? && T.monto>?";
+    private final String REPORTE_6 = "SELECT T.*,C.codigo FROM " + Transaccion.TRANSACCION_DB_NAME + " T INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON T.cuenta_codigo=CU.codigo INNER JOIN " + Cliente.CLIENTE_DB_NAME+" C ON C.codigo=CU.cliente_codigo WHERE C.codigo=?";
 
     /**
      * Agregamos una nueva transaccion desde la carga de archivos, al completar
@@ -96,6 +97,28 @@ public class TransaccionModel {
         PreparedStatement preSt = Conexion.getConnection().prepareStatement(REPORTE_2 );
          preSt.setString(1, cliente);
          preSt.setDouble(2, monto);
+        ResultSet result = preSt.executeQuery();
+        ArrayList listaclientes = new ArrayList();
+        Transaccion trans = null;
+
+        while (result.next()) {
+            trans= new Transaccion(
+                    result.getLong(trans.CODIGO_DB_NAME),
+                    result.getDate(trans.FECHA_DB_NAME),
+                    result.getTime(trans.HORA_DB_NAME),
+                    result.getString(trans.TIPO_DB_NAME),
+                    result.getDouble(trans.MONTO_DB_NAME),
+                    result.getLong(trans.CAJERO_CODIGO_DB_NAME),
+                    result.getLong(trans.CUENTA_CODIGO_DB_NAME)                   
+            );
+            listaclientes.add(trans);
+        }
+        return listaclientes;
+    }
+    
+    public ArrayList obtenerTransacciones(String cliente) throws SQLException, UnsupportedEncodingException {
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(REPORTE_6 );
+         preSt.setString(1, cliente);
         ResultSet result = preSt.executeQuery();
         ArrayList listaclientes = new ArrayList();
         Transaccion trans = null;

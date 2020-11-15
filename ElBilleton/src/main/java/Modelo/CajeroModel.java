@@ -9,7 +9,9 @@ import Conexion.Conexion;
 import Encriptar.Encriptar;
 import Objeto.Cajero;
 import Objeto.Gerente;
+import Objeto.Transaccion;
 import java.io.UnsupportedEncodingException;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,10 +27,13 @@ public class CajeroModel {
 
     public static final String BUSCAR_USUARIO = "Select * FROM " + Cajero.CAJERO_DB_NAME;
     private final String CREAR_USUARIO = "INSERT INTO " + Cajero.CAJERO_DB_NAME + " (" + Cajero.NOMBRE_DB_NAME + "," + Cajero.TURNO_DB_NAME + "," + Cajero.DPI_DB_NAME + "," + Cajero.DIRECCION_DB_NAME + "," + Cajero.SEXO_DB_NAME + "," + Cajero.PASSWORD_DB_NAME + ") VALUES (?,?,?,?,?,?)";
-    private final String CREAR_USUARIO_CODIGO = "INSERT INTO " + Cajero.CAJERO_DB_NAME + " (" + Cajero.CODIGO_DB_NAME+ "," + Cajero.NOMBRE_DB_NAME + "," + Cajero.TURNO_DB_NAME + "," + Cajero.DPI_DB_NAME + "," + Cajero.DIRECCION_DB_NAME + "," + Cajero.SEXO_DB_NAME + "," + Cajero.PASSWORD_DB_NAME + ") VALUES (?,?,?,?,?,?,?)";
-private final String EDITAR_CAJERO = "UPDATE " + Cajero.CAJERO_DB_NAME + " SET " + Cajero.NOMBRE_DB_NAME + "=?,"
-            +Cajero.TURNO_DB_NAME + "=?," + Cajero.DPI_DB_NAME + "=?," + Cajero.DIRECCION_DB_NAME + "=?," + Cajero.SEXO_DB_NAME + "=?,"
+    private final String CREAR_USUARIO_CODIGO = "INSERT INTO " + Cajero.CAJERO_DB_NAME + " (" + Cajero.CODIGO_DB_NAME + "," + Cajero.NOMBRE_DB_NAME + "," + Cajero.TURNO_DB_NAME + "," + Cajero.DPI_DB_NAME + "," + Cajero.DIRECCION_DB_NAME + "," + Cajero.SEXO_DB_NAME + "," + Cajero.PASSWORD_DB_NAME + ") VALUES (?,?,?,?,?,?,?)";
+    private final String EDITAR_CAJERO = "UPDATE " + Cajero.CAJERO_DB_NAME + " SET " + Cajero.NOMBRE_DB_NAME + "=?,"
+            + Cajero.TURNO_DB_NAME + "=?," + Cajero.DPI_DB_NAME + "=?," + Cajero.DIRECCION_DB_NAME + "=?," + Cajero.SEXO_DB_NAME + "=?,"
             + Cajero.PASSWORD_DB_NAME + "=? WHERE " + Cajero.CODIGO_DB_NAME + " =?";
+
+    private final String REPORTE_7 = "SELECT COUNT(*) AS transacciones,C.* FROM " + Cajero.CAJERO_DB_NAME + " C INNER JOIN " + Transaccion.TRANSACCION_DB_NAME + " T ON C.codigo=T.cajero_codigo WHERE T.fecha BETWEEN ? AND ? GROUP BY C.codigo ORDER BY transacciones DESC LIMIT 1";
+
     /**
      * Agregamos una nuevo usuario. Al completar la insercion devuelve el ID
      * autogenerado del usuario. De no existir nos devolvera <code>-1</code>.
@@ -38,52 +43,49 @@ private final String EDITAR_CAJERO = "UPDATE " + Cajero.CAJERO_DB_NAME + " SET "
      * @throws SQLException
      */
     public long agregarCajero(Cajero cajero) throws SQLException, UnsupportedEncodingException {
-        try{
+        try {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
 
-        preSt.setString(1, cajero.getNombre());
-        preSt.setString(2, cajero.getTurno());
-        preSt.setString(3, cajero.getDPI());
-        preSt.setString(4, cajero.getDireccion());
-        preSt.setString(5, cajero.getSexo());
-        preSt.setString(6,Encriptar.encriptar( cajero.getPassword()));
-        
-        preSt.executeUpdate();
+            preSt.setString(1, cajero.getNombre());
+            preSt.setString(2, cajero.getTurno());
+            preSt.setString(3, cajero.getDPI());
+            preSt.setString(4, cajero.getDireccion());
+            preSt.setString(5, cajero.getSexo());
+            preSt.setString(6, Encriptar.encriptar(cajero.getPassword()));
 
-        
-        ResultSet result = preSt.getGeneratedKeys();
-        if (result.first()) {
-            return result.getLong(1);
+            preSt.executeUpdate();
+
+            ResultSet result = preSt.getGeneratedKeys();
+            if (result.first()) {
+                return result.getLong(1);
+            }
+        } catch (SQLException e) {
+
         }
-        }catch(SQLException e){
-            
-        }
-        
 
         return -1;
     }
 
     public long agregarCajeroCodigo(Cajero cajero) throws SQLException, UnsupportedEncodingException {
-        try{
+        try {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
-        preSt.setLong(1, cajero.getCodigo());
-        preSt.setString(2, cajero.getNombre());
-        preSt.setString(3, cajero.getTurno());
-        preSt.setString(4, cajero.getDPI());
-        preSt.setString(5, cajero.getDireccion());
-        preSt.setString(6, cajero.getSexo());
-        preSt.setString(7,Encriptar.encriptar( cajero.getPassword()));
-        preSt.executeUpdate();
-        Historial_CajeroModel hist = new Historial_CajeroModel();
-        hist.agregarCajero(cajero);
-        ResultSet result = preSt.getGeneratedKeys();
-        if (result.first()) {
-            return result.getLong(1);
+            preSt.setLong(1, cajero.getCodigo());
+            preSt.setString(2, cajero.getNombre());
+            preSt.setString(3, cajero.getTurno());
+            preSt.setString(4, cajero.getDPI());
+            preSt.setString(5, cajero.getDireccion());
+            preSt.setString(6, cajero.getSexo());
+            preSt.setString(7, Encriptar.encriptar(cajero.getPassword()));
+            preSt.executeUpdate();
+            Historial_CajeroModel hist = new Historial_CajeroModel();
+            hist.agregarCajero(cajero);
+            ResultSet result = preSt.getGeneratedKeys();
+            if (result.first()) {
+                return result.getLong(1);
+            }
+        } catch (SQLException e) {
+
         }
-        }catch(SQLException e){
-            
-        }
-        
 
         return -1;
     }
@@ -114,7 +116,7 @@ private final String EDITAR_CAJERO = "UPDATE " + Cajero.CAJERO_DB_NAME + " SET "
      * @throws SQLException
      */
     public Cajero obtenerCliente(Long idUsuario) throws SQLException, UnsupportedEncodingException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO+" WHERE codigo='"+idUsuario+"'");
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO + " WHERE codigo='" + idUsuario + "'");
         ResultSet result = preSt.executeQuery();
 
         Cajero cajero = null;
@@ -130,42 +132,38 @@ private final String EDITAR_CAJERO = "UPDATE " + Cajero.CAJERO_DB_NAME + " SET "
                     result.getString(cajero.PASSWORD_DB_NAME)
             );
         }
-         cajero.setPassword(Encriptar.desencriptar(cajero.getPassword()));
+        cajero.setPassword(Encriptar.desencriptar(cajero.getPassword()));
         return cajero;
     }
-    
-    
-     public long modificarCajero(Cajero cajero) throws SQLException, UnsupportedEncodingException {
-        try{
-             PreparedStatement preSt = Conexion.getConnection().prepareStatement(EDITAR_CAJERO, Statement.RETURN_GENERATED_KEYS);
-        
-        
-        preSt.setString(1, cajero.getNombre());
-        preSt.setString(2, cajero.getTurno());
-        preSt.setString(3, cajero.getDPI());
-        preSt.setString(4, cajero.getDireccion());
-        preSt.setString(5, cajero.getSexo());
-        preSt.setString(6,Encriptar.encriptar( cajero.getPassword()));
-        preSt.setLong(7, cajero.getCodigo());
-        
-       
-        
-        preSt.executeUpdate();
 
-        }catch(SQLException e){
+    public long modificarCajero(Cajero cajero) throws SQLException, UnsupportedEncodingException {
+        try {
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(EDITAR_CAJERO, Statement.RETURN_GENERATED_KEYS);
+
+            preSt.setString(1, cajero.getNombre());
+            preSt.setString(2, cajero.getTurno());
+            preSt.setString(3, cajero.getDPI());
+            preSt.setString(4, cajero.getDireccion());
+            preSt.setString(5, cajero.getSexo());
+            preSt.setString(6, Encriptar.encriptar(cajero.getPassword()));
+            preSt.setLong(7, cajero.getCodigo());
+
+            preSt.executeUpdate();
+
+        } catch (SQLException e) {
             //JOptionPane.showMessageDialog(null, e);
         }
-       
+
         return -1;
     }
-    
+
     public ArrayList obtenerCajeros(String idUsuario) throws SQLException, UnsupportedEncodingException {
-       
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO+" WHERE codigo LIKE '%" + idUsuario + "%'");
+
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO + " WHERE codigo LIKE '%" + idUsuario + "%'");
         ResultSet result = preSt.executeQuery();
         ArrayList listaGerentes = new ArrayList();
-       Cajero gerente = null;
-        
+        Cajero gerente = null;
+
         while (result.next()) {
             gerente = new Cajero(
                     result.getLong(gerente.CODIGO_DB_NAME),
@@ -175,13 +173,36 @@ private final String EDITAR_CAJERO = "UPDATE " + Cajero.CAJERO_DB_NAME + " SET "
                     result.getString(gerente.DIRECCION_DB_NAME),
                     result.getString(gerente.SEXO_DB_NAME),
                     result.getString(gerente.PASSWORD_DB_NAME)
-                    
             );
             gerente.setPassword(Encriptar.desencriptar(gerente.getPassword()));
             listaGerentes.add(gerente);
         }
         return listaGerentes;
 
+    }
+
+    public ArrayList obtenerCajerosReporte7(Date fecha1, Date fecha2) throws SQLException, UnsupportedEncodingException {
+
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(REPORTE_7);
+        preSt.setDate(1, fecha1);
+        preSt.setDate(2, fecha2);
+        ResultSet result = preSt.executeQuery();
+        ArrayList listaGerentes = new ArrayList();
+        Cajero gerente = null;
+
+        while (result.next()) {
+            gerente = new Cajero(
+                    result.getLong(gerente.CODIGO_DB_NAME),
+                    result.getString(gerente.NOMBRE_DB_NAME),
+                    result.getString(gerente.TURNO_DB_NAME),
+                    result.getString(gerente.DPI_DB_NAME),
+                    result.getString(gerente.DIRECCION_DB_NAME),
+                    result.getString(gerente.SEXO_DB_NAME),
+                    result.getString("transacciones")
+            );
+            listaGerentes.add(gerente);
+        }
+        return listaGerentes;
 
     }
 }

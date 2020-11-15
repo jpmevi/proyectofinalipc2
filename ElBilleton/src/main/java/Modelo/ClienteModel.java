@@ -41,6 +41,7 @@ public class ClienteModel {
     private final String REPORTE_3 = "SELECT C.*,SUM(T.monto) AS suma FROM " + Cliente.CLIENTE_DB_NAME + " C INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON C.codigo=CU.cliente_codigo INNER JOIN " + Transaccion.TRANSACCION_DB_NAME + " T ON T.cuenta_codigo=CU.codigo GROUP BY C.codigo HAVING suma>?";
     private final String REPORTE_4 = "SELECT C.*,SUM(CU.monto) AS suma FROM " + Cliente.CLIENTE_DB_NAME + " C INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON C.codigo=CU.cliente_codigo GROUP BY C.codigo ORDER BY suma DESC LIMIT 10";
     private final String REPORTE_5 = "SELECT * FROM " + Cliente.CLIENTE_DB_NAME + " WHERE nombre NOT IN(SELECT C.nombre FROM " + Cliente.CLIENTE_DB_NAME + " C INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON CU.cliente_codigo=C.codigo RIGHT JOIN " + Transaccion.TRANSACCION_DB_NAME + " T ON T.cuenta_codigo=CU.codigo WHERE T.fecha BETWEEN ? AND ? GROUP BY C.codigo)";
+    private final String CLIENTE_REPORTE_6 = "SELECT C.* FROM " + Cliente.CLIENTE_DB_NAME + " C INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON CU.cliente_codigo=C.codigo WHERE CU.monto>? && C.nombre LIKE ? GROUP BY C.codigo ORDER BY C.nombre DESC";
 
     /**
      * Agregamos una nuevo usuario. Al completar la insercion devuelve el ID
@@ -320,6 +321,38 @@ public class ClienteModel {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(REPORTE_5);
             preSt.setDate(1, fecha1);
             preSt.setDate(2, fecha2);
+            ResultSet result = preSt.executeQuery();
+            ArrayList listaclientes = new ArrayList();
+            Cliente cliente = null;
+            while (result.next()) {
+
+                cliente = new Cliente(
+                        result.getLong(cliente.CLIENTE_CODE_DB_NAME),
+                        result.getString(cliente.NOMBRE_DB_NAME),
+                        result.getString(cliente.DPI_DB_NAME),
+                        result.getString(cliente.SEXO_DB_NAME),
+                        result.getString(cliente.PASSWORD_DB_NAME),
+                        result.getString(cliente.DIRECCION_DB_NAME),
+                        result.getDate(cliente.FECHA_DB_NAME),
+                        result.getBinaryStream(cliente.PDF_DB_NAME)
+                );
+                listaclientes.add(cliente);
+            }
+            return listaclientes;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;
+
+    }
+    
+    public ArrayList obtenerClientesReporte6(Double monto,String nombre) throws SQLException, UnsupportedEncodingException {
+        try {
+
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(CLIENTE_REPORTE_6);
+            preSt.setDouble(1, monto);
+            preSt.setString(2,"%"+ nombre+"%");
             ResultSet result = preSt.executeQuery();
             ArrayList listaclientes = new ArrayList();
             Cliente cliente = null;

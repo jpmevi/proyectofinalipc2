@@ -3,6 +3,7 @@ Objeto/Historial_Cliente.class
 Objeto/Transaccion.class
 Servlet/Ingresar.class
 Servlet/ComprobarHorario.class
+Servlet/ClientesReporte6.class
 Servlet/GenerarCajero.class
 CargaArchivo/ClienteArchivo.class
 Objeto/Historial_Cajero.class
@@ -54,3 +55,4 @@ Servlet/ImportarDatos.class
 Objeto/DuplicarPdf.class
 Objeto/ConstructorArchivo.class
 Modelo/CajeroModel.class
+Servlet/Reporte7.class

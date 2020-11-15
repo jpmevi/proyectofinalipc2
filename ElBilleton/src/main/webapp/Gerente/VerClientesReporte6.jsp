@@ -21,22 +21,17 @@
     </head>
     <body style="background: url('${pageContext.request.contextPath}/img/fondo.png') center ; background-attachment: fixed;">
         <%@include file="header.jsp" %>
-        <form action="FiltroCliente" method="post" >
+        <form action="ClientesReporte6" method="post" >
             <div class="cajatabla">
                 <h2 >Buscar Cliente:</h2>
-                <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
-                    <select name="entidad">
-                        <option value="nombre">Buscar por:</option>
-                        <option value="nombre">Nombre</option>
-                        <option value="limite">Limite</option>
-                    </select>
+                
+                 <div class="inputAnimate">
+                    <input type="text" placeholder="Filtrar por nombre" name="nombre" >
                 </div>
-                <section class="webdesigntuts-workshop" >
-                    <div>
-                        <input type="search" placeholder="Filtrar por?" name="filtro">		    	
-                        <button>Filtrar</button>
-                    </div>
-                </section>
+                <div class="inputAnimate">
+                    <input type="number" placeholder="Filtrar por monto" name="monto" min="1" step=".01">
+                </div>
+                <button class="draw" type="submit" name="gen">Filtrar</button>
                 <table class="darkTable">
                     <tr>
                         <th class="text-center">Codigo</th>
@@ -46,7 +41,7 @@
                         <th class="text-center">Sexo</th>
                         <th class="text-center">Fecha de nacimiento</th>
                     </tr>
-                    <c:forEach items="${Clientes}" var="cliente">
+                    <c:forEach items="${Cliente}" var="cliente">
                         <tr>
                             <td class="text-center">${cliente.getCodigo()}</td>
                             <td class="text-center">${cliente.getNombre()}</td>
@@ -55,7 +50,7 @@
                             <td class="text-center">${cliente.getSexo()}</td>
                             <td class="text-center">${cliente.getFechaNacimiento()}</td>
                             <td>
-                                <a class="btn solid" href="${pageContext.request.contextPath}/GenerarCliente?codigo=${cliente.getCodigo()}">Editar Cliente</a>
+                                <a class="btn solid" href="${pageContext.request.contextPath}/TransaccionesReporte2?codigo=${cliente.getCodigo()}&&monto=0.0">Ver transacciones</a>
                             </td>
                         </tr>
                     </c:forEach>

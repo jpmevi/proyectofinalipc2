@@ -105,6 +105,9 @@
                                      <li class="dropdown-link">
                                          <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=13">Historial de transacciones por cliente</a>
                                     </li>
+                                    <li class="dropdown-link">
+                                         <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=14">Cajero con mas transacciones</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
