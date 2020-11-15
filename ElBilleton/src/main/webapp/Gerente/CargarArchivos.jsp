@@ -10,13 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css?3.0">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/textstyle.css?2.0">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/textstyle.css?3.1">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/select.css?2.0">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/button.css?3.0">
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
         <title>Crear Medico</title>
     </head>
-    <body style="background: url('${pageContext.request.contextPath}/img/1303.jpg') no-repeat top center / cover;">
+    <body style="background: url('${pageContext.request.contextPath}/img/fondo.png') center ; background-attachment: fixed;">
         <%@include file="header.jsp" %>
         <form action="ImportarDatos" method="post" enctype="multipart/form-data">
             <div class="caja">

@@ -10,14 +10,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css?3.0">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/textstyle.css?3.0">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/textstyle.css?3.1">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/select.css?3.0">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/button.css?3.0">
          <link rel="stylesheet" href="${pageContext.request.contextPath}/css/searchbar.css">
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
         <title>Crear Cajero</title>
     </head>
-    <body style="background: url('${pageContext.request.contextPath}/img/40.svg') no-repeat top center / cover;">
+    <body style="background: url('${pageContext.request.contextPath}/img/bgformulario.png') left ; background-attachment: fixed;">
         <%@include file="header.jsp" %>
         <form action="CrearCajero" method="post" >
             <div class="caja">
@@ -26,7 +26,7 @@
                     <input type="text" placeholder="Nombre" name="nombre" required>
                 </div>
                 <div class="inputAnimate">
-                    <input type="text" placeholder="Dpi" name="dpi" required>
+                    <input type="number" min="0" placeholder="Dpi" name="dpi" required>
                 </div>
                 <div class="inputAnimate">
                     <input type="text" placeholder="Direccion" name="direccion" required>

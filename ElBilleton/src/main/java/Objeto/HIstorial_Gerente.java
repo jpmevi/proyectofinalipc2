@@ -29,14 +29,14 @@ public class HIstorial_Gerente {
     private String direccion;
     private String sexo;
     private String password;
-     private Long gerente_codigo;
+     private Long entidad_codigo;
 
     
 public HIstorial_Gerente(){
     
 }
 
-    public HIstorial_Gerente(Long codigo, String nombre, String turno, String DPI, String direccion, String sexo, String password, Long gerente_codigo) {
+    public HIstorial_Gerente(Long codigo, String nombre, String turno, String DPI, String direccion, String sexo, String password, Long entidad_codigo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.turno = turno;
@@ -44,7 +44,7 @@ public HIstorial_Gerente(){
         this.direccion = direccion;
         this.sexo = sexo;
         this.password = password;
-        this.gerente_codigo = gerente_codigo;
+        this.entidad_codigo = entidad_codigo;
     }
 
     public Long getCodigo() {
@@ -103,14 +103,14 @@ public HIstorial_Gerente(){
         this.password = password;
     }
 
-    public Long getGerente_codigo() {
-        return gerente_codigo;
+    public Long getEntidad_codigo() {
+        return entidad_codigo;
     }
 
-    public void setGerente_codigo(Long gerente_codigo) {
-        this.gerente_codigo = gerente_codigo;
+    public void setEntidad_codigo(Long entidad_codigo) {
+        this.entidad_codigo = entidad_codigo;
     }
+
     
-     
      
 }

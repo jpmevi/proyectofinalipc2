@@ -27,27 +27,27 @@ public class Historial_Cliente {
     
     private Long codigo;
     private String nombre;
-    private String dpi;
+    private String DPI;
     private String sexo;
     private String password;
     private String direccion;
     private Date fechaNacimiento;
     private InputStream pdfdpi;
-    private Long cliente_codigo;
+    private Long entidad_codigo;
 
     public Historial_Cliente() {
     }
 
-    public Historial_Cliente(Long codigo, String nombre, String dpi, String sexo, String password, String direccion, Date fechaNacimiento, InputStream pdfdpi, Long cliente_codigo) {
+    public Historial_Cliente(Long codigo, String nombre, String DPI, String sexo, String password, String direccion, Date fechaNacimiento, InputStream pdfdpi, Long entidad_codigo) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.dpi = dpi;
+        this.DPI = DPI;
         this.sexo = sexo;
         this.password = password;
         this.direccion = direccion;
         this.fechaNacimiento = fechaNacimiento;
         this.pdfdpi = pdfdpi;
-        this.cliente_codigo = cliente_codigo;
+        this.entidad_codigo = entidad_codigo;
     }
 
     public Long getCodigo() {
@@ -66,12 +66,12 @@ public class Historial_Cliente {
         this.nombre = nombre;
     }
 
-    public String getDpi() {
-        return dpi;
+    public String getDPI() {
+        return DPI;
     }
 
-    public void setDpi(String dpi) {
-        this.dpi = dpi;
+    public void setDPI(String DPI) {
+        this.DPI = DPI;
     }
 
     public String getSexo() {
@@ -114,13 +114,15 @@ public class Historial_Cliente {
         this.pdfdpi = pdfdpi;
     }
 
-    public Long getCliente_codigo() {
-        return cliente_codigo;
+    public Long getEntidad_codigo() {
+        return entidad_codigo;
     }
 
-    public void setCliente_codigo(Long cliente_codigo) {
-        this.cliente_codigo = cliente_codigo;
+    public void setEntidad_codigo(Long entidad_codigo) {
+        this.entidad_codigo = entidad_codigo;
     }
+
+    
 
    
 }

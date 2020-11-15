@@ -41,7 +41,7 @@ public class ModificarGerente extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ModificarGerente</title>");            
+            out.println("<title>Servlet ModificarGerente</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ModificarGerente at " + request.getContextPath() + "</h1>");
@@ -78,22 +78,26 @@ public class ModificarGerente extends HttpServlet {
             throws ServletException, IOException {
         try {
             GerenteModel clienteModel = new GerenteModel();
-            Long gerente =Long.valueOf( request.getParameter("codigo"));
-            String nombre = request.getParameter("nombre");
+            Long gerente = Long.valueOf(request.getParameter("codigo"));
+            String nombre = request.getParameter("nombre").trim();
             String DPI = request.getParameter("dpi");
-            String direccion = request.getParameter("direccion");
+            String direccion = request.getParameter("direccion").trim();
             String sexo = request.getParameter("sexo");
             String turno = request.getParameter("turno");
             String password = request.getParameter("password");
-            Gerente c = new Gerente(gerente, nombre, turno, DPI, direccion, sexo, password);
-            Long codigo=clienteModel.modificarGerente(c);
-            Historial_GerenteModel hist = new Historial_GerenteModel();
-            hist.agregarHistorialGerenteSinCodigo(c,codigo);
-            request.getSession().setAttribute("Gerente", c);
-            request.setAttribute("enturno", 2);
-            request.getRequestDispatcher("/Gerente/MenuGerente.jsp").forward(request, response);
+            if (!nombre.trim().equals("") && !direccion.trim().equals("")) {
+                Gerente c = new Gerente(gerente, nombre, turno, DPI, direccion, sexo, password);
+                Long codigo = clienteModel.modificarGerente(c);
+                Historial_GerenteModel hist = new Historial_GerenteModel();
+                hist.agregarHistorialGerenteSinCodigo(c, codigo);
+                request.getSession().setAttribute("Gerente", c);
+                request.setAttribute("enturno", 2);
+                request.getRequestDispatcher("/Gerente/MenuGerente.jsp").forward(request, response);
+            }else{
+                response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Ingreso un dato con espacio vacio, no se pudo modificar el gerente ");
+            }
         } catch (SQLException E) {
-            
+
         }
     }
 

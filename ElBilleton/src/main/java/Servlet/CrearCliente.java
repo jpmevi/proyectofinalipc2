@@ -89,10 +89,10 @@ public class CrearCliente extends HttpServlet {
         try {
             ClienteModel clienteModel = new ClienteModel();
             ConstructorArchivo generadorArchivo = new ConstructorArchivo();
-            String nombre = request.getParameter("nombre");
+            String nombre = request.getParameter("nombre").trim();
             Date fecha_nacimiento = Date.valueOf((String) request.getParameter("fecha"));
             String DPI = request.getParameter("dpi");
-            String direccion = request.getParameter("direccion");
+            String direccion = request.getParameter("direccion").trim();
             String sexo = request.getParameter("sexo");
             String password = request.getParameter("password");
             Double monto = Double.parseDouble(request.getParameter("monto"));
@@ -102,14 +102,19 @@ public class CrearCliente extends HttpServlet {
             } catch (Exception e) {
 
             }
-            Cliente c = new Cliente(Long.valueOf(0), nombre, DPI, sexo, password, direccion, fecha_nacimiento, archivo);
-            Long codigo = clienteModel.agregarCliente(c);
-            Historial_ClienteModel hist = new Historial_ClienteModel();
-            hist.agregarHistorialClienteSinCodigo(c, codigo);            
-            Cuenta cuenta = new Cuenta(Long.valueOf(0), Date.valueOf(LocalDate.now()), monto, codigo);
-            CuentaModel cum = new CuentaModel();
-            Long codigocuenta = cum.agregarCuenta(cuenta);
-            response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Cliente creado con exito el codigo es: " + codigocuenta+" Y su cuenta es: "+codigocuenta);
+
+            if (!nombre.trim().equals("") && !direccion.trim().equals("")) {
+                Cliente c = new Cliente(Long.valueOf(0), nombre, DPI, sexo, password, direccion, fecha_nacimiento, archivo);
+                Long codigo = clienteModel.agregarCliente(c);
+                Historial_ClienteModel hist = new Historial_ClienteModel();
+                hist.agregarHistorialClienteSinCodigo(c, codigo);
+                Cuenta cuenta = new Cuenta(Long.valueOf(0), Date.valueOf(LocalDate.now()), monto, codigo);
+                CuentaModel cum = new CuentaModel();
+                Long codigocuenta = cum.agregarCuenta(cuenta);
+                response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Cliente creado con exito el codigo es: " + codigocuenta + " Y su cuenta es: " + codigocuenta);
+            }else{
+                 response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Ingreso un dato con espacio vacio, no se pudo crear el cliente");
+            }
         } catch (SQLException E) {
 
         }

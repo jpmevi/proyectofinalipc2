@@ -164,10 +164,10 @@ private final String EDITAR_CAJERO = "UPDATE " + Cajero.CAJERO_DB_NAME + " SET "
         PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO+" WHERE codigo LIKE '%" + idUsuario + "%'");
         ResultSet result = preSt.executeQuery();
         ArrayList listaGerentes = new ArrayList();
-        Gerente gerente = null;
+       Cajero gerente = null;
         
         while (result.next()) {
-            gerente = new Gerente(
+            gerente = new Cajero(
                     result.getLong(gerente.CODIGO_DB_NAME),
                     result.getString(gerente.NOMBRE_DB_NAME),
                     result.getString(gerente.TURNO_DB_NAME),

@@ -10,14 +10,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css?3.0">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/textstyle.css?3.0">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/textstyle.css?3.1">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/select.css?3.0">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/button.css?3.0">
          <link rel="stylesheet" href="${pageContext.request.contextPath}/css/searchbar.css">
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
-        <title>Crear Gerente</title>
+        <title>Modificar Gerente</title>
     </head>
-    <body style="background: url('${pageContext.request.contextPath}/img/bg.jpg') no-repeat top center / cover;">
+    <body style="background: url('${pageContext.request.contextPath}/img/bgformulario.png') left ; background-attachment: fixed;">
         <%@include file="header.jsp" %>
         <form action="ModificarGerente" method="post" >
             <div class="caja">
@@ -32,7 +32,7 @@
                 </div>
                 <h4 style="text-align: left;" >DPI:</h4>
                 <div class="inputAnimate">
-                    <input type="text" value="${Gerente.getDPI()}" name="dpi" required>
+                    <input type="number" min="0" value="${Gerente.getDPI()}" name="dpi" required>
                 </div>
                 <h4 style="text-align: left;" >Direccion:</h4>
                 <div class="inputAnimate">
@@ -59,7 +59,7 @@
                         </select>
                     </div>
                 
-                <button class="draw" type="submit" name="gen">Generar</button>
+                <button class="draw" type="submit" name="gen">Modificar</button>
                  </div>
 
            

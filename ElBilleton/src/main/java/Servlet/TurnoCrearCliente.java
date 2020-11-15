@@ -80,6 +80,10 @@ public class TurnoCrearCliente extends HttpServlet {
                 request.getRequestDispatcher("MostrarGerentes").forward(request, response);
             }else if (request.getParameter("pagina").equals("6")) {
                 request.getRequestDispatcher("/Gerente/ModificarGerente.jsp").forward(request, response);
+            }else if (request.getParameter("pagina").equals("7")) {
+                request.getRequestDispatcher("ObtenerLImites").forward(request, response);
+            }else if (request.getParameter("pagina").equals("8")) {
+                request.getRequestDispatcher("ObtenerHistorial").forward(request, response);
             }
 
         } else {

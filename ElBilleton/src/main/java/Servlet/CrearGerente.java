@@ -41,7 +41,7 @@ public class CrearGerente extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CrearGerente</title>");            
+            out.println("<title>Servlet CrearGerente</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CrearGerente at " + request.getContextPath() + "</h1>");
@@ -78,19 +78,24 @@ public class CrearGerente extends HttpServlet {
             throws ServletException, IOException {
         try {
             GerenteModel clienteModel = new GerenteModel();
-            String nombre = request.getParameter("nombre");
+            String nombre = request.getParameter("nombre").trim();
             String DPI = request.getParameter("dpi");
-            String direccion = request.getParameter("direccion");
+            String direccion = request.getParameter("direccion").trim();
             String sexo = request.getParameter("sexo");
             String turno = request.getParameter("turno");
             String password = request.getParameter("password");
-            Gerente c = new Gerente(Long.valueOf(0), nombre, sexo, DPI, direccion, sexo, password);
-            Long codigo=clienteModel.agregarGerenteCodigo(c);
-            Historial_GerenteModel hist = new Historial_GerenteModel();
-            hist.agregarHistorialGerenteSinCodigo(c,codigo);
-            response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Gerente creado con exito el codigo es: "+ codigo);
+
+            if (!nombre.trim().equals("") && !direccion.trim().equals("")) {
+                Gerente c = new Gerente(Long.valueOf(0), nombre, sexo, DPI, direccion, sexo, password);
+                Long codigo = clienteModel.agregarGerenteCodigo(c);
+                Historial_GerenteModel hist = new Historial_GerenteModel();
+                hist.agregarHistorialGerenteSinCodigo(c, codigo);
+                response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Gerente creado con exito el codigo es: " + codigo);
+            } else {
+                response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Ingreso un dato con espacio vacio, no se pudo crear el gerente ");
+            }
         } catch (SQLException E) {
-            
+
         }
     }
 

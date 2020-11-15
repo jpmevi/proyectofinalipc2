@@ -48,7 +48,7 @@ public class CrearCajero extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CrearCajero</title>");            
+            out.println("<title>Servlet CrearCajero</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CrearCajero at " + request.getContextPath() + "</h1>");
@@ -85,19 +85,24 @@ public class CrearCajero extends HttpServlet {
             throws ServletException, IOException {
         try {
             CajeroModel clienteModel = new CajeroModel();
-            String nombre = request.getParameter("nombre");
+            String nombre = request.getParameter("nombre").trim();
             String DPI = request.getParameter("dpi");
-            String direccion = request.getParameter("direccion");
+            String direccion = request.getParameter("direccion").trim();
             String sexo = request.getParameter("sexo");
             String turno = request.getParameter("turno");
             String password = request.getParameter("password");
-            Cajero c = new Cajero(Long.valueOf(0), nombre, sexo, DPI, direccion, sexo, password);
-            Long codigo=clienteModel.agregarCajero(c);
-            Historial_CajeroModel hist = new Historial_CajeroModel();
-            hist.agregarCajeroSinCodigo(c,codigo);
-            response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Cajero creado con exito el codigo es: "+ codigo);
+
+            if (!nombre.trim().equals("") && !direccion.trim().equals("") ){
+                Cajero c = new Cajero(Long.valueOf(0), nombre, sexo, DPI, direccion, sexo, password);
+                Long codigo = clienteModel.agregarCajero(c);
+                Historial_CajeroModel hist = new Historial_CajeroModel();
+                hist.agregarCajeroSinCodigo(c, codigo);
+                response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Cajero creado con exito el codigo es: " + codigo);
+            }else{
+                response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Ingreso un dato con espacio vacio, no se pudo crear el cajero ");
+            }
         } catch (SQLException E) {
-            
+
         }
     }
 

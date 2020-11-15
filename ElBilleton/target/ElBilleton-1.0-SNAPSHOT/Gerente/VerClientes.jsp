@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css?3.0">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/textstyle.css?3.0">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/textstyle.css?3.1">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/select.css?3.0">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/button.css?3.0">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tabla.css">
@@ -19,7 +19,7 @@
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700'>
         <title>Buscar Cliente</title>
     </head>
-    <body style="background: url('${pageContext.request.contextPath}/img/40.svg'); background-attachment: fixed;">
+    <body style="background: url('${pageContext.request.contextPath}/img/fondo.png') center ; background-attachment: fixed;">
         <%@include file="header.jsp" %>
         <form action="FiltroCliente" method="post" >
             <div class="cajatabla">

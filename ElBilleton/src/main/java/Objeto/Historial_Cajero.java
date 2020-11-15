@@ -22,16 +22,16 @@ public class Historial_Cajero {
     public static final String CAJERO_CODIGO_DB_NAME = "cajero_codigo";
     
     
-    private int codigo;
+    private Long codigo;
     private String nombre;
     private String turno;
-    private int DPI;
+    private String DPI;
     private String direccion;
     private String sexo;
     private String password;
-     private int cajero_codigo;
+     private Long entidad_codigo;
 
-    public Historial_Cajero(int codigo, String nombre, String turno, int DPI, String direccion, String sexo, String password, int cajero_codigo) {
+    public Historial_Cajero(Long codigo, String nombre, String turno, String DPI, String direccion, String sexo, String password, Long entidad_codigo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.turno = turno;
@@ -39,14 +39,14 @@ public class Historial_Cajero {
         this.direccion = direccion;
         this.sexo = sexo;
         this.password = password;
-        this.cajero_codigo = cajero_codigo;
+        this.entidad_codigo = entidad_codigo;
     }
 
-    public int getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -66,11 +66,11 @@ public class Historial_Cajero {
         this.turno = turno;
     }
 
-    public int getDPI() {
+    public String getDPI() {
         return DPI;
     }
 
-    public void setDPI(int DPI) {
+    public void setDPI(String DPI) {
         this.DPI = DPI;
     }
 
@@ -98,13 +98,15 @@ public class Historial_Cajero {
         this.password = password;
     }
 
-    public int getCajero_codigo() {
-        return cajero_codigo;
+    public Long getEntidad_codigo() {
+        return entidad_codigo;
     }
 
-    public void setCajero_codigo(int gerente_codigo) {
-        this.cajero_codigo = gerente_codigo;
+    public void setEntidad_codigo(Long entidad_codigo) {
+        this.entidad_codigo = entidad_codigo;
     }
-     
+
+    
+   
      
 }

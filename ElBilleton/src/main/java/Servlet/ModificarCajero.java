@@ -44,7 +44,7 @@ public class ModificarCajero extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ModificarCajero</title>");            
+            out.println("<title>Servlet ModificarCajero</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ModificarCajero at " + request.getContextPath() + "</h1>");
@@ -79,22 +79,26 @@ public class ModificarCajero extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
+        try {
             CajeroModel clienteModel = new CajeroModel();
-            Long gerente =Long.valueOf( request.getParameter("codigo"));
-            String nombre = request.getParameter("nombre");
+            Long gerente = Long.valueOf(request.getParameter("codigo"));
+            String nombre = request.getParameter("nombre").trim();
             String DPI = request.getParameter("dpi");
-            String direccion = request.getParameter("direccion");
+            String direccion = request.getParameter("direccion").trim();
             String sexo = request.getParameter("sexo");
             String turno = request.getParameter("turno");
             String password = request.getParameter("password");
-            Cajero c = new Cajero(gerente, nombre, turno, DPI, direccion, sexo, password);
-            Long codigo=clienteModel.modificarCajero(c);
-            Historial_CajeroModel hist = new Historial_CajeroModel();
-            hist.agregarCajeroSinCodigo(c,codigo);
-            request.getRequestDispatcher("MostrarGerentes").forward(request, response);
+            if (!nombre.trim().equals("") && !direccion.trim().equals("")) {
+                Cajero c = new Cajero(gerente, nombre, turno, DPI, direccion, sexo, password);
+                Long codigo = clienteModel.modificarCajero(c);
+                Historial_CajeroModel hist = new Historial_CajeroModel();
+                hist.agregarCajeroSinCodigo(c, codigo);
+                request.getRequestDispatcher("MostrarGerentes").forward(request, response);
+            }else{
+                response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Ingreso un dato con espacio vacio, no se pudo modificar el cajero ");
+            }
         } catch (SQLException E) {
-            
+
         }
     }
 

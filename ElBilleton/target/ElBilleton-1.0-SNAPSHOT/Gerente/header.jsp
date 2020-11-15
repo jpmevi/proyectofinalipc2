@@ -78,13 +78,7 @@
                                         <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=6">Modificar Gerente</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="ModificarPaciente.jsp">Modificar Paciente</a>
-                                    </li>
-                                    <li class="dropdown-link">
-                                        <a href="ModificarConsulta.jsp">Modificar Consulta</a>
-                                    </li>
-                                    <li class="dropdown-link">
-                                        <a href="AgregarEspecialidad.jsp">Agregar Especialidad</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=7">Modificar Limite</a>
                                     </li>
                                 </ul>
                             </div>
@@ -94,7 +88,7 @@
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="MedicosMasInformes.jsp">Medicos con mas informes</a>
+                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=8">Historial de entidad</a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="IngresosMedico.jsp">Medicos mas Ingresos</a>

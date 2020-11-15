@@ -51,7 +51,7 @@ public class ModificarCliente extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ModificarCliente</title>");            
+            out.println("<title>Servlet ModificarCliente</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ModificarCliente at " + request.getContextPath() + "</h1>");
@@ -86,16 +86,16 @@ public class ModificarCliente extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
-           
-            Long cliente =Long.valueOf( request.getParameter("codigo"));
-            
+        try {
+
+            Long cliente = Long.valueOf(request.getParameter("codigo"));
+
             ClienteModel clienteModel = new ClienteModel();
             ConstructorArchivo generadorArchivo = new ConstructorArchivo();
-            String nombre = request.getParameter("nombre");
+            String nombre = request.getParameter("nombre").trim();
             Date fecha_nacimiento = Date.valueOf((String) request.getParameter("fecha"));
             String DPI = request.getParameter("dpi");
-            String direccion = request.getParameter("direccion");
+            String direccion = request.getParameter("direccion").trim();
             String sexo = request.getParameter("sexo");
             String password = request.getParameter("password");
             InputStream archivo = InputStream.nullInputStream();
@@ -104,28 +104,26 @@ public class ModificarCliente extends HttpServlet {
             } catch (Exception e) {
 
             }
-            
-            
-            
+
             Part archivos = request.getPart("file");
+            if (!nombre.trim().equals("") && !direccion.trim().equals("")) {
+                if (archivos != null && archivos.getSize() > 0) {
+                    archivo = generadorArchivo.extraerArchivo("file", request);
+                    Cliente c = new Cliente(cliente, nombre, DPI, sexo, password, direccion, fecha_nacimiento, archivo);
+                    Long codigo = clienteModel.modificarCliente(c);
+                    Historial_ClienteModel hist = new Historial_ClienteModel();
+                    hist.agregarHistorialClienteSinCodigo(c, cliente);
+                } else {
+                    Cliente c = new Cliente(cliente, nombre, DPI, sexo, password, direccion, fecha_nacimiento, clienteModel.obtenerDPI(cliente));
+                    Long codigo = clienteModel.modificarCliente(c);
+                    Historial_ClienteModel hist = new Historial_ClienteModel();
+                    hist.agregarHistorialClienteSinCodigo(c, cliente);
+                }
 
-            if(archivos!=null && archivos.getSize()>0){
-               archivo = generadorArchivo.extraerArchivo("file", request);
-                Cliente c = new Cliente(cliente, nombre, DPI, sexo, password, direccion, fecha_nacimiento, archivo);
-                Long codigo = clienteModel.modificarCliente(c);
-                 Historial_ClienteModel hist = new Historial_ClienteModel();
-            hist.agregarHistorialClienteSinCodigo(c, cliente);     
-            }else{
-                Cliente c = new Cliente(cliente, nombre, DPI, sexo, password, direccion, fecha_nacimiento, clienteModel.obtenerDPI(cliente));
-                Long codigo = clienteModel.modificarCliente(c);
-                 Historial_ClienteModel hist = new Historial_ClienteModel();
-            hist.agregarHistorialClienteSinCodigo(c, cliente);     
+                request.getRequestDispatcher("FiltroCliente").forward(request, response);
+            } else {
+                response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Ingreso un dato con espacio vacio, no se pudo modificar el cliente ");
             }
-            
-
-                  
-
-           request.getRequestDispatcher("FiltroCliente").forward(request, response);
         } catch (SQLException E) {
 
         }
