@@ -11,7 +11,7 @@
     <title>Menu Gerente</title>
 </head>
 
-<body style="background: url('${pageContext.request.contextPath}/img/40.svg') no-repeat top center / cover;">
+<body style="background: url('${pageContext.request.contextPath}/img/gerente.png')no-repeat center ; background-attachment: fixed;">
     <%@include file="header.jsp" %>
     <main>
         <section>

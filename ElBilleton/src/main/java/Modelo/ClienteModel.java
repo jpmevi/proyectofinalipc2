@@ -136,6 +136,7 @@ public class ClienteModel {
      */
     public Cliente loginValidation(Long id, String pass) throws SQLException, UnsupportedEncodingException {
         Cliente cliente = obtenerCliente(id);
+        
         if (cliente != null && cliente.getPassword().equals(pass)) {
             return cliente;
 

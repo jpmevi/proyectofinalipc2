@@ -57,7 +57,7 @@
                     </div>
                <a class="btn solid" href="${pageContext.request.contextPath}/MostrarDpi?codigo=${cliente.getCodigo()}" target="_blank">Ver DPI</a>
                  <h4>PDF DPI:</h4>
-                    <input type="file"  name="file" >
+                    <input type="file"  name="file" accept="application/pdf" >
                     <br></br>
                 <button class="draw" type="submit" name="gen">Modificar</button>
             </div>

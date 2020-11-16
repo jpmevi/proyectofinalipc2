@@ -51,7 +51,7 @@
                     </div>
                
                  <h4>PDF DPI:</h4>
-                    <input type="file"  name="file" required>
+                    <input type="file"  name="file" required accept="application/pdf">
                     <br></br>
                 <button class="draw" type="submit" name="gen">Generar</button>
             </div>
