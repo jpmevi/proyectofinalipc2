@@ -24,7 +24,12 @@
         <form action="ObtenerHistorial" method="post" >
             <div class="cajatabla">
                 <h2 >Buscar Historial:</h2>
-
+                <section class="webdesigntuts-workshop" >
+                    <div>
+                        <input type="search" placeholder="Filtrar por codigo?" name="filtro">		    	
+                        <button>Filtrar</button>
+                    </div>
+                </section>
                 <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
                     <select name="entidad">
                         <option value="cliente">Buscar por:</option>
@@ -56,10 +61,26 @@
                                     <a class="btn solid" href="${pageContext.request.contextPath}/MostrarDpiHistorial?codigo=${cliente.getCodigo()}" target="_blank">Ver DPI</a>
                                 </td>
                             </c:if>
+                            <c:if test="${reporte == 1}">
+                                <td>
+                                    <a class="btn solid" href="${pageContext.request.contextPath}/HistorialCliente?cliente=${cliente.getEntidad_codigo()}">Exportar reporte</a>
+                                </td>
+                            </c:if>
+                            <c:if test="${reporte ==2}">
+                                <td>
+                                    <a class="btn solid" href="${pageContext.request.contextPath}/HistorialGerente?cliente=${cliente.getEntidad_codigo()}">Exportar reporte</a>
+                                </td>
+                            </c:if>
+                            <c:if test="${reporte == 3}">
+                                <td>
+                                    <a class="btn solid" href="${pageContext.request.contextPath}/HistorialCajero?cliente=${cliente.getEntidad_codigo()}">Exportar reporte</a>
+
+                                </td>
+                            </c:if>
                         </tr>
                     </c:forEach>
-                    
                 </table>
+
             </div>
         </form>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script><script  src="${pageContext.request.contextPath}/js/text.js"></script>

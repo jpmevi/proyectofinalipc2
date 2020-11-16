@@ -63,7 +63,6 @@ public class Reporte7 extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
     }
 
     /**
@@ -77,11 +76,13 @@ public class Reporte7 extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         try {
             LocalDate fecha1 = LocalDate.parse(request.getParameter("fecha1"));
             LocalDate fecha2 = LocalDate.parse(request.getParameter("fecha2"));
             if (fecha1.isBefore(fecha2)) {
+                request.setAttribute("fecha1", fecha1);
+                request.setAttribute("fecha2", fecha2);
                 CajeroModel cli = new CajeroModel();
                 request.getSession().setAttribute("Cajeros", cli.obtenerCajerosReporte7(Date.valueOf(fecha1), Date.valueOf(fecha2)));
                 request.getRequestDispatcher("/Gerente/Reporte7.jsp").forward(request, response);

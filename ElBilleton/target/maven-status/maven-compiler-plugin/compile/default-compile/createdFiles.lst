@@ -10,11 +10,14 @@ ServletGerente/MostrarClientes.class
 ServletGerente/MostrarDpi.class
 CargaArchivo/ClienteArchivo.class
 Objeto/Historial_Cajero.class
+Exportar/Cajeromastransacciones.class
 Objeto/Cuenta.class
 ServletGerente/GenerarCajero.class
 CargaArchivo/DividirEtiquetas.class
 Conexion/Conexion.class
+Exportar/Clientescontransaccionesmayores.class
 Modelo/GerenteModel.class
+Exportar/HistorialTransaccionesCliente.class
 Modelo/ClienteModel.class
 ServletGerente/ModificarLImite.class
 ServletGerente/ObtenerReporte4.class
@@ -23,6 +26,7 @@ ServletCliente/EnviarSolicitud.class
 Modelo/Historial_CajeroModel.class
 Modelo/LimiteModel.class
 ServletGerente/ImportarDatos.class
+Exportar/Clientesmasdinero.class
 ServletGerente/CrearCliente.class
 ServletGerente/ComprobarHorario.class
 ServletGerente/MostrarGerentes.class
@@ -47,10 +51,13 @@ ServletGerente/FiltroCliente.class
 ServletGerente/CargarCliente.class
 Objeto/Cajero.class
 ServletGerente/ClientesReporte6.class
+Exportar/Clientesnotransaccion.class
+Exportar/Clientessintransaccion.class
 Objeto/HIstorial_Gerente.class
 ServletGerente/MostrarDpiHistorial.class
 Objeto/Solicitud.class
 ServletCliente/BuscarCuenta.class
+Exportar/HistorialCliente.class
 Modelo/SolicitudModel.class
 Objeto/DuplicarPdf.class
 ServletGerente/ModificarCajero.class
@@ -58,6 +65,8 @@ Objeto/ConstructorArchivo.class
 Modelo/CajeroModel.class
 ServletGerente/ModificarGerente.class
 ServletGerente/TurnoCrearCliente.class
+Exportar/HistorialCajero.class
 ServletGerente/ObtenerReporte2.class
+Exportar/HistorialGerente.class
 ServletGerente/Ingresar.class
 ServletGerente/CrearCuenta.class

@@ -70,11 +70,11 @@ public class ComprobarHorario extends HttpServlet {
         LocalTime vespertino1= LocalTime.of(13, 0);
         LocalTime vespertino2= LocalTime.of(22, 0);
        
-        if(hora.isAfter(horamatutina1) && hora.isBefore(horamatutina2) && turno.equals("Matutino")){
+        if(hora.isAfter(horamatutina1) && hora.isBefore(horamatutina2) && turno.equalsIgnoreCase("Matutino")){
             request.getSession().setAttribute("Turno", "Turno Activo");
             request.getRequestDispatcher("/Gerente/MenuGerente.jsp").forward(request, response);
             
-        }else if(hora.isAfter(vespertino1) && hora.isBefore(vespertino2) && turno.equals("Vespertino")){
+        }else if(hora.isAfter(vespertino1) && hora.isBefore(vespertino2) && turno.equalsIgnoreCase("Vespertino")){
             request.getSession().setAttribute("Turno", "Turno Activo");
              request.getRequestDispatcher("/Gerente/MenuGerente.jsp").forward(request, response);
         }else{

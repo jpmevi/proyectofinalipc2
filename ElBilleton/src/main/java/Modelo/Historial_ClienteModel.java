@@ -92,7 +92,7 @@ public class Historial_ClienteModel {
     }
 
     public ArrayList obtenerHistorialClientes(String idUsuario) throws SQLException, UnsupportedEncodingException {
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO + " WHERE codigo LIKE '%" + idUsuario + "%'");
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO + " WHERE cliente_codigo LIKE '%" + idUsuario + "%'");
         ResultSet result = preSt.executeQuery();
         ArrayList listaHistorialclientes = new ArrayList();
         Historial_Cliente cliente = null;

@@ -66,7 +66,7 @@ public class TransaccionesReporte2 extends HttpServlet {
         try {
             String cliente = request.getParameter("codigo");
             Double monto = Double.parseDouble(request.getParameter("monto"));
-
+            request.setAttribute("cliente", cliente);
             TransaccionModel trans = new TransaccionModel();
             request.setAttribute("codigo", cliente);
             request.getSession().setAttribute("Transaccion", trans.obtenerTransaccionesReporte2(cliente, monto));

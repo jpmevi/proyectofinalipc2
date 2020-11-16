@@ -88,7 +88,7 @@ public class Historial_CajeroModel {
      
       public ArrayList obtenerCajeros(String idUsuario) throws SQLException, UnsupportedEncodingException {
        
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO+" WHERE codigo LIKE '%" + idUsuario + "%'");
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO+" WHERE cajero_codigo LIKE '%" + idUsuario + "%'");
         ResultSet result = preSt.executeQuery();
         ArrayList listaGerentes = new ArrayList();
         Historial_Cajero gerente = null;
