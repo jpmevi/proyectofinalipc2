@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pacienteindexstyle.css?4.1">
-    <title>Menu Gerente</title>
+    <title>Menu Cliente</title>
 </head>
 
 <body style="background: url('${pageContext.request.contextPath}/img/cliente.png') no-repeat center ; background-attachment: fixed;">

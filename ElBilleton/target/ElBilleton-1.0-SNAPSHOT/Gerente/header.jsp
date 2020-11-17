@@ -78,25 +78,25 @@
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=8">Historial de entidad</a>
+                                        <a href="${pageContext.request.contextPath}/ObtenerHistorial?pagina=8">Historial de entidad</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=9">Ver clientes con transacciones mayores</a>
+                                        <a href="${pageContext.request.contextPath}/ObtenerReporte2?pagina=9">Ver clientes con transacciones mayores</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=10">Ver clientes con transacciones sumadas</a>
+                                        <a href="${pageContext.request.contextPath}/ObtenerReporte3?pagina=10">Ver clientes con transacciones sumadas</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=11">10 clientes con mas dinero en cuentas</a>
+                                        <a href="${pageContext.request.contextPath}/ObtenerReporte4?pagina=11">10 clientes con mas dinero en cuentas</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=12">Clientes que no han realizado transacciones</a>
+                                        <a href="${pageContext.request.contextPath}/Gerente/IngresarIntervalo.jsp?pagina=12">Clientes que no han realizado transacciones</a>
                                     </li>
                                      <li class="dropdown-link">
-                                         <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=13">Historial de transacciones por cliente</a>
+                                         <a href="${pageContext.request.contextPath}/ClientesReporte6?pagina=13">Historial de transacciones por cliente</a>
                                     </li>
                                     <li class="dropdown-link">
-                                         <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=14">Cajero con mas transacciones</a>
+                                         <a href="${pageContext.request.contextPath}/Gerente/IntervaloReporte7.jsp?pagina=14">Cajero con mas transacciones</a>
                                     </li>
                                 </ul>
                             </div>

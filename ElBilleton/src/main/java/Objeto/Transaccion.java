@@ -22,6 +22,7 @@ public class Transaccion {
     public static final String MONTO_DB_NAME = "monto";
     public static final String CUENTA_CODIGO_DB_NAME = "cuenta_codigo";
     public static final String CAJERO_CODIGO_DB_NAME = "cajero_codigo";
+    
 
 
     private Long codigo;

@@ -116,8 +116,8 @@ public class Ingresar extends HttpServlet {
                     //Comprobamos si el usuario existe mandandole el usuario y la password
                     Cajero cajero = cajeromodel.loginValidation(user, password);
                     if (cajero != null) {
-                        request.getSession().setAttribute("Cajero", request.getParameter("user"));
-                        response.sendRedirect("Cliente/MenuCliente.jsp");
+                        request.getSession().setAttribute("Cajero", cajero);
+                       response.sendRedirect(request.getContextPath()+"/ComprobarHorarioCajero");
                     }else{
                         //Mandamos un mensaje de error si no encontro los datos
                         request.setAttribute("success", 0);

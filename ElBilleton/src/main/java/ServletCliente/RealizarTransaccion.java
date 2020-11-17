@@ -100,8 +100,8 @@ public class RealizarTransaccion extends HttpServlet {
                     cuenta2.setMonto(dinero + cuenta2.getMonto());
                     dinero = cuenta1.getMonto() - dinero;
                     cuenta1.setMonto(dinero);
-                    Transaccion transaccionRetiro=new Transaccion(Long.valueOf(0),Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now()),"DEBITO",dinero,Long.valueOf(101),cuenta1.getCodigo());
-                    Transaccion transaccionDeposito=new Transaccion(Long.valueOf(0),Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now()),"CREDITO",dinero,Long.valueOf(101),cuenta2.getCodigo());
+                    Transaccion transaccionRetiro=new Transaccion(Long.valueOf(0),Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now()),"DEBITO",Double.parseDouble(monto),Long.valueOf(101),cuenta1.getCodigo());
+                    Transaccion transaccionDeposito=new Transaccion(Long.valueOf(0),Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now()),"CREDITO",Double.parseDouble(monto),Long.valueOf(101),cuenta2.getCodigo());
                     transaccion.agregartransaccion2(transaccionRetiro);
                     transaccion.agregartransaccion2(transaccionDeposito);
                     cuenmodel.modificarMonto(cuenta1);

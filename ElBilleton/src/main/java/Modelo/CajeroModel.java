@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -69,7 +70,7 @@ public class CajeroModel {
     public long agregarCajeroCodigo(Cajero cajero) throws SQLException, UnsupportedEncodingException {
         try {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
-             
+
             preSt.setLong(1, cajero.getCodigo());
             preSt.setString(2, cajero.getNombre());
             preSt.setString(3, cajero.getTurno());
@@ -158,12 +159,10 @@ public class CajeroModel {
     }
 
     public ArrayList obtenerCajeros(String idUsuario) throws SQLException, UnsupportedEncodingException {
-
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO + " WHERE codigo LIKE '%" + idUsuario + "%'");
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO + " WHERE codigo LIKE '%" + idUsuario + "%' && CAJERO.codigo!=101");
         ResultSet result = preSt.executeQuery();
         ArrayList listaGerentes = new ArrayList();
         Cajero gerente = null;
-
         while (result.next()) {
             gerente = new Cajero(
                     result.getLong(gerente.CODIGO_DB_NAME),
@@ -204,5 +203,26 @@ public class CajeroModel {
         }
         return listaGerentes;
 
+    }
+
+    public Boolean estaEnTurno(Cajero gerente) {
+        boolean si = true;
+        String turno = gerente.getTurno();
+        LocalTime hora = LocalTime.now();
+        LocalTime horamatutina1 = LocalTime.of(6, 0);
+        LocalTime horamatutina2 = LocalTime.of(14, 30);
+        LocalTime vespertino1 = LocalTime.of(13, 0);
+        LocalTime vespertino2 = LocalTime.of(22, 0);
+        if (hora.isAfter(horamatutina1) && hora.isBefore(horamatutina2) && turno.equalsIgnoreCase("Matutino")) {
+            si = true;
+            return si;
+
+        } else if (hora.isAfter(vespertino1) && hora.isBefore(vespertino2) && turno.equalsIgnoreCase("Vespertino")) {
+            si = true;
+            return si;
+        } else {
+            si = false;
+            return si;
+        }
     }
 }
