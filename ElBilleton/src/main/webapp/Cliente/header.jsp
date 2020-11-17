@@ -37,7 +37,7 @@
                                         <a href="${pageContext.request.contextPath}/ObtenerCuentas?codigo=${Cliente.getCodigo()}&&pagina=3">Aceptar solicitud</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=2">Crear Cuenta</a>
+                                        <a href="${pageContext.request.contextPath}/ObtenerCuentas?codigo=${Cliente.getCodigo()}&&pagina=4">Ver estado de cuenta</a>
                                     </li>
                                 </ul>
                             </div>
@@ -88,16 +88,16 @@
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=8">Historial de entidad</a>
+                                        <a href="${pageContext.request.contextPath}/ObtenerCuentas?codigo=${Cliente.getCodigo()}&&pagina=5">Ultimas 15 transacciones</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=9">Ver clientes con transacciones mayores</a>
+                                        <a href="${pageContext.request.contextPath}/Cliente/Fecha.jsp">Ver cuenta con mas dinero</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=10">Ver clientes con transacciones sumadas</a>
+                                        <a href="${pageContext.request.contextPath}/SolicitudesRecibidas?codigo=${Cliente.getCodigo()}">Solicitudes recibidas</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=11">10 clientes con mas dinero en cuentas</a>
+                                        <a href="${pageContext.request.contextPath}/SolicitudesEnviadas?codigo=${Cliente.getCodigo()}">Solicitudes enviadas</a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=12">Clientes que no han realizado transacciones</a>

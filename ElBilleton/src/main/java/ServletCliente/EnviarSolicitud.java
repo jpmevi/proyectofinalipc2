@@ -88,9 +88,9 @@ public class EnviarSolicitud extends HttpServlet {
             if (solicitudmodel.comprobarSolicitud(cuentaenvia, cuentarecibe) <= 3) {
                 Solicitud solicitud = new Solicitud(0, Date.valueOf(LocalDate.now()), "Pendiente", cuentaenvia, cuentarecibe);
                 solicitudmodel.crearSolicitud(solicitud);
-                response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Solicitud enviada con exito a la cuenta: " + cuentarecibe);
+                response.sendRedirect("Cliente/Mensaje.jsp?mensaje=Solicitud enviada con exito a la cuenta: " + cuentarecibe);
             }else{
-                 response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Ya supero la cantidad maxima de solicitudes con esa cuenta");
+                 response.sendRedirect("Cliente/Mensaje.jsp?mensaje=Ya supero la cantidad maxima de solicitudes con esa cuenta");
             }
 
         } catch (SQLException ex) {

@@ -24,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -99,15 +100,16 @@ public class RealizarTransaccion extends HttpServlet {
                     cuenta2.setMonto(dinero + cuenta2.getMonto());
                     dinero = cuenta1.getMonto() - dinero;
                     cuenta1.setMonto(dinero);
-                    Transaccion transaccionRetiro=new Transaccion(Long.valueOf(0),Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now()),"Debito",dinero,cuenta1.getCodigo(),Long.valueOf(101));
-                    Transaccion transaccionDeposito=new Transaccion(Long.valueOf(0),Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now()),"Credito",dinero,cuenta2.getCodigo(),Long.valueOf(101));
-                    transaccion.agregarTransaccion(transaccionRetiro);
-                    transaccion.agregarTransaccion(transaccionDeposito);
+                    Transaccion transaccionRetiro=new Transaccion(Long.valueOf(0),Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now()),"DEBITO",dinero,Long.valueOf(101),cuenta1.getCodigo());
+                    Transaccion transaccionDeposito=new Transaccion(Long.valueOf(0),Date.valueOf(LocalDate.now()),Time.valueOf(LocalTime.now()),"CREDITO",dinero,Long.valueOf(101),cuenta2.getCodigo());
+                    transaccion.agregartransaccion2(transaccionRetiro);
+                    transaccion.agregartransaccion2(transaccionDeposito);
                     cuenmodel.modificarMonto(cuenta1);
                     cuenmodel.modificarMonto(cuenta2);
                     
                     request.getRequestDispatcher("/Cliente/Mensaje.jsp?mensaje=Transferencia realizada con exito").forward(request, response);
                 } catch (SQLException ex) {
+                    
                     Logger.getLogger(RealizarTransaccion.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (UnsupportedEncodingException ex) {
                     Logger.getLogger(RealizarTransaccion.class.getName()).log(Level.SEVERE, null, ex);

@@ -10,11 +10,14 @@ import Objeto.Cliente;
 import Objeto.Cuenta;
 import Objeto.Transaccion;
 import java.io.UnsupportedEncodingException;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,10 +30,11 @@ public class TransaccionModel {
     private final String REPORTE_2 = "SELECT T.*,C.codigo FROM " + Transaccion.TRANSACCION_DB_NAME + " T INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON T.cuenta_codigo=CU.codigo INNER JOIN " + Cliente.CLIENTE_DB_NAME+" C ON C.codigo=CU.cliente_codigo WHERE C.codigo=? && T.monto>?";
     private final String REPORTE_6 = "SELECT T.*,C.codigo FROM " + Transaccion.TRANSACCION_DB_NAME + " T INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON T.cuenta_codigo=CU.codigo INNER JOIN " + Cliente.CLIENTE_DB_NAME+" C ON C.codigo=CU.cliente_codigo WHERE C.codigo=?";
     private final String CREAR_TRANSACCION = "INSERT INTO " + Transaccion.TRANSACCION_DB_NAME + " (" + Transaccion.FECHA_DB_NAME + ","
-            + Transaccion.HORA_DB_NAME + "," + Transaccion.TIPO_DB_NAME + "," + Transaccion.MONTO_DB_NAME + "," + Transaccion.CUENTA_CODIGO_DB_NAME + ","
-            + Transaccion.CAJERO_CODIGO_DB_NAME + ") VALUES (?,?,?,?,?,?)";
-    
-    
+            + Transaccion.HORA_DB_NAME + "," + Transaccion.TIPO_DB_NAME + "," + Transaccion.MONTO_DB_NAME + "," + Transaccion.CAJERO_CODIGO_DB_NAME + ","
+            + Transaccion.CUENTA_CODIGO_DB_NAME + ") VALUES (?,?,?,?,?,?)";
+    private final String OBTENER_TRANSACCIONES_CUENTA = "SELECT * FROM "+Transaccion.TRANSACCION_DB_NAME+" WHERE "+Transaccion.CUENTA_CODIGO_DB_NAME+"=?";
+    private final String ULTIMAS_15_TRANSACCIONES="SELECT * FROM "+Transaccion.TRANSACCION_DB_NAME+" T INNER JOIN " + Cuenta.CUENTA_DB_NAME + " C ON C.codigo=T.cuenta_codigo WHERE C.codigo=? && T.fecha >= date_sub(CURDATE(), INTERVAL 1 YEAR) ORDER BY T.monto DESC LIMIT 15  ";
+    private final String REPORTE3_CLIENTE = "SELECT * FROM " + Transaccion.TRANSACCION_DB_NAME + " WHERE "+Transaccion.CUENTA_CODIGO_DB_NAME+"=? && "+Transaccion.FECHA_DB_NAME+" BETWEEN ? AND CURDATE()";
     /**
      * Agregamos una nueva transaccion desde la carga de archivos, al completar
      * la insercion devuelve el codigo autogenerado.
@@ -72,8 +76,9 @@ public class TransaccionModel {
      * @return
      * @throws SQLException
      */
-    public long agregartransaccion(Transaccion transaccion) throws SQLException {
+    public long agregartransaccion2(Transaccion transaccion) throws SQLException {
         try {
+
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_TRANSACCION_SIN_CODIGO, Statement.RETURN_GENERATED_KEYS);
 
         preSt.setDate(1, transaccion.getFecha());
@@ -84,12 +89,10 @@ public class TransaccionModel {
         preSt.setDouble(6, transaccion.getCuenta_codigo());
 
         preSt.executeUpdate();
-
         ResultSet result = preSt.getGeneratedKeys();
-        if (result.first()) {
-            return result.getLong(1);
-        }
+
         } catch (SQLException e) {
+
         }
         
 
@@ -104,7 +107,27 @@ public class TransaccionModel {
         ResultSet result = preSt.executeQuery();
         ArrayList listaclientes = new ArrayList();
         Transaccion trans = null;
-
+        while (result.next()) {
+            trans= new Transaccion(
+                    result.getLong(trans.CODIGO_DB_NAME),
+                    result.getDate(trans.FECHA_DB_NAME),
+                    result.getTime(trans.HORA_DB_NAME),
+                    result.getString(trans.TIPO_DB_NAME),
+                    result.getDouble(trans.MONTO_DB_NAME),
+                    result.getLong(trans.CAJERO_CODIGO_DB_NAME),
+                    result.getLong(trans.CUENTA_CODIGO_DB_NAME)                   
+            );
+            listaclientes.add(trans);
+        }
+        return listaclientes;
+    }
+     public ArrayList obtenerTransaccionesReporte3Cliente(Date fecha1, Long cuenta) throws SQLException, UnsupportedEncodingException {
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(REPORTE3_CLIENTE );
+         preSt.setLong(1, cuenta);
+         preSt.setDate(2, fecha1);
+        ResultSet result = preSt.executeQuery();
+        ArrayList listaclientes = new ArrayList();
+        Transaccion trans = null;
         while (result.next()) {
             trans= new Transaccion(
                     result.getLong(trans.CODIGO_DB_NAME),
@@ -134,8 +157,9 @@ public class TransaccionModel {
                     result.getTime(trans.HORA_DB_NAME),
                     result.getString(trans.TIPO_DB_NAME),
                     result.getDouble(trans.MONTO_DB_NAME),
-                    result.getLong(trans.CUENTA_CODIGO_DB_NAME),
-                    result.getLong(trans.CAJERO_CODIGO_DB_NAME)                   
+                    result.getLong(trans.CAJERO_CODIGO_DB_NAME)  ,     
+                    result.getLong(trans.CUENTA_CODIGO_DB_NAME)
+                                
             );
             listaclientes.add(trans);
         }
@@ -174,5 +198,59 @@ public class TransaccionModel {
             return -1;
         }
 
+    }
+    
+    
+    
+    public ArrayList<Transaccion> obtenerTransaccionesCuenta(long cuenta_codigo) {
+        try {
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(OBTENER_TRANSACCIONES_CUENTA);
+            preSt.setLong(1, cuenta_codigo);
+
+            ArrayList<Transaccion> listaTransacciones = new ArrayList<>();
+            Transaccion transaccion = null;
+
+            ResultSet result = preSt.executeQuery();
+
+            while (result.next()) {
+                transaccion = new Transaccion(
+                        result.getLong(Transaccion.CODIGO_DB_NAME),
+                        result.getDate(Transaccion.FECHA_DB_NAME),
+                        result.getTime(Transaccion.HORA_DB_NAME),
+                        result.getString(Transaccion.TIPO_DB_NAME),
+                        result.getDouble(Transaccion.MONTO_DB_NAME),
+                          result.getLong(Transaccion.CAJERO_CODIGO_DB_NAME),
+                        result.getLong(Transaccion.CUENTA_CODIGO_DB_NAME)
+                );
+                listaTransacciones.add(transaccion);
+            }
+            return listaTransacciones;
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener las transacciones para estado de cuenta" + e);
+            return null;
+        }
+    }
+    
+    
+     public ArrayList obtenerUltimas15Transacciones(Long cuenta) throws SQLException, UnsupportedEncodingException {
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(ULTIMAS_15_TRANSACCIONES);
+         preSt.setDouble(1, cuenta);
+        ResultSet result = preSt.executeQuery();
+        ArrayList listaclientes = new ArrayList();
+        Transaccion trans = null;
+        while (result.next()) {
+            trans= new Transaccion(
+                    result.getLong(trans.CODIGO_DB_NAME),
+                    result.getDate(trans.FECHA_DB_NAME),
+                    result.getTime(trans.HORA_DB_NAME),
+                    result.getString(trans.TIPO_DB_NAME),
+                    result.getDouble(trans.MONTO_DB_NAME),
+                    result.getLong(trans.CAJERO_CODIGO_DB_NAME),
+                    result.getLong(trans.CUENTA_CODIGO_DB_NAME)                   
+            );
+            listaclientes.add(trans);
+        }
+        return listaclientes;
     }
 }

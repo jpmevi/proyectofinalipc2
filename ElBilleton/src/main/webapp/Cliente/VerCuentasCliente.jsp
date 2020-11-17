@@ -58,15 +58,35 @@
                                     <a class="btn solid" href="${pageContext.request.contextPath}/BuscarCuentaAsociada?cuenta=${cliente.getCodigo()}&&cliente=${cliente.getCliente_codigo()}">Seleccionar</a>
                                 </td>
                             </c:if>
-                                 <c:if test="${pagina == 3}">
+                            <c:if test="${pagina == 3}">
                                 <td>
                                     <a class="btn solid" href="${pageContext.request.contextPath}/VerSolicitudesPendientes?cuenta=${cliente.getCodigo()}">Ver solicitudes</a>
+                                </td>
+                            </c:if>
+                            <c:if test="${pagina == 4}">
+                                <td>
+                                    <a class="btn solid" href="${pageContext.request.contextPath}/VerEstadoCuenta?cuenta=${cliente.getCodigo()}">Ver estado de cuenta</a>
+                                </td>
+                            </c:if>
+                            <c:if test="${pagina == 5}">
+                                <td>
+                                    <a class="btn solid" href="${pageContext.request.contextPath}/Ultimas15transacciones?cuenta=${cliente.getCodigo()}">Ver ultimas transacciones</a>
+                                </td>
+                            </c:if>
+                            <c:if test="${pagina == 6}">
+                                <td>
+                                    <a class="btn solid" href="${pageContext.request.contextPath}/SolicitudesRecibidas?cuenta=${cliente.getCodigo()}">Solicitudes Recibidas</a>
+                                </td>
+                            </c:if>
+                            <c:if test="${pagina == 7}">
+                                <td>
+                                    <a class="btn solid" href="${pageContext.request.contextPath}/SolicitudesEnviadas?cuenta=${cliente.getCodigo()}">Solicitudes Enviadas</a>
                                 </td>
                             </c:if>
                         </tr>
                     </c:forEach>
                 </table>
-                    <input type="hidden" name="pagina" value=<%=request.getParameter("pagina")%> > 
+                <input type="hidden" name="pagina" value=<%=request.getParameter("pagina")%> > 
             </div>
         </form>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script><script  src="${pageContext.request.contextPath}/js/text.js"></script>

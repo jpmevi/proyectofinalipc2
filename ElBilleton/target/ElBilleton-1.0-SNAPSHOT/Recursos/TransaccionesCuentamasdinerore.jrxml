@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a081fedf-0289-4c82-9cc0-dcebf1a8d844">
+	<property name="ireport.zoom" value="1.2396694214876032"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cuenta" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha1" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM TRANSACCION WHERE cuenta_codigo=$P{cuenta} && fecha BETWEEN $P{fecha1} AND CURDATE();]]>
+	</queryString>
+	<field name="codigo" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hora" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="monto" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cajero_codigo" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cuenta_codigo" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-25" y="-39" width="803" height="118" backcolor="#666666" uuid="69f07034-1e72-434f-a35f-f74039ed1fcd"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="-16" width="484" height="20" forecolor="#FFFFFF" uuid="002a53f6-3889-4ec4-bde3-8a74a722eced"/>
+				<textElement>
+					<font fontName="Nimbus Sans" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Reporte Transacciones de cuenta con mas dienero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="18" width="392" height="46" forecolor="#FFFFFF" uuid="8509263b-1455-49ea-9db4-198f12c175b8"/>
+				<textElement>
+					<font fontName="Nimbus Sans" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BANCO EL BILLETON]]></text>
+			</staticText>
+			<image>
+				<reportElement x="609" y="-16" width="126" height="95" uuid="db46a6b4-b8c9-45be-bc31-80b83f618a04"/>
+				<imageExpression><![CDATA["/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/webapp/img/icono.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-25" y="0" width="803" height="28" forecolor="#CCCCCC" backcolor="#999999" uuid="429c0e99-2bd5-4ad3-962a-9fba3a1993bc"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="228" y="8" width="115" height="20" forecolor="#FFFFFF" uuid="4a887fc4-0741-4edf-9ba0-7b729fa2ccff"/>
+				<textElement>
+					<font fontName="Nimbus Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="8" width="49" height="20" forecolor="#FFFFFF" uuid="debf755f-81ad-4ccf-83ab-67c634f68ef4"/>
+				<textElement>
+					<font fontName="Nimbus Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="8" width="41" height="20" forecolor="#FFFFFF" uuid="74cb602e-81b5-432e-a267-547afd880138"/>
+				<textElement>
+					<font fontName="Nimbus Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="658" y="8" width="77" height="20" forecolor="#FFFFFF" uuid="7f42abca-d809-47bf-b303-cd6326936a2a"/>
+				<textElement>
+					<font fontName="Nimbus Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo Cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-15" y="8" width="43" height="20" forecolor="#FFFFFF" uuid="f391005c-79dd-4a08-b505-7115f4f13a76"/>
+				<textElement>
+					<font fontName="Nimbus Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="8" width="31" height="20" forecolor="#FFFFFF" uuid="9ff8e8b1-2c3c-4cf0-84f9-2d5142f18c94"/>
+				<textElement>
+					<font fontName="Nimbus Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="562" y="8" width="77" height="20" forecolor="#FFFFFF" uuid="9905903b-5680-4718-84fd-4630635c5ca4"/>
+				<textElement>
+					<font fontName="Nimbus Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo Cajero]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement x="126" y="0" width="1" height="41" uuid="f506cc7f-8970-40a2-a6f3-5c2b1d7d4a80"/>
+			</line>
+			<line>
+				<reportElement x="227" y="0" width="1" height="41" uuid="0b4b111d-0c5b-404c-989e-49156c9ba700"/>
+			</line>
+			<line>
+				<reportElement x="342" y="0" width="1" height="41" uuid="045f3596-3249-4cc6-af80-2c0e7c0f2be3"/>
+			</line>
+			<line>
+				<reportElement x="443" y="0" width="1" height="41" uuid="2afe3ebe-60db-45cd-b67b-f54fec20945b"/>
+			</line>
+			<line>
+				<reportElement x="657" y="0" width="1" height="41" uuid="5b1d0b45-731b-43a6-9e63-901b13737a4a"/>
+			</line>
+			<line>
+				<reportElement x="-25" y="41" width="803" height="1" uuid="4c0b3b1b-2e70-4eb3-9fda-51f10a6296fb"/>
+			</line>
+			<textField>
+				<reportElement x="-15" y="11" width="100" height="20" uuid="a978d574-2252-4cce-8eea-b5a12f94b515"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="11" width="100" height="20" uuid="f5593cde-852d-4c96-84ba-8cc1ecac6ed5"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="11" width="115" height="20" uuid="a0c76031-02e6-4f73-ad2e-cf27cbe59520"/>
+				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="11" width="100" height="20" uuid="fcaf073d-b613-4292-82eb-1b1d15d8451a"/>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="561" y="0" width="1" height="41" uuid="d147fd82-6fc3-4ab1-a27d-e1bb38f362ea"/>
+			</line>
+			<textField>
+				<reportElement x="444" y="11" width="117" height="20" uuid="fb012bf2-d67d-438a-83a2-97bfd01f2445"/>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="562" y="11" width="95" height="20" uuid="dc0eeacb-fa82-406a-812a-0b52216bf86e"/>
+				<textFieldExpression><![CDATA[$F{cajero_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="658" y="11" width="105" height="20" uuid="8bc287a6-698e-4b61-8f52-bc86adba22d0"/>
+				<textFieldExpression><![CDATA[$F{cuenta_codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a081fedf-0289-4c82-9cc0-dcebf1a8d844">
+	<property name="ireport.zoom" value="1.2396694214876032"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cliente" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT S.* FROM SOLICITUD S INNER JOIN CUENTA C ON C.codigo=S.cuenta_codigoenvio where C.cliente_codigo=$P{cliente};]]>
+	</queryString>
+	<field name="codigo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cuenta_codigoenvio" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cueanta_codigorecibe" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-25" y="-39" width="803" height="118" backcolor="#666666" uuid="69f07034-1e72-434f-a35f-f74039ed1fcd"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="-16" width="484" height="20" forecolor="#FFFFFF" uuid="002a53f6-3889-4ec4-bde3-8a74a722eced"/>
+				<textElement>
+					<font fontName="Nimbus Sans" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de solicitudes enviadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="18" width="392" height="46" forecolor="#FFFFFF" uuid="8509263b-1455-49ea-9db4-198f12c175b8"/>
+				<textElement>
+					<font fontName="Nimbus Sans" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BANCO EL BILLETON]]></text>
+			</staticText>
+			<image>
+				<reportElement x="609" y="-16" width="126" height="95" uuid="db46a6b4-b8c9-45be-bc31-80b83f618a04"/>
+				<imageExpression><![CDATA["/home/potz/NetBeansProjects/Proyecto final/proyectofinalipc2/ElBilleton/src/main/webapp/img/icono.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-25" y="0" width="803" height="28" forecolor="#CCCCCC" backcolor="#999999" uuid="429c0e99-2bd5-4ad3-962a-9fba3a1993bc"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="228" y="8" width="115" height="20" forecolor="#FFFFFF" uuid="4a887fc4-0741-4edf-9ba0-7b729fa2ccff"/>
+				<textElement>
+					<font fontName="Nimbus Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta envia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="8" width="84" height="20" forecolor="#FFFFFF" uuid="debf755f-81ad-4ccf-83ab-67c634f68ef4"/>
+				<textElement>
+					<font fontName="Nimbus Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta Recibe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-15" y="8" width="43" height="20" forecolor="#FFFFFF" uuid="f391005c-79dd-4a08-b505-7115f4f13a76"/>
+				<textElement>
+					<font fontName="Nimbus Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="8" width="37" height="20" forecolor="#FFFFFF" uuid="9ff8e8b1-2c3c-4cf0-84f9-2d5142f18c94"/>
+				<textElement>
+					<font fontName="Nimbus Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement x="126" y="0" width="1" height="41" uuid="f506cc7f-8970-40a2-a6f3-5c2b1d7d4a80"/>
+			</line>
+			<line>
+				<reportElement x="227" y="0" width="1" height="41" uuid="0b4b111d-0c5b-404c-989e-49156c9ba700"/>
+			</line>
+			<line>
+				<reportElement x="413" y="0" width="1" height="41" uuid="045f3596-3249-4cc6-af80-2c0e7c0f2be3"/>
+			</line>
+			<line>
+				<reportElement x="-25" y="41" width="803" height="1" uuid="4c0b3b1b-2e70-4eb3-9fda-51f10a6296fb"/>
+			</line>
+			<textField>
+				<reportElement x="-15" y="11" width="100" height="20" uuid="40405882-64bd-49e4-a720-d06077c84039"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="11" width="100" height="20" uuid="5db349b3-832e-4e1c-9b18-c2468ec5170e"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="11" width="151" height="20" uuid="0ab52e04-74fa-4c52-a87c-618a6e3862ad"/>
+				<textFieldExpression><![CDATA[$F{cuenta_codigoenvio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="11" width="157" height="20" uuid="834421a7-8d7e-4ac4-a218-5bdd830aea5d"/>
+				<textFieldExpression><![CDATA[$F{cueanta_codigorecibe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
