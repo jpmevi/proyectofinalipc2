@@ -118,9 +118,8 @@ public class ClienteModel {
             preSt.setString(7, Encriptar.encriptar(cajero.getPassword()));
             preSt.setLong(8, cajero.getCodigo());
             preSt.executeUpdate();
-
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            
         }
 
         return -1;
@@ -136,7 +135,7 @@ public class ClienteModel {
      */
     public Cliente loginValidation(Long id, String pass) throws SQLException, UnsupportedEncodingException {
         Cliente cliente = obtenerCliente(id);
-        
+
         if (cliente != null && cliente.getPassword().equals(pass)) {
             return cliente;
 
@@ -347,13 +346,13 @@ public class ClienteModel {
         return null;
 
     }
-    
-    public ArrayList obtenerClientesReporte6(Double monto,String nombre) throws SQLException, UnsupportedEncodingException {
+
+    public ArrayList obtenerClientesReporte6(Double monto, String nombre) throws SQLException, UnsupportedEncodingException {
         try {
 
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CLIENTE_REPORTE_6);
             preSt.setDouble(1, monto);
-            preSt.setString(2,"%"+ nombre+"%");
+            preSt.setString(2, "%" + nombre + "%");
             ResultSet result = preSt.executeQuery();
             ArrayList listaclientes = new ArrayList();
             Cliente cliente = null;

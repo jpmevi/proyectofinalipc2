@@ -34,7 +34,7 @@
                 <div class="inputAnimate">
                     <input type="password" placeholder="Password" name="password" required>
                 </div>
-                    <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
+                    <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0); z-index: 99;">
                         <select name="sexo">
                             <option value="Masculino">Sexo:</option>
                             <option value="Masculino">Masculino</option>
@@ -43,7 +43,7 @@
                         </select>
                     </div>
                
-                    <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
+                    <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0); z-index: 95;">
                         <select name="turno">
                             <option value="Matutino">Turno:</option>
                             <option value="Matutino">Matutino</option>

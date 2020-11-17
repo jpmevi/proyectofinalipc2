@@ -15,17 +15,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author potz
  */
 public class Historial_CajeroModel {
-   
-    
+
     public static final String BUSCAR_USUARIO = "Select * FROM " + Historial_Cajero.HISTORIAL_CAJERO_DB_NAME;
-    private final String CREAR_USUARIO = "INSERT INTO " + Historial_Cajero.HISTORIAL_CAJERO_DB_NAME+ " (" + Cajero.NOMBRE_DB_NAME + "," + Cajero.TURNO_DB_NAME + "," + Cajero.DPI_DB_NAME + "," + Cajero.DIRECCION_DB_NAME + "," + Cajero.SEXO_DB_NAME + "," + Cajero.PASSWORD_DB_NAME+ "," + Historial_Cajero.CAJERO_CODIGO_DB_NAME + ") VALUES (?,?,?,?,?,?,?)";
-    
+    private final String CREAR_USUARIO = "INSERT INTO " + Historial_Cajero.HISTORIAL_CAJERO_DB_NAME + " (" + Cajero.NOMBRE_DB_NAME + "," + Cajero.TURNO_DB_NAME + "," + Cajero.DPI_DB_NAME + "," + Cajero.DIRECCION_DB_NAME + "," + Cajero.SEXO_DB_NAME + "," + Cajero.PASSWORD_DB_NAME + "," + Historial_Cajero.CAJERO_CODIGO_DB_NAME + ") VALUES (?,?,?,?,?,?,?)";
 
     /**
      * Agregamos una nuevo usuario. Al completar la insercion devuelve el ID
@@ -39,60 +38,58 @@ public class Historial_CajeroModel {
         try {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
 
-        preSt.setString(1, cajero.getNombre());
-        preSt.setString(2, cajero.getTurno());
-        preSt.setString(3, cajero.getDPI());
-        preSt.setString(4, cajero.getDireccion());
-        preSt.setString(5, cajero.getSexo());
-        preSt.setString(6, cajero.getPassword());
-         preSt.setLong(7, cajero.getCodigo());
+            preSt.setString(1, cajero.getNombre());
+            preSt.setString(2, cajero.getTurno());
+            preSt.setString(3, cajero.getDPI());
+            preSt.setString(4, cajero.getDireccion());
+            preSt.setString(5, cajero.getSexo());
+            preSt.setString(6, cajero.getPassword());
+            preSt.setLong(7, cajero.getCodigo());
 
-        preSt.executeUpdate();
+            preSt.executeUpdate();
 
-        ResultSet result = preSt.getGeneratedKeys();
-        if (result.first()) {
-            return result.getLong(1);
-        }
+            ResultSet result = preSt.getGeneratedKeys();
+            if (result.first()) {
+                return result.getLong(1);
+            }
         } catch (SQLException e) {
         }
-        
 
         return -1;
     }
-    
-     public long agregarCajeroSinCodigo(Cajero cajero, Long codigo) throws SQLException {
+
+    public long agregarCajeroSinCodigo(Cajero cajero, Long codigo) throws SQLException {
         try {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO, Statement.RETURN_GENERATED_KEYS);
 
-        preSt.setString(1, cajero.getNombre());
-        preSt.setString(2, cajero.getTurno());
-        preSt.setString(3, cajero.getDPI());
-        preSt.setString(4, cajero.getDireccion());
-        preSt.setString(5, cajero.getSexo());
-        preSt.setString(6, cajero.getPassword());
-         preSt.setLong(7, codigo);
+            preSt.setString(1, cajero.getNombre());
+            preSt.setString(2, cajero.getTurno());
+            preSt.setString(3, cajero.getDPI());
+            preSt.setString(4, cajero.getDireccion());
+            preSt.setString(5, cajero.getSexo());
+            preSt.setString(6, cajero.getPassword());
+            preSt.setLong(7, codigo);
 
-        preSt.executeUpdate();
+            preSt.executeUpdate();
 
-        ResultSet result = preSt.getGeneratedKeys();
-        if (result.first()) {
-            return result.getLong(1);
-        }
+            ResultSet result = preSt.getGeneratedKeys();
+            if (result.first()) {
+                return result.getLong(1);
+            }
         } catch (SQLException e) {
+
         }
-        
 
         return -1;
     }
-     
-     
-      public ArrayList obtenerCajeros(String idUsuario) throws SQLException, UnsupportedEncodingException {
-       
-        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO+" WHERE cajero_codigo LIKE '%" + idUsuario + "%'");
+
+    public ArrayList obtenerCajeros(String idUsuario) throws SQLException, UnsupportedEncodingException {
+
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_USUARIO + " WHERE cajero_codigo LIKE '%" + idUsuario + "%'");
         ResultSet result = preSt.executeQuery();
         ArrayList listaGerentes = new ArrayList();
         Historial_Cajero gerente = null;
-        
+
         while (result.next()) {
             gerente = new Historial_Cajero(
                     result.getLong(gerente.CODIGO_DB_NAME),
@@ -103,12 +100,10 @@ public class Historial_CajeroModel {
                     result.getString(gerente.SEXO_DB_NAME),
                     result.getString(gerente.PASSWORD_DB_NAME),
                     result.getLong(gerente.CAJERO_CODIGO_DB_NAME)
-                    
             );
             listaGerentes.add(gerente);
         }
         return listaGerentes;
-
 
     }
 }

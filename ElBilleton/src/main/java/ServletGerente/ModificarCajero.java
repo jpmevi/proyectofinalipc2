@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -91,8 +92,9 @@ public class ModificarCajero extends HttpServlet {
             if (!nombre.trim().equals("") && !direccion.trim().equals("")) {
                 Cajero c = new Cajero(gerente, nombre, turno, DPI, direccion, sexo, password);
                 Long codigo = clienteModel.modificarCajero(c);
+              
                 Historial_CajeroModel hist = new Historial_CajeroModel();
-                hist.agregarCajeroSinCodigo(c, codigo);
+                hist.agregarCajeroSinCodigo(c, gerente);
                 request.getRequestDispatcher("MostrarGerentes").forward(request, response);
             }else{
                 response.sendRedirect("Gerente/Mensaje.jsp?mensaje=Ingreso un dato con espacio vacio, no se pudo modificar el cajero ");

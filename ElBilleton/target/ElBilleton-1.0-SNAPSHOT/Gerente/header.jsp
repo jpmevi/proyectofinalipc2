@@ -48,7 +48,7 @@
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCargarArchivo">Archivos</a>
+                                        <a href="${pageContext.request.contextPath}/Gerente/CargarArchivos.jsp">Archivos</a>
                                     </li>
                                 </ul>
                             </div>

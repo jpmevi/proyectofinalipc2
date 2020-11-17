@@ -18,7 +18,7 @@
     </head>
     <body style="background: url('${pageContext.request.contextPath}/img/fondo.png') center ; background-attachment: fixed;">
         <%@include file="header.jsp" %>
-        <form action="ImportarDatos" method="post" enctype="multipart/form-data">
+        <form action="${pageContext.request.contextPath}/ImportarDatos" method="post" enctype="multipart/form-data">
             <div class="caja">
                 <h4>Seleccionar Archivos:</h4>
                     <input type="file" placeholder="Archivos" name="archivo" multiple required>                     

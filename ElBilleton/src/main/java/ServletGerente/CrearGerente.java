@@ -86,7 +86,7 @@ public class CrearGerente extends HttpServlet {
             String password = request.getParameter("password");
 
             if (!nombre.trim().equals("") && !direccion.trim().equals("")) {
-                Gerente c = new Gerente(Long.valueOf(0), nombre, sexo, DPI, direccion, sexo, password);
+                Gerente c = new Gerente(Long.valueOf(0), nombre, turno, DPI, direccion, sexo, password);
                 Long codigo = clienteModel.agregarGerenteCodigo(c);
                 Historial_GerenteModel hist = new Historial_GerenteModel();
                 hist.agregarHistorialGerenteSinCodigo(c, codigo);

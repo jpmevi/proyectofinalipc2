@@ -20,7 +20,7 @@
     </head>
     <body style="background: url('${pageContext.request.contextPath}/img/bgformulario.png') left ; background-attachment: fixed;">
         <%@include file="header.jsp" %>
-        <form action="ObtenerReporte5" method="post" >
+        <form action="${pageContext.request.contextPath}/ObtenerReporte5" method="post" >
             <div class="caja">
                 <h4 style="text-align: left;">Fecha inicio:</h4>
                 <div class="inputAnimate">

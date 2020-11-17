@@ -93,7 +93,7 @@ public class CrearCajero extends HttpServlet {
             String password = request.getParameter("password");
 
             if (!nombre.trim().equals("") && !direccion.trim().equals("") ){
-                Cajero c = new Cajero(Long.valueOf(0), nombre, sexo, DPI, direccion, sexo, password);
+                Cajero c = new Cajero(Long.valueOf(0), nombre, turno, DPI, direccion, sexo, password);
                 Long codigo = clienteModel.agregarCajero(c);
                 Historial_CajeroModel hist = new Historial_CajeroModel();
                 hist.agregarCajeroSinCodigo(c, codigo);

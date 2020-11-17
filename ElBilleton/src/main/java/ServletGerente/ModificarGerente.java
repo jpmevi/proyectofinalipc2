@@ -89,7 +89,7 @@ public class ModificarGerente extends HttpServlet {
                 Gerente c = new Gerente(gerente, nombre, turno, DPI, direccion, sexo, password);
                 Long codigo = clienteModel.modificarGerente(c);
                 Historial_GerenteModel hist = new Historial_GerenteModel();
-                hist.agregarHistorialGerenteSinCodigo(c, codigo);
+                hist.agregarHistorialGerenteSinCodigo(c, gerente);
                 request.getSession().setAttribute("Gerente", c);
                 request.setAttribute("enturno", 2);
                 request.getRequestDispatcher("/Gerente/MenuGerente.jsp").forward(request, response);

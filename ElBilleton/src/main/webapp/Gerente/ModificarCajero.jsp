@@ -21,7 +21,7 @@
         <%@include file="header.jsp" %>
         <form action="ModificarCajero" method="post" >
             <div class="caja">
-                <h2>Modificar Gerente:</h2>
+                <h2>Modificar Cajero:</h2>
                 <h4 style="text-align: left;">Codigo:</h4>
                 <div class="inputAnimate">
                     <input type="text" value="${cliente.getCodigo()}" name="codigo" readonly>
@@ -42,7 +42,7 @@
                 <div class="inputAnimate">
                     <input type="password" value="${cliente.getPassword()}" name="password" required>
                 </div>
-                    <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
+                    <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0); z-index: 99;">
                         <select name="sexo">
                             <option value="${cliente.getSexo()}">${cliente.getSexo()}</option>
                             <option value="Masculino">Masculino</option>
@@ -50,8 +50,7 @@
                             <option value="Otro">Otro</option>
                         </select>
                     </div>
-               
-                    <div class="custom-select" style="width:200px; margin: 5px;left: 50%; transform: translate(-50%,0);">
+                    <div class="custom-select" style=" width:200px; margin: 5px;left: 50%; transform: translate(-50%,0); z-index: 95;">
                         <select name="turno">
                             <option value="${cliente.getTurno()}">${cliente.getTurno()}</option>
                             <option value="Matutino">Matutino</option>

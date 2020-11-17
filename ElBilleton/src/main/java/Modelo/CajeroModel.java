@@ -33,7 +33,7 @@ public class CajeroModel {
             + Cajero.TURNO_DB_NAME + "=?," + Cajero.DPI_DB_NAME + "=?," + Cajero.DIRECCION_DB_NAME + "=?," + Cajero.SEXO_DB_NAME + "=?,"
             + Cajero.PASSWORD_DB_NAME + "=? WHERE " + Cajero.CODIGO_DB_NAME + " =?";
 
-    private final String REPORTE_7 = "SELECT COUNT(*) AS transacciones,C.* FROM " + Cajero.CAJERO_DB_NAME + " C INNER JOIN " + Transaccion.TRANSACCION_DB_NAME + " T ON C.codigo=T.cajero_codigo WHERE T.fecha BETWEEN ? AND ? GROUP BY C.codigo ORDER BY transacciones DESC LIMIT 1";
+    private final String REPORTE_7 = "SELECT COUNT(*) AS transacciones,C.* FROM " + Cajero.CAJERO_DB_NAME + " C INNER JOIN " + Transaccion.TRANSACCION_DB_NAME + " T ON C.codigo=T.cajero_codigo WHERE T.fecha BETWEEN ? AND ? && C.codigo!=101 GROUP BY C.codigo ORDER BY transacciones DESC LIMIT 1";
 
     /**
      * Agregamos una nuevo usuario. Al completar la insercion devuelve el ID
@@ -152,7 +152,7 @@ public class CajeroModel {
             preSt.executeUpdate();
 
         } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null, e);
+           
         }
 
         return -1;
