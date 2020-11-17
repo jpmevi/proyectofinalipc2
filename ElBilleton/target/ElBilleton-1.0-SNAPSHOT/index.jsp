@@ -59,7 +59,6 @@
                         </select>
                     </div>
                     <div class="error" >
-                        <a href="Administrador/CrearPaciente.jsp">Forgot Password?</a>
                         <input type="submit" class="btn" value="Login">
                         <c:if test="${success == 0}">
                             <p id="error" style="color: red;">Usuario o Contraseña Incorrecto</p>
