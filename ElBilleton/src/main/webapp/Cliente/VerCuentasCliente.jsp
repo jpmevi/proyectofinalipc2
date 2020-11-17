@@ -21,9 +21,20 @@
     </head>
     <body style="background: url('${pageContext.request.contextPath}/img/fondo.png') center ; background-attachment: fixed;">
         <%@include file="header.jsp" %>
-        <form action="BuscarCuenta" method="post" >
+        <form action="ObtenerCuentas" method="post" >
             <div class="cajatabla">
-                <h2 >Seleccione la cuenta para asociar ${Cliente.getNombre()}:</h2>
+                <c:if test="${pagina == 1}">
+                    <h2 >Seleccione la cuenta para asociar ${Cliente.getNombre()}:</h2>
+                </c:if>
+                <c:if test="${pagina == 2}">
+                    <h2 >Seleccione la cuenta para realizar transaccion: ${Cliente.getNombre()}</h2>
+                </c:if>
+                <section class="webdesigntuts-workshop" >
+                    <div>
+                        <input type="search" placeholder="Filtrar por codigo?" name="filtro">		    	
+                        <button>Filtrar</button>
+                    </div>
+                </section>
                 <table class="darkTable">
                     <tr>
                         <th class="text-center">Codigo</th>
@@ -37,12 +48,25 @@
                             <td class="text-center">${cliente.getFechaCreacion()}</td>
                             <td class="text-center">${cliente.getMonto()}</td>
                             <td class="text-center">${cliente.getCliente_codigo()}</td>
-                            <td>
-                                <a class="btn solid" href="${pageContext.request.contextPath}/Cliente/IngresarCuenta.jsp?cuenta=${cliente.getCodigo()}&&cliente=${cliente.getCliente_codigo()}">Asociar</a>
-                            </td>
+                            <c:if test="${pagina == 1}">
+                                <td>
+                                    <a class="btn solid" href="${pageContext.request.contextPath}/Cliente/IngresarCuenta.jsp?cuenta=${cliente.getCodigo()}&&cliente=${cliente.getCliente_codigo()}">Asociar</a>
+                                </td>
+                            </c:if>
+                            <c:if test="${pagina == 2}">
+                                <td>
+                                    <a class="btn solid" href="${pageContext.request.contextPath}/BuscarCuentaAsociada?cuenta=${cliente.getCodigo()}&&cliente=${cliente.getCliente_codigo()}">Seleccionar</a>
+                                </td>
+                            </c:if>
+                                 <c:if test="${pagina == 3}">
+                                <td>
+                                    <a class="btn solid" href="${pageContext.request.contextPath}/VerSolicitudesPendientes?cuenta=${cliente.getCodigo()}">Ver solicitudes</a>
+                                </td>
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </table>
+                    <input type="hidden" name="pagina" value=<%=request.getParameter("pagina")%> > 
             </div>
         </form>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script><script  src="${pageContext.request.contextPath}/js/text.js"></script>

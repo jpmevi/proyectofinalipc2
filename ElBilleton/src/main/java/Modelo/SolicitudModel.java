@@ -24,7 +24,13 @@ public class SolicitudModel {
             + Solicitud.ESTADO_DB_NAME + "," + Solicitud.CUENTA_ENVIA_CODIGO_DB_NAME + ","
             + Solicitud.CUENTA_RECIBE_CODIGO_DB_NAME + ") VALUES (?,?,?,?)";
     private final String BUSCAR_SOLICITUD_VECES = "SELECT COUNT(*) AS VECES FROM " + Solicitud.SOLICITUD_DB_NAME + " WHERE " + Solicitud.CUENTA_ENVIA_CODIGO_DB_NAME + " = ? &&  " + Solicitud.CUENTA_RECIBE_CODIGO_DB_NAME + " = ?";
-
+private final String BUSCAR_SOLICITUD_PENDIENTE = "SELECT * FROM "+Solicitud.SOLICITUD_DB_NAME + " WHERE " + Solicitud.CUENTA_RECIBE_CODIGO_DB_NAME + " = ? && " + Solicitud.ESTADO_DB_NAME + "='Pendiente'";
+    private final String SOLICITUD_CODIGO = "SELECT * FROM " + Solicitud.SOLICITUD_DB_NAME + " WHERE " + Solicitud.CODIGO_DB_NAME + "=?";
+    private final String EDITAR_SOLICITUD = "UPDATE " + Solicitud.SOLICITUD_DB_NAME + " SET " + Solicitud.FECHA_DB_NAME + "=?,"
+            + Solicitud.ESTADO_DB_NAME + "=?," + Solicitud.CUENTA_ENVIA_CODIGO_DB_NAME + "=?,"
+            + Solicitud.CUENTA_RECIBE_CODIGO_DB_NAME + "=? WHERE codigo=?";
+    
+    
     public long crearSolicitud(Solicitud solicitud) throws SQLException {
         try {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_SOLICITUD, Statement.RETURN_GENERATED_KEYS);
@@ -64,5 +70,80 @@ public class SolicitudModel {
             veces=result.getInt("VECES");
         }
         return veces;
+    }
+    
+    
+    /**
+     * Realizamos una busqueda en base a el estado de las solicitudes. De no
+     * existir la nos devuelve un valor null.
+     *
+     * @param codigoRecibe
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList obtenerSolicitudesPendiente(Long codigoRecibe) throws SQLException {
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(BUSCAR_SOLICITUD_PENDIENTE);
+        preSt.setLong(1, codigoRecibe);
+        ResultSet result = preSt.executeQuery();
+        ArrayList solicitudes = new ArrayList();
+        Solicitud solicitud = null;
+        while (result.next()) {
+            solicitud = new Solicitud(
+                    result.getInt(Solicitud.CODIGO_DB_NAME),
+                    result.getDate(Solicitud.FECHA_DB_NAME),
+                    result.getString(Solicitud.ESTADO_DB_NAME),
+                    result.getLong(Solicitud.CUENTA_ENVIA_CODIGO_DB_NAME),
+                    result.getLong(Solicitud.CUENTA_RECIBE_CODIGO_DB_NAME)
+            );
+            solicitudes.add(solicitud);
+        }
+        return solicitudes;
+    }
+    
+    /**
+     * Realizamos una busqueda en el codigo solicitudes. De no existir nos
+     * devuelve un valor null.
+     *
+     * @return
+     * @throws SQLException
+     */
+    public Solicitud obtenerSolicitudCodigo(int codigo) throws SQLException {
+        PreparedStatement preSt = Conexion.getConnection().prepareStatement(SOLICITUD_CODIGO);
+        preSt.setInt(1, codigo);
+        ResultSet result = preSt.executeQuery();
+        Solicitud solicitud = null;
+        while (result.next()) {
+            solicitud = new Solicitud(
+                    result.getInt(Solicitud.CODIGO_DB_NAME),
+                    result.getDate(Solicitud.FECHA_DB_NAME),
+                    result.getString(Solicitud.ESTADO_DB_NAME),
+                    result.getLong(Solicitud.CUENTA_ENVIA_CODIGO_DB_NAME),
+                    result.getLong(Solicitud.CUENTA_RECIBE_CODIGO_DB_NAME)
+            );
+        }
+        return solicitud;
+    }
+
+    /**
+     * Editamos el la solicitud de asociacion
+     *
+     * @param solicitud
+     * @param codigoSolicitud
+     * @throws SQLException
+     */
+    public void actualizarAsociacion(Solicitud solicitud, int codigoSolicitud) throws SQLException {
+        try {
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(EDITAR_SOLICITUD, Statement.RETURN_GENERATED_KEYS);
+
+            preSt.setDate(1, solicitud.getFecha());
+            preSt.setString(2, solicitud.getEstado());
+            preSt.setLong(3, solicitud.getCuentaEnvio());
+            preSt.setLong(4, solicitud.getCuentaRecibe());
+            preSt.setLong(5, codigoSolicitud);
+            preSt.executeUpdate();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 }

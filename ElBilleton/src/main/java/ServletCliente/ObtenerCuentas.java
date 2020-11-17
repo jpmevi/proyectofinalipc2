@@ -7,6 +7,7 @@ package ServletCliente;
 
 import Modelo.ClienteModel;
 import Modelo.CuentaModel;
+import Objeto.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -64,10 +65,15 @@ public class ObtenerCuentas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String filtro = request.getParameter("filtro");
+            if (filtro == null) {
+                filtro = "";
+            }
         CuentaModel cuenta = new CuentaModel();
         Long codigo= Long.parseLong(request.getParameter("codigo"));
         try {
-           request.getSession().setAttribute("Cuentas", cuenta.obtenerCuentas(codigo)); 
+            request.setAttribute("pagina", request.getParameter("pagina"));
+           request.getSession().setAttribute("Cuentas", cuenta.obtenerCuentas(codigo,filtro)); 
            request.getRequestDispatcher("/Cliente/VerCuentasCliente.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(ObtenerCuentas.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,7 +93,22 @@ public class ObtenerCuentas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String filtro = request.getParameter("filtro");
+            if (filtro == null) {
+                filtro = "";
+            }
+        CuentaModel cuenta = new CuentaModel();
+        Cliente cli = (Cliente)request.getSession().getAttribute("Cliente");
+        Long codigo= cli.getCodigo();
+        try {
+            request.setAttribute("pagina", request.getParameter("pagina"));
+           request.getSession().setAttribute("Cuentas", cuenta.obtenerCuentas(codigo,filtro)); 
+           request.getRequestDispatcher("/Cliente/VerCuentasCliente.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ObtenerCuentas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ObtenerCuentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

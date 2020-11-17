@@ -91,7 +91,7 @@ public class GerenteModel {
         }
         
         }catch(SQLException e){
-            //JOptionPane.showMessageDialog(null, e);
+
         }
        
         return -1;
@@ -203,7 +203,7 @@ public class GerenteModel {
         String turno = gerente.getTurno();
         LocalTime hora = LocalTime.now();
         LocalTime horamatutina1 = LocalTime.of(0, 0);
-        LocalTime horamatutina2 = LocalTime.of(23, 30);
+        LocalTime horamatutina2 = LocalTime.of(23, 59);
         LocalTime vespertino1 = LocalTime.of(13, 0);
         LocalTime vespertino2 = LocalTime.of(22, 0);
         if (hora.isAfter(horamatutina1) && hora.isBefore(horamatutina2) && turno.equalsIgnoreCase("Matutino")) {

@@ -50,16 +50,6 @@
                                     <li class="dropdown-link">
                                         <a href="${pageContext.request.contextPath}/TurnoCargarArchivo">Archivos</a>
                                     </li>
-                                    <li class="dropdown-link">
-                                        <a href="CrearMedico.jsp">Crear Medico</a>
-                                    </li>
-                                    <li class="dropdown-link">
-                                        <a href="CrearLaboratorista.jsp">Crear Laboratorista<i class="fas fa-caret-down"></i></a>
-                                    </li>
-                                    <li class="dropdown-link">
-                                        <a href="CrearAdministrador.jsp">Crear Administrador</a>
-                                    </li>
-                                    <div class="arrow"></div>
                                 </ul>
                             </div>
                         </li>

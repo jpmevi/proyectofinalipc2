@@ -69,6 +69,7 @@ public class CajeroModel {
     public long agregarCajeroCodigo(Cajero cajero) throws SQLException, UnsupportedEncodingException {
         try {
             PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_USUARIO_CODIGO, Statement.RETURN_GENERATED_KEYS);
+             
             preSt.setLong(1, cajero.getCodigo());
             preSt.setString(2, cajero.getNombre());
             preSt.setString(3, cajero.getTurno());
@@ -84,7 +85,6 @@ public class CajeroModel {
                 return result.getLong(1);
             }
         } catch (SQLException e) {
-
         }
 
         return -1;

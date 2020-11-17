@@ -1,4 +1,8 @@
-<%@page import="Modelo.GerenteModel"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="Objeto.Cajero"%>
+<%@page import="com.sun.org.apache.bcel.internal.generic.AALOAD"%>
+<%@page import="Modelo.*"%>
 <%@page import="Objeto.Gerente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
@@ -22,11 +26,12 @@
                     <img src="img/avatar.svg">
                     <h2 class="title">Bienvenido</h2>
                     <% try {
-                Gerente nuevoGerente = new Gerente(Long.valueOf(101), "123", "Matutino", "123", "123", "123", "123");
-                GerenteModel gerenteModel = new GerenteModel();
-                gerenteModel.agregarGerenteCodigo(nuevoGerente);
-            } catch (Exception e) {
-            } %>
+                            Gerente nuevoGerente = new Gerente(Long.valueOf(101), "123", "Matutino", "123", "123", "123", "123");
+                            GerenteModel gerenteModel = new GerenteModel();
+                            gerenteModel.agregarGerenteCodigo(nuevoGerente);
+                        } catch (Exception e) {
+                        
+                        }%>
                     <div class="input-div one">
                         <div class="i">
                             <i class="fas fa-user"></i>
@@ -60,7 +65,7 @@
                             <p id="error" style="color: red;">Usuario o Contraseña Incorrecto</p>
                         </c:if>
                     </div>
-                    
+
                 </form>
             </div>
         </div>

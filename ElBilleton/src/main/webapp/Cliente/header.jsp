@@ -28,13 +28,13 @@
                             <div class="dropdown">
                                 <ul>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/ObtenerCuentas?codigo=${Cliente.getCodigo()}">Asociar Cuenta</a>
+                                        <a href="${pageContext.request.contextPath}/ObtenerCuentas?codigo=${Cliente.getCodigo()}&&pagina=1">Asociar Cuenta</a>
                                     </li>
                                     <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=1">Registrar Cajero</a>
+                                        <a href="${pageContext.request.contextPath}/ObtenerCuentas?codigo=${Cliente.getCodigo()}&&pagina=2">Realizar transferencia</a>
                                     </li>
                                      <li class="dropdown-link">
-                                        <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=3">Registrar Gerente</a>
+                                        <a href="${pageContext.request.contextPath}/ObtenerCuentas?codigo=${Cliente.getCodigo()}&&pagina=3">Aceptar solicitud</a>
                                     </li>
                                     <li class="dropdown-link">
                                         <a href="${pageContext.request.contextPath}/TurnoCrearCliente?pagina=2">Crear Cuenta</a>

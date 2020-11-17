@@ -26,7 +26,11 @@ public class TransaccionModel {
     private final String CREAR_TRANSACCION_CON_CODIGO = "INSERT INTO " + Transaccion.TRANSACCION_DB_NAME + " (" + Transaccion.CODIGO_DB_NAME + "," + Transaccion.FECHA_DB_NAME + "," + Transaccion.HORA_DB_NAME + "," + Transaccion.TIPO_DB_NAME + "," + Transaccion.MONTO_DB_NAME + "," + Transaccion.CAJERO_CODIGO_DB_NAME + "," + Transaccion.CUENTA_CODIGO_DB_NAME + ") VALUES (?,?,?,?,?,?,?)";
     private final String REPORTE_2 = "SELECT T.*,C.codigo FROM " + Transaccion.TRANSACCION_DB_NAME + " T INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON T.cuenta_codigo=CU.codigo INNER JOIN " + Cliente.CLIENTE_DB_NAME+" C ON C.codigo=CU.cliente_codigo WHERE C.codigo=? && T.monto>?";
     private final String REPORTE_6 = "SELECT T.*,C.codigo FROM " + Transaccion.TRANSACCION_DB_NAME + " T INNER JOIN " + Cuenta.CUENTA_DB_NAME + " CU ON T.cuenta_codigo=CU.codigo INNER JOIN " + Cliente.CLIENTE_DB_NAME+" C ON C.codigo=CU.cliente_codigo WHERE C.codigo=?";
-
+    private final String CREAR_TRANSACCION = "INSERT INTO " + Transaccion.TRANSACCION_DB_NAME + " (" + Transaccion.FECHA_DB_NAME + ","
+            + Transaccion.HORA_DB_NAME + "," + Transaccion.TIPO_DB_NAME + "," + Transaccion.MONTO_DB_NAME + "," + Transaccion.CUENTA_CODIGO_DB_NAME + ","
+            + Transaccion.CAJERO_CODIGO_DB_NAME + ") VALUES (?,?,?,?,?,?)";
+    
+    
     /**
      * Agregamos una nueva transaccion desde la carga de archivos, al completar
      * la insercion devuelve el codigo autogenerado.
@@ -130,11 +134,45 @@ public class TransaccionModel {
                     result.getTime(trans.HORA_DB_NAME),
                     result.getString(trans.TIPO_DB_NAME),
                     result.getDouble(trans.MONTO_DB_NAME),
-                    result.getLong(trans.CAJERO_CODIGO_DB_NAME),
-                    result.getLong(trans.CUENTA_CODIGO_DB_NAME)                   
+                    result.getLong(trans.CUENTA_CODIGO_DB_NAME),
+                    result.getLong(trans.CAJERO_CODIGO_DB_NAME)                   
             );
             listaclientes.add(trans);
         }
         return listaclientes;
+    }
+    
+    
+    /**
+     * Agregamos un nuevo Transaccion al completar la insercion devuelve el
+     * codigo autogenerado del cajero. De no existir nos devolvera
+     * <code>-1</code>.
+     *
+     * @param transaccion
+     * @return
+     * @throws SQLException
+     */
+    public long agregarTransaccion(Transaccion transaccion) throws SQLException {
+        try {
+            PreparedStatement preSt = Conexion.getConnection().prepareStatement(CREAR_TRANSACCION, Statement.RETURN_GENERATED_KEYS);
+
+            preSt.setDate(1, transaccion.getFecha());
+            preSt.setTime(2, transaccion.getHora());
+            preSt.setString(3, transaccion.getTipo());
+            preSt.setDouble(4, transaccion.getMonto());
+            preSt.setLong(5, transaccion.getCuenta_codigo());
+            preSt.setLong(6, transaccion.getCajero_codigo());
+
+            preSt.executeUpdate();
+
+            ResultSet result = preSt.getGeneratedKeys();
+            if (result.first()) {
+                return result.getLong(1);
+            }
+            return -1;
+        } catch (Exception e) {
+            return -1;
+        }
+
     }
 }
